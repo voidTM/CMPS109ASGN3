@@ -23,14 +23,18 @@ void Real::initialize (char* token){
 	//else throw error
 }
 
-Variable* Real::clone(stringstream &ss){
-	string field = "";
-	char* value;
-	int 
-	getline(ss, field, ',');
-	value = strdup(field.c_str());
+Variable* Real::clone(vector<char*> argv){
 
+	if (argv.length() > 1){
+		// Throw error due to in proper amount of
+		// values
+		cerr << "Invalid argument to Real" << endl;
+		exit(1);
+	}
+
+	char* tok = argv[0];
 	Real* realValue = new Real();
-	realValue->initialize(value);
+	realValue->initialize(tok);
+	
 	return realValue;
 }
