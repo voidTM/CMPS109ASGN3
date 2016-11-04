@@ -13,6 +13,8 @@
 #include <vector>
 
 #include "identifier.h"
+#include "real.h"
+#include "numeric.h"
 
 using namespace std;
 

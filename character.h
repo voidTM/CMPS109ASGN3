@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "variable.h"
+#include "identifier.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ class Character: public Identifier{
 		Real(char val);
 
 		// Method
-		void initialize (char* token) = 0;
+		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 
 		// Destructor

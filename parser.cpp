@@ -1,16 +1,3 @@
-#include <string>
-#include <errno.h>
-#include <libgen.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <unistd.h>
-#include <ctype.h>
-#include <wait.h>
-#include <vector>
-
 using namespace std;
 
 constexpr size_t LINESIZE = 1024;

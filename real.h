@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 
+#include "identifier.h"
+
 using namespace std;
 
 class Real: public Identifier{
@@ -16,13 +18,13 @@ class Real: public Identifier{
 		Real(double val);
 		// Method
 		//double getValue();
-		auto getValue();
+		double getValue();
 		void setValue(auto);
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 
 		// Destructor
-		virtual ~Numeric();
+		virtual ~Real();
 };
 
 #endif

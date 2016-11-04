@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "real.h"
 
 using namespace std;
@@ -17,15 +19,15 @@ double Real::getValue(){
 void Real::initialize (char* token){
 	double val;
 	int t;
-	t = sscanf(token, "%f", &val);
+	t = sscanf(token, "%lf", &val);
 	if(t == 1)
 		value = val;
 	//else throw error
 }
 
-Variable* Real::clone(vector<char*> argv){
+Identifier* Real::clone(vector<char*> argv){
 
-	if (argv.length() > 1){
+	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
 		cerr << "Invalid argument to Real" << endl;
@@ -35,6 +37,8 @@ Variable* Real::clone(vector<char*> argv){
 	char* tok = argv[0];
 	Real* realValue = new Real();
 	realValue->initialize(tok);
-	
+
 	return realValue;
 }
+
+Real::~Real(){}

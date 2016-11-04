@@ -14,12 +14,13 @@ class Identifier{
 		//string type;
 		//auto value;
 	public:
-		Identifier(); //Constructor
+		Identifier(){}; //Constructor
+
 		virtual void initialize (char* token) = 0;
 		//auto getValue() = 0;
 		//virtual void setValue(auto) = 0;
 		virtual Identifier* clone(vector<char*> argv) = 0;
-		virtual ~Identifier();
+		virtual ~Identifier(){};
 };
 
 #endif

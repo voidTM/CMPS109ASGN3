@@ -4,8 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "variable.h"
-#include "arithmetic.h"
+#include "identifier.h"
 
 using namespace std;
 

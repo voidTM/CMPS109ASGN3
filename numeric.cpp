@@ -5,7 +5,9 @@
 
 using namespace std;
 
-Numeric::Numeric();Numeric(0){}
+Numeric::Numeric(){
+	value = 0;
+}
 
 Numeric::Numeric(int val){
 	value = val;
@@ -20,8 +22,8 @@ void Numeric::initialize(char* token){
 	// else throw error
 }
 
-Variable* Numeric::clone(vector<char*> argv){
-	if (argv.length() > 1){
+Identifier* Numeric::clone(vector<char*> argv){
+	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
 		cerr << "Invalid argument to Numeric" << endl;
@@ -34,3 +36,5 @@ Variable* Numeric::clone(vector<char*> argv){
 
 	return number;
 }
+
+Numeric::~Numeric(){}
