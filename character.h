@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Character: public Letter{
+class Character: public Identifier{
 	private:
 		char value;
 	public:
@@ -18,8 +18,8 @@ class Character: public Letter{
 		Real(char val);
 
 		// Method
-		void initialize (stringstream & ss) = 0;
-		Variable* clone(stringstream & ss) = 0;
+		void initialize (char* token) = 0;
+		Identifier* clone(vector<char*> argv);
 
 		// Destructor
 		virtual ~Real();

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Real: public Variable{
+class Real: public Identifier{
 	protected:
 		double value;
 	public:
@@ -15,9 +15,11 @@ class Real: public Variable{
 		Real(); 
 		Real(double val);
 		// Method
-		double getValue();
+		//double getValue();
+		auto getValue();
+		void setValue(auto);
 		void initialize (char* token);
-		Variable* clone(stringstream & ss);
+		Identifier* clone(vector<char*> argv);
 
 		// Destructor
 		virtual ~Numeric();

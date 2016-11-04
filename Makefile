@@ -9,13 +9,14 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= main.cpp 
+MODULES		= 
 OBJECTS  	= ${SOURCE:.cpp=.o}
-HEADERS  	= 
+HEADERS  	= identifier.h
 EXECBIN  	= misvm
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}
 
-all : ${CREXECBIN} clean
+all : ${EXECBIN}
 
 ${EXECBIN} : ${OBJECTS}
 	${GCC} -o${EXECBIN} ${OBJECTS}

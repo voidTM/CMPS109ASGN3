@@ -1,5 +1,5 @@
-#ifndef MIS_STRING
-#define MIS_STRING
+#ifndef MISSTRING
+#define MISSTRING
 
 #include <string>
 #include <sstream>
@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class String: public Variable{
+class String: public Identifier{
 	private:
 		char* value;
 		int size;
@@ -23,7 +23,7 @@ class String: public Variable{
 
 		// Method
 		void initialize (char* token);
-		Variable* clone(stringstream & ss) = 0;
+		Identifier* clone(vector<char*> argv);
 
 		// Destructor
 		virtual ~String();

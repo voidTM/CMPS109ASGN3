@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Numeric: public MClass{
+class Numeric: public Identifier{
 	private:
 		int value;
 	public:
@@ -18,7 +18,7 @@ class Numeric: public MClass{
 		Numeric(int val);
 		// Method
 		void initialize (char* token);
-		Variable* clone(stringstream & ss) = 0;
+		Identifier* clone(vector<char*> argv);
 
 		// Destructor
 		virtual ~Numeric();

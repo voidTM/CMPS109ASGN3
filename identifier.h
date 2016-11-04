@@ -1,5 +1,5 @@
-#ifndef VARIABLES
-#define VARIABLES
+#ifndef IDENTIFIER
+#define IDENTIFIER
 
 #include <string>
 #include <sstream>

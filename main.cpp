@@ -12,6 +12,8 @@
 #include <wait.h>
 #include <vector>
 
+#include "identifier.h"
+
 using namespace std;
 
 constexpr size_t LINESIZE = 1024;
@@ -21,7 +23,6 @@ void splitFileName(char* filename, string &prefix, string &suffix);
 int main (int argc, char** argv) {
    const char* execname = basename (argv[0]);
    int exit_status = EXIT_SUCCESS;
-   int o;
    string suffix, prefix;
    string line;
    vector<string> fileinput;
