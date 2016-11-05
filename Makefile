@@ -8,10 +8,10 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
-SOURCE   	= main.cpp numeric.cpp real.cpp character.cpp mis_string.cpp
-MODULES		= 
+SOURCE   	= ${MODULES:=.cpp} main.cpp
+MODULES		= numeric real character mis_string parser
 OBJECTS  	= ${SOURCE:.cpp=.o}
-HEADERS  	= identifier.h numeric.h real.h character.h mis_string.h
+HEADERS  	= ${MODULES:=.h} identifier.h 
 EXECBIN  	= misvm
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}

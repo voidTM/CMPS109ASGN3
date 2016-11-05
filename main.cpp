@@ -17,6 +17,7 @@
 #include "numeric.h"
 #include "character.h"
 #include "mis_string.h"
+#include "parser.h"
 
 using namespace std;
 

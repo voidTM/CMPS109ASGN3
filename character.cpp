@@ -18,7 +18,7 @@ void Character::initialize(char* token){
 	int t;
 	// check for single quotes at end of quotation
 	//if(val[0] == '\'' && val[length - 1] == '\'')
-	t = sscanf(token, ' %c', &val);
+	t = sscanf(token, " %c", &val);
 	if(t == 1)
 		value = val;
 }

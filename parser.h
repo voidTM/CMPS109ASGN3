@@ -6,28 +6,32 @@
 #include <vector>
 #include <fstream>
 #include <ctype.h>
-#include <fstream>
+#include <sstream>
+#include <iostream>
 
-#include "variable.h"
+#include "identifier.h"
 #include "numeric.h"
 #include "real.h"
 #include "character.h"
 #include "mis_string.h"
 
 using namespace std;
-class parser{
-	private:
-		map<string, Variable> varSet;
-		map<string, Instruction> instSet;
+class Parser{
+	protected:
+		map<string, Identifier*> typeSet;
+		//map<string, Instruction*> instSet;
 
+		map<string, Identifier*> varMap;
+		//vector<Instruction*> instructions;
 	public:
 		// Constructor
 		Parser();
 
 		// Methods
-		parseFile(string filename);
-		parseVar(stringstream &line);
-		parseInst(string command, stringstream &argv);
+		void parseFile(string filename);
+		// unable to return abstact datatypes
+		void parseVar(stringstream &line);
+		void parseInst(string command, stringstream &argv);
 
 		// Destructor
 		~Parser();

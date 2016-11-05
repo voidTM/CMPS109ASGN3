@@ -3,12 +3,12 @@
 using namespace std;
 
 //Constructor
-Parser::parser(){
+Parser::Parser(){
    //create maps
-   varSet["NUMERIC"] = new Numeric();
-   varSet["REAL"] = new Real();
-   varSet["CHARACTER"] = new Character();
-   varSet["STRING"] = new String();
+   typeSet["NUMERIC"] = new Numeric();
+   typeSet["REAL"] = new Real();
+   typeSet["CHARACTER"] = new Character();
+   typeSet["STRING"] = new String();
 
    // for instructions
    /*
@@ -32,16 +32,15 @@ Parser::parser(){
    */
 }
 
-Parser::parseFile(string filename){
+void Parser::parseFile(string filename){
    ifstream file(filename);
-
+   string line;
    if(file.is_open())
    {
-      int found;
       string command;
       while(getline(file,line))
       {
-         cout << line << endl;
+         //scout << line << endl;
          //fileinput.push_back(line);
          stringstream iss(line);
          // gets first with whitespace delimiter
@@ -63,14 +62,49 @@ Parser::parseFile(string filename){
 
 }
 
-Parser::parseVar(stringstream &line){
+void Parser::parseVar(stringstream &line){
    string token;
    vector<char*> arguments;
    char* cstr;
-   
+
    //use , as delimiter for now?
-   while(getline(line, token, ",")){
-      strdup(cstr, token.c_str());
+   while(getline(line, token, ',')){
+      strcpy(cstr, token.c_str());
       arguments.push_back(cstr);
    }
+
+   // get the name and type of variable
+   // after parsing
+   string varName = arguments[0];
+   string varType = arguments[1];
+   // remove name and type from argument vector
+   arguments.erase(arguments.begin(), arguments.begin()+1);
+
+   //call appropriate type object
+   Identifier* obj = typeSet[varType];
+   if(obj != NULL){
+      //create clone
+      obj = obj->clone(arguments);
+      //store into variable map
+      varMap[varName] = obj;
+   }
+}
+
+void Parser::parseInst(string command, stringstream &argv){
+   string token;
+   vector<char*> arguments;
+   char* cstr;
+
+   //use , as delimiter for now?
+   while(getline(argv, token, ',')){
+      strcpy(cstr, token.c_str());
+      arguments.push_back(cstr);
+   }
+   /*
+   Instruction* inst = instSet[command];
+   if(obj != NULL){
+      obj = obj->clone(arguments);
+
+      instructions.push_back(obj);
+   }*/
 }
