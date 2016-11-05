@@ -22,14 +22,14 @@ class parser{
 
 	public:
 		// Constructor
-		parser();
+		Parser();
 
 		// Methods
 		parseFile(File*);
 		parseVar(stringstream &line);
-		parseInst(string command, sstring &argv);
+		parseInst(string command, stringstream &argv);
 
 		// Destructor
-		~parser();
+		~Parser();
 };
 #endif
