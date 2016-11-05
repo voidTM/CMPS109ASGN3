@@ -25,7 +25,7 @@ class parser{
 		Parser();
 
 		// Methods
-		parseFile(File*);
+		parseFile(string filename);
 		parseVar(stringstream &line);
 		parseInst(string command, stringstream &argv);
 
