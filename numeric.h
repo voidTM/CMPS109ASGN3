@@ -18,7 +18,7 @@ class Numeric: public Identifier{
 		// Method
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
-
+		char getValue();
 		// Destructor
 		virtual ~Numeric();
 };

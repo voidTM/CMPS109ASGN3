@@ -8,6 +8,7 @@
 #include <ctype.h>
 #include <sstream>
 #include <iostream>
+#include <cstddef>
 
 #include "identifier.h"
 #include "numeric.h"
@@ -32,6 +33,7 @@ class Parser{
 		// unable to return abstact datatypes
 		void parseVar(stringstream &line);
 		void parseInst(string command, stringstream &argv);
+		vector<string> parseLine (string line);
 
 		// Destructor
 		~Parser();

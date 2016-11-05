@@ -7,7 +7,7 @@ Parser::Parser(){
    //create maps
    typeSet["NUMERIC"] = new Numeric();
    typeSet["REAL"] = new Real();
-   typeSet["CHARACTER"] = new Character();
+   typeSet["CHAR"] = new Character();
    typeSet["STRING"] = new String();
 
    // for instructions
@@ -44,13 +44,16 @@ void Parser::parseFile(string filename){
          //fileinput.push_back(line);
          stringstream iss(line);
          // gets first with whitespace delimiter
-         getline(iss, command, ' ');
-
+         //int i = line.find_first_of(" \t\n");
+         //get(iss, command, i);
+         iss >> command;
          // check to see if it is a variable
          if(!command.compare("VAR"))
             parseVar(iss);
-         else
+         else{
+            //cout << "found instruction" << endl;
             parseInst(command, iss);
+         }
 
          //should parse and split input into variable
          // and instructions
@@ -67,8 +70,10 @@ void Parser::parseVar(stringstream &line){
    vector<char*> arguments;
    char* cstr;
 
-   //use , as delimiter for now?
+   //line.flags(skipws);
+
    while(getline(line, token, ',')){
+      cout << "Token: " << token << endl;
       cstr = strdup(token.c_str());
       arguments.push_back(cstr);
    }
@@ -78,8 +83,9 @@ void Parser::parseVar(stringstream &line){
    string varName = arguments[0];
    string varType = arguments[1];
    // remove name and type from argument vector
-   arguments.erase(arguments.begin(), arguments.begin()+1);
-
+   arguments.erase(arguments.begin());
+   arguments.erase(arguments.begin());
+   cout << "arguments length: " << arguments.size() << endl;
    //call appropriate type object
    Identifier* obj = typeSet[varType];
    if(obj != NULL){
@@ -88,6 +94,8 @@ void Parser::parseVar(stringstream &line){
       //store into variable map
       varMap[varName] = obj;
    }
+   else
+      cerr << "class not found" << endl;
 }
 
 void Parser::parseInst(string command, stringstream &argv){
@@ -107,6 +115,28 @@ void Parser::parseInst(string command, stringstream &argv){
 
       instructions.push_back(obj);
    }*/
+}
+
+// Run cpp against the lines of the file.
+vector<string> Parser::parseLine (string line) {
+   char* buffer; char* bufptr;
+   char* savepos = NULL;
+   vector<string> strtoken;
+
+   buffer = strdup(line.c_str());
+   bufptr = buffer;
+
+   // parse linebuffer
+   for (int tokenct = 1;; ++tokenct) {
+      char* token = strtok_r (bufptr, " \t\n", &savepos);
+      bufptr = NULL;
+      if (token == NULL) break;
+      //sprintf(temp,"token %d.%d: [%s]",
+      strtoken.push_back(token);
+      //store this
+      //cout << strtoken.back();
+      }
+   return strtoken;
 }
 
 Parser::~Parser(){}

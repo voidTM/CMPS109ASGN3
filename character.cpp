@@ -39,5 +39,9 @@ Identifier* Character::clone(vector<char*> argv){
 	return chr;
 }
 
+char Character::getValue(){
+	return value;
+}
+
 // Destructor
 Character::~Character(){}

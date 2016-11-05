@@ -68,3 +68,10 @@ void splitFileName(char* arg, string &prefix, string &suffix){
       suffix = filename.substr (dotpos);
    }
 }
+
+void testNumeric(){
+   cout << "Testing Numeric" << endl;
+}
+void testReal();
+void testCharacter();
+void testString();

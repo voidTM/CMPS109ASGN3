@@ -31,6 +31,7 @@ Identifier* Numeric::clone(vector<char*> argv){
 	}
 
 	char* tok = argv[0];
+	cout << tok << endl;
 	Numeric* number = new Numeric();
 	number->initialize(tok);
 
