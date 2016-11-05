@@ -18,7 +18,6 @@ class String: public Identifier{
 		// Constructor
 		String();
 		String(string val);
-		String(string val, int size);
 		String(int size);
 
 		// Method

@@ -15,6 +15,8 @@
 #include "identifier.h"
 #include "real.h"
 #include "numeric.h"
+#include "character.h"
+#include "mis_string.h"
 
 using namespace std;
 

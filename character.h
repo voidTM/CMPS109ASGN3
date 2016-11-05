@@ -14,15 +14,15 @@ class Character: public Identifier{
 	public:
 
 		// Constructor
-		Real(); 
-		Real(char val);
+		Character(); 
+		Character(char val);
 
 		// Method
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 
 		// Destructor
-		virtual ~Real();
+		virtual ~Character();
 };
 
 #endif
