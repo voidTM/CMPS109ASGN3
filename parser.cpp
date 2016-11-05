@@ -40,7 +40,7 @@ void Parser::parseFile(string filename){
       string command;
       while(getline(file,line))
       {
-         //scout << line << endl;
+         cout << line << endl;
          //fileinput.push_back(line);
          stringstream iss(line);
          // gets first with whitespace delimiter
@@ -69,7 +69,7 @@ void Parser::parseVar(stringstream &line){
 
    //use , as delimiter for now?
    while(getline(line, token, ',')){
-      strcpy(cstr, token.c_str());
+      cstr = strdup(token.c_str());
       arguments.push_back(cstr);
    }
 
@@ -97,7 +97,7 @@ void Parser::parseInst(string command, stringstream &argv){
 
    //use , as delimiter for now?
    while(getline(argv, token, ',')){
-      strcpy(cstr, token.c_str());
+      cstr = strdup(token.c_str());
       arguments.push_back(cstr);
    }
    /*
@@ -108,3 +108,5 @@ void Parser::parseInst(string command, stringstream &argv){
       instructions.push_back(obj);
    }*/
 }
+
+Parser::~Parser(){}

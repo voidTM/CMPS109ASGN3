@@ -21,18 +21,20 @@
 
 using namespace std;
 
-constexpr size_t LINESIZE = 1024;
 
 void splitFileName(char* filename, string &prefix, string &suffix);
 
+// testing/debugging functions for class
+void testNumeric();
+void testReal();
+void testCharacter();
+void testString();
+
 int main (int argc, char** argv) {
-   const char* execname = basename (argv[0]);
    int exit_status = EXIT_SUCCESS;
    string suffix, prefix;
    string line;
-   vector<string> fileinput;
-   vector<string> instInput;
-   vector<string> varInput;
+   Parser parser;
 
    // Assumes last argument is file name
    char* filename = argv[argc - 1];
@@ -46,34 +48,7 @@ int main (int argc, char** argv) {
       return EXIT_FAILURE;
    }
 
-   ifstream file(filename);
-
-   if(file.is_open())
-   {
-      int found;
-      while(getline(file,line))
-      {
-         cout << line << endl;
-         fileinput.push_back(line);
-
-         //should parse and split input into variable
-         // and instructions
-         // does not act upon it.
-         if(!line.find("VAR"))
-            varInput.push_back(line);
-         else
-            instInput.push_back(line);
-      }
-      file.close();
-   }
-
-   cout <<endl << "Variables" << endl;
-   for(string out: varInput)
-      cout << out << endl;
-
-   cout << endl << "Instructions" << endl;
-   for(string out: instInput)
-      cout << out << endl;
+   parser.parseFile(filename);
 
    return exit_status;
 }

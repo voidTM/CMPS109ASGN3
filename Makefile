@@ -28,7 +28,7 @@ clean :
 	- rm ${OBJECTS}
 
 spotless : clean
-	- rm ${EXECBIN} ${DEPFILE}
+	- rm ${EXECBIN}
 
 ${DEPFILE} :
 	${MKDEP} ${SOURCE} >${DEPFILE}
