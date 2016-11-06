@@ -73,6 +73,7 @@ void Parser::parseVar(stringstream &line){
    //line.flags(skipws);
 
    while(getline(line, token, ',')){
+      trimWhitespace(token);
       cout << "Token: " << token << endl;
       cstr = strdup(token.c_str());
       arguments.push_back(cstr);
@@ -137,6 +138,14 @@ vector<string> Parser::parseLine (string line) {
       //cout << strtoken.back();
       }
    return strtoken;
+}
+
+// removes from both ends
+void Parser::trimWhitespace(string& str)
+{
+    size_t first = str.find_first_not_of(" \t\n");
+    size_t last = str.find_last_not_of(" \t\n");
+    str = str.substr(first, (last-first+1));
 }
 
 Parser::~Parser(){}

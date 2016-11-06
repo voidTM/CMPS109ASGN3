@@ -35,6 +35,8 @@ class Parser{
 		void parseInst(string command, stringstream &argv);
 		vector<string> parseLine (string line);
 
+		// helpers
+		void trimWhitespace(string& str);
 		// Destructor
 		~Parser();
 };
