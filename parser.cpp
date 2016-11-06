@@ -141,8 +141,7 @@ vector<string> Parser::parseLine (string line) {
 }
 
 // removes from both ends
-void Parser::trimWhitespace(string& str)
-{
+void Parser::trimWhitespace(string& str){
     size_t first = str.find_first_not_of(" \t\n");
     size_t last = str.find_last_not_of(" \t\n");
     str = str.substr(first, (last-first+1));

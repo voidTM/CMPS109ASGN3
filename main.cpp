@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include <wait.h>
 #include <vector>
+#include "stdio.h"
 
 #include "identifier.h"
 #include "real.h"
@@ -42,6 +43,9 @@ int main (int argc, char** argv) {
    //Check to see if it filename has .oc suffix.
    splitFileName(filename, prefix, suffix);
 
+   testNumeric();
+   testReal();
+
    if (suffix != ".mis")
    {
       fprintf (stderr, "File not of file type .mis\n");
@@ -71,7 +75,19 @@ void splitFileName(char* arg, string &prefix, string &suffix){
 
 void testNumeric(){
    cout << "Testing Numeric" << endl;
+   Numeric* numb = new Numeric();
+   numb->initialize("20");
+   auto x = numb->getValue();
+   printf("numb = %d \n", x);
 }
-void testReal();
+
+void testReal(){
+   cout << "Testing Real" << endl;
+   Real* decimal = new Real();
+   decimal->initialize("1234.324");
+   auto x = decimal->getValue();
+
+   printf("Real: %lf \n", x);
+}
 void testCharacter();
 void testString();

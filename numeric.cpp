@@ -38,4 +38,12 @@ Identifier* Numeric::clone(vector<char*> argv){
 	return number;
 }
 
+int Numeric::getValue(){
+	return value;
+}
+
+void Numeric::setValue(auto val){
+	value = val;
+}
+
 Numeric::~Numeric(){}
