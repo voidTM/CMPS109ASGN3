@@ -16,6 +16,10 @@ double Real::getValue(){
 	return value;
 }
 
+void Real::setValue(double val){
+	value = val;
+}
+
 void Real::initialize (char* token){
 	double val;
 	int t;

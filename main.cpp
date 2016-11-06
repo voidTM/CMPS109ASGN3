@@ -45,6 +45,7 @@ int main (int argc, char** argv) {
 
    testNumeric();
    testReal();
+   testCharacter();
 
    if (suffix != ".mis")
    {
@@ -78,6 +79,11 @@ void testNumeric(){
    Numeric* numb = new Numeric();
    numb->initialize("20");
    auto x = numb->getValue();
+
+   printf("numb = %d \n", x);
+
+   numb->setValue(42);
+   x = numb->getValue();
    printf("numb = %d \n", x);
 }
 
@@ -86,8 +92,22 @@ void testReal(){
    Real* decimal = new Real();
    decimal->initialize("1234.324");
    auto x = decimal->getValue();
+   printf("Real: %lf \n", x);
 
+   decimal->setValue(33.41);
+   x = decimal->getValue();
    printf("Real: %lf \n", x);
 }
-void testCharacter();
+
+void testCharacter(){
+   cout << "Testing Real" << endl;
+   Character* letter = new Character();
+   letter->initialize("x");
+   auto x = letter->getValue();
+   printf("letter: %c \n", x);
+
+   letter->setValue('y');
+   x = letter->getValue();
+   printf("letter: %c \n", x);
+}
 void testString();

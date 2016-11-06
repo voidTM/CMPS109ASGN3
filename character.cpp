@@ -43,5 +43,9 @@ char Character::getValue(){
 	return value;
 }
 
+void Character::setValue(char val){
+	value = val;
+}
+
 // Destructor
 Character::~Character(){}

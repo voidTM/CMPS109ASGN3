@@ -20,7 +20,7 @@ class Character: public Identifier{
 		// Method
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
-
+		void setValue(char val);
 		char getValue();
 		// Destructor
 		virtual ~Character();

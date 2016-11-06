@@ -42,7 +42,7 @@ int Numeric::getValue(){
 	return value;
 }
 
-void Numeric::setValue(auto val){
+void Numeric::setValue(int val){
 	value = val;
 }
 

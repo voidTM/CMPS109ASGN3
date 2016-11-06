@@ -19,7 +19,7 @@ class Real: public Identifier{
 		// Method
 		//double getValue();
 		double getValue();
-		void setValue(auto);
+		void setValue(double val);
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 
