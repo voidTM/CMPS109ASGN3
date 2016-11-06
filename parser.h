@@ -33,7 +33,7 @@ class Parser{
 		// unable to return abstact datatypes
 		void parseVar(stringstream &line);
 		void parseInst(string command, stringstream &argv);
-		vector<string> parseLine (string line);
+		vector<char*> parseLine (stringstream &argv);
 
 		// helpers
 		void trimWhitespace(string& str);

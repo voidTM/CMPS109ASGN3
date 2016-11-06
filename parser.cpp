@@ -51,7 +51,7 @@ void Parser::parseFile(string filename){
          if(!command.compare("VAR"))
             parseVar(iss);
          else{
-            //cout << "found instruction" << endl;
+            cout << "Instruction: " << command <<endl;
             parseInst(command, iss);
          }
 
@@ -66,19 +66,9 @@ void Parser::parseFile(string filename){
 }
 
 void Parser::parseVar(stringstream &line){
-   string token;
    vector<char*> arguments;
-   char* cstr;
 
-   //line.flags(skipws);
-
-   while(getline(line, token, ',')){
-      trimWhitespace(token);
-      cout << "Token: " << token << endl;
-      cstr = strdup(token.c_str());
-      arguments.push_back(cstr);
-   }
-
+   arguments = parseLine(line);
    // get the name and type of variable
    // after parsing
    string varName = arguments[0];
@@ -100,15 +90,10 @@ void Parser::parseVar(stringstream &line){
 }
 
 void Parser::parseInst(string command, stringstream &argv){
-   string token;
    vector<char*> arguments;
-   char* cstr;
 
-   //use , as delimiter for now?
-   while(getline(argv, token, ',')){
-      cstr = strdup(token.c_str());
-      arguments.push_back(cstr);
-   }
+   arguments = parseLine(argv);
+
    /*
    Instruction* inst = instSet[command];
    if(obj != NULL){
@@ -118,26 +103,21 @@ void Parser::parseInst(string command, stringstream &argv){
    }*/
 }
 
-// Run cpp against the lines of the file.
-vector<string> Parser::parseLine (string line) {
-   char* buffer; char* bufptr;
-   char* savepos = NULL;
-   vector<string> strtoken;
+// parses line for every token/argument after the initial
+// one
+vector<char*> Parser::parseLine (stringstream &line) {
+   string token;
+   vector<char*> tokens;
+   char* cstr;
 
-   buffer = strdup(line.c_str());
-   bufptr = buffer;
-
-   // parse linebuffer
-   for (int tokenct = 1;; ++tokenct) {
-      char* token = strtok_r (bufptr, " \t\n", &savepos);
-      bufptr = NULL;
-      if (token == NULL) break;
-      //sprintf(temp,"token %d.%d: [%s]",
-      strtoken.push_back(token);
-      //store this
-      //cout << strtoken.back();
-      }
-   return strtoken;
+   //use , as delimiter for now?
+   while(getline(line, token, ',')){
+      trimWhitespace(token);
+      cout << "Token: " << token << endl;
+      cstr = strdup(token.c_str());
+      tokens.push_back(cstr);
+   }
+   return tokens;
 }
 
 // removes from both ends

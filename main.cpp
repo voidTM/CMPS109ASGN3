@@ -43,9 +43,9 @@ int main (int argc, char** argv) {
    //Check to see if it filename has .oc suffix.
    splitFileName(filename, prefix, suffix);
 
-   testNumeric();
-   testReal();
-   testCharacter();
+   //testNumeric();
+   //testReal();
+   //testCharacter();
 
    if (suffix != ".mis")
    {
