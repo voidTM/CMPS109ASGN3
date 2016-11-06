@@ -31,12 +31,14 @@ class Parser{
 		// Methods
 		void parseFile(string filename);
 		// unable to return abstact datatypes
-		void parseVar(stringstream &line);
+		Identifier* parseVar(stringstream &line);
 		void parseInst(string command, stringstream &argv);
+		//Instruction* parseVar(string command, stringstream &argv)
 		vector<char*> parseLine (stringstream &argv);
-
 		// helpers
 		void trimWhitespace(string& str);
+		string interpetToken(char* token);
+
 		// Destructor
 		~Parser();
 };

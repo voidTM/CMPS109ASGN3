@@ -24,6 +24,8 @@ class String: public Identifier{
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 
+		char* getValue();
+		void setValue(char* val);
 		// Destructor
 		virtual ~String();
 };

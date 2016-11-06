@@ -74,5 +74,13 @@ Identifier* String::clone(vector<char*> argv){
 	return chr;
 }
 
+char* String::getValue(){
+	return value;
+}
+
+void String::setValue(char* val){
+	char* value = val;
+}
+
 // Destructor
 String::~String(){}

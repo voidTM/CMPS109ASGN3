@@ -65,7 +65,7 @@ void Parser::parseFile(string filename){
 
 }
 
-void Parser::parseVar(stringstream &line){
+Identifier* Parser::parseVar(stringstream &line){
    vector<char*> arguments;
 
    arguments = parseLine(line);
@@ -84,6 +84,7 @@ void Parser::parseVar(stringstream &line){
       obj = obj->clone(arguments);
       //store into variable map
       varMap[varName] = obj;
+      return obj;
    }
    else
       cerr << "class not found" << endl;
@@ -91,16 +92,23 @@ void Parser::parseVar(stringstream &line){
 
 void Parser::parseInst(string command, stringstream &argv){
    vector<char*> arguments;
+   vector <Identifier*> varList;
 
    arguments = parseLine(argv);
 
+   // Create instruction object
    /*
    Instruction* inst = instSet[command];
+   for(char* token: arguments){
+      token
+   }
    if(obj != NULL){
       obj = obj->clone(arguments);
 
       instructions.push_back(obj);
    }*/
+
+   // place instruction object into vector
 }
 
 // parses line for every token/argument after the initial
