@@ -21,8 +21,11 @@ void Character::initialize(char* token){
 	char val;
 	int t;
 	// check for single quotes at end of quotation
+	cout << "token = " << token << endl;
 	//if(val[0] == '\'' && val[length - 1] == '\'')
-	t = sscanf(token, " %c", &val);
+	t = sscanf(token, " \'%c\'", &val);
+
+	cout << "val = " << val << endl;
 	if(t == 1)
 		value = val;
 }
@@ -48,8 +51,9 @@ char Character::getValue(){
 }
 
 string Character::getStrValue(){
-	string x = "" + value;
-	return x;
+	string s;
+	s.push_back(value);
+	return s;
 }
 
 

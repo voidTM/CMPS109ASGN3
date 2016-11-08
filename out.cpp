@@ -21,28 +21,31 @@ Instruction * Out::clone(vector<char*> & argv, int lineNumber) {
 
 void Out::initialize(std::vector<char*> & argv){
 	// Check for size
-	if (argv.size() != 1)
-		reportError("The number of arguments for Assign should be 1", lineNumber);
+	if (argv.size() < 1)
+		reportError("The number of arguments for Out should be atleast 1", lineNumber);
 
 	auto identifiers = machine->getidentifiers();
-	char* param = argv[0];
+	int argsCount = argv.size();
+	for(int i=0; i<argsCount; i++)
+	{
+		auto identifiers = machine->getidentifiers();
+		char* token = argv[i];
 
-	// check if it is a variable
-	if (param[0] == '$'){
-		if (identifiers->find(param) == identifiers->end()) //check if the variable name is not found in the variable list
-			reportError("The variable " + string(param) + " not found.", lineNumber); // report error
-	}
-	else{
-		//try to make constant into a typeable object
-		Identifier* obj = identifyConstant(param);
-		if(obj != NULL){
-			(*identifiers)[param] = obj;
+		if (token[0] == '$'){
+			if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
+				reportError("The variable " + string(token) + " not found.", lineNumber); // report error
+		} else{
+			//try to make constant into a typeable object
+			Identifier* obj = identifyConstant(token);
+			if(obj != NULL)
+				(*identifiers)[token] = obj;
+			else
+				reportError("Arguments is neither constant nor variable", lineNumber);
 		}
-		else
-			reportError("Arguments is neither constant nor variable", lineNumber);
+
+		args.push_back(token);
 	}
 
-	args.push_back(param);
 }
 
 
@@ -50,26 +53,13 @@ int Out::execute(){
 
 	auto identifiers = machine->getidentifiers();
 	//cout << "printing" << endl;
-	auto printLamba = [] ( auto a) { cout << a->getValue() << endl; };
 
-	Identifier * ident = (*identifiers)[args[0]];
-	string type = ident->getType();
-	if(type == Real::type()){
-		Real* obj = (Real*)ident;
-		printLamba(obj);
-	}else if (type == Numeric::type()){
-		Numeric* obj = (Numeric*)ident;
-		printLamba(obj);
-	}else if (type == Character::type()){
-		Character* obj = (Character*)ident;
-		printLamba(obj);
-	}else if (type == String::type()){
-		String* obj = (String*)ident;
-		printLamba(obj);
+	for(string arg : args){
+		Identifier * ident = (*identifiers)[arg];
+		cout << ident->getStrValue() << "   ";
 	}
 
-
-	cout << type << endl;
+	cout << endl;
 	return -1;
 	
 }

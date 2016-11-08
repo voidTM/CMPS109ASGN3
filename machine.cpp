@@ -219,3 +219,6 @@ map<string,Identifier*> * Machine::getidentifiers() {
 map<string,Identifier*> * Machine::getTypes(){
 	return & typeSet;
 }
+map<string, int>* Machine::getLabels(){
+	return & labels;
+}
