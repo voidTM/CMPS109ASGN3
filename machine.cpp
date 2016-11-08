@@ -84,13 +84,10 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 		vector<char*> arguments;
 		char* cstr;
 
+		arguments = parseLine(argv);
 
-	   	while(getline(argv, token, ',')){
-    		trimWhitespace(token);
-      		cout << "Token: " << token << endl;
-      		cstr = strdup(token.c_str());
-      		arguments.push_back(cstr);
-   		}
+   		if(!command.compare("LABEL"))
+   			labels[arguments[0]] = lineNumber;
 
 		Instruction* obj = instSet[command];
 		if(obj != NULL){
@@ -113,13 +110,7 @@ void Machine::parseVar(stringstream &line, int lineNumber){
 		vector<char*> arguments;
 		char* cstr;
 
-		//use , as delimiter for now?
-	   	while(getline(line, token, ',')){
-    		trimWhitespace(token);
-      		cout << "Token: " << token << endl;
-      		cstr = strdup(token.c_str());
-      		arguments.push_back(cstr);
-   		}
+		arguments = parseLine(line);
 
 		// get the name and type of variable
 		// after parsing
