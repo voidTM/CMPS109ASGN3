@@ -2,6 +2,8 @@
 #define ADD
 
 #include "instruction.h"
+#include "numeric.h"
+#include "real.h"
 //#include <regex>
 
 using namespace std;
