@@ -62,6 +62,7 @@ void Machine::parseFile(){
          	//cout << line << endl;
 			line = ReplaceAll(line, "\\n", "\n");
 			line = ReplaceAll(line, "\\t", "\t");
+			line = ReplaceAll(line, "\\r", "\t");
          	stringstream iss(line);
          	iss >> command;
          	// check to see if it is a variable

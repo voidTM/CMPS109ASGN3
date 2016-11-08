@@ -40,7 +40,7 @@ Identifier* Instruction::identifyConstant(char* constant){
 			// removes double quotes
 			string val = constant;
 			val.erase(val.begin());
-			val.erase(val.end());
+			val.erase(val.end() - 1);
 			obj = new String(val);
 		}
 	}
