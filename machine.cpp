@@ -115,6 +115,9 @@ void Machine::parseVar(stringstream &line, int lineNumber){
 	   	while(getline(line, token, ',')){
     		trimWhitespace(token);
       		cout << "Token: " << token << endl;
+          	for(int i = 0; i < token.size(); i++){
+        		cout << token[i] << endl;
+    		}
       		cstr = strdup(token.c_str());
       		arguments.push_back(cstr);
    		}
