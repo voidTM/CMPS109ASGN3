@@ -2,4 +2,5 @@ VAR	$myint,NUMERIC,100
 VAR	$myfloat,REAL,12.14
 VAR	$mychar,CHAR,’c’
 VAR	$mystr,STRING,100,”Hello world MIS!!!”
-ADD $myfloat, $myint, 10, 20.5, 3, $myfloat
+ADD $myint, 1000, 2, $myfloat, $myint
+SUB $myfloat, $myint, 20.5

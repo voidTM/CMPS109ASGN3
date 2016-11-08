@@ -10,7 +10,7 @@ Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
 MODULES		= ${INSTMOD} ${TYPEMOD} parser machine
-INSTMOD		= add instruction
+INSTMOD		= add sub instruction
 TYPEMOD 	= numeric real character mis_string
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} identifier.h 

@@ -1,5 +1,6 @@
 #include "machine.h"
 #include "add.h"
+#include "sub.h"
 #include <string>
 //#include "stdlib.h"
 
@@ -15,9 +16,10 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	typeSet["STRING"] = new String();
 
 	instSet["ADD"] = new Add(this);
+	instSet["SUB"] = new Sub(this);
+	instSet["MUL"] = new Mul(this);
 
-	/*instSet["SUB"]
-	   instSet["MUL"]
+	/*
 	   instSet["DIV"]
 	   instSet["ASSIGN"]
 	   instSet["OUT"]
