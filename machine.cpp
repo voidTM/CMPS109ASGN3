@@ -1,5 +1,10 @@
 #include "machine.h"
 #include "add.h"
+#include "sub.h"
+#include "mul.h"
+#include "div.h"
+#include "set_str_char.h"
+#include "get_str_char.h"
 #include "assign.h"
 #include "out.h"
 #include "sleep.h"
@@ -21,6 +26,26 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	typeSet["STRING"] = new String();
 
 	instSet["ADD"] = new Add(this);
+	instSet["SUB"] = new Sub(this);
+	instSet["MUL"] = new Mul(this);
+	instSet["DIV"] = new Div(this);
+	instSet["SET_STR_CHAR"] = new SetStrChar(this);
+	instSet["GET_STR_CHAR"] = new GetStrChar(this);
+
+	/* instSet["ASSIGN"]
+	   instSet["OUT"]
+	   instSet["GET_STR_CHAR"]
+	   instSet["LABEL"]? <-not instruction class
+	   instSet["JMP"]
+	   instSet["JMPZ"]
+	   instSet["JMPNZ"]
+	   instSet["JMPGT"]
+	   instSet["JMPLT"]
+	   instSet["JMPGTE"]
+	   instSet["JMPLTE"]
+	   instSet["SLEEP"]
+	 */
+
 	instSet["ASSIGN"] = new Assign(this);
 	instSet["OUT"] = new Out(this);
 	instSet["SLEEP"] = new Sleep(this);
@@ -31,6 +56,7 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
     instSet["JMPLT"] = new ComparativeJump(this, 2);
     instSet["JMPGTE"] = new ComparativeJump(this, 3);
     instSet["JMPLTE"] = new ComparativeJump(this, 4);
+
 }
 
 Machine::~Machine() {
@@ -62,7 +88,7 @@ void Machine::parseFile(){
          	//cout << line << endl;
 			line = ReplaceAll(line, "\\n", "\n");
 			line = ReplaceAll(line, "\\t", "\t");
-			line = ReplaceAll(line, "\\r", "\t");
+			line = ReplaceAll(line, "\\r", "\r");
          	stringstream iss(line);
          	iss >> command;
          	// check to see if it is a variable
@@ -167,6 +193,7 @@ void Machine::trimWhitespace(string& str){
     size_t first = str.find_first_not_of(" \t\n");
     size_t last = str.find_last_not_of(" \t\n");
     str = str.substr(first, (last-first+1));
+    //return str;
 }
 
 void Machine::run()

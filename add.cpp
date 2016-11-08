@@ -22,9 +22,7 @@ Instruction * Add::clone(vector<char*> & argv, int lineNumber) {
 
 void Add::initialize(vector<char*> & argv) {
 
-	//std::regex rr("((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?");
-	double val1,val2;
-
+	double val1; int val2;
 	int argsCount = argv.size();
 	if (argsCount < 3 || argsCount > 13)
 	{

@@ -1,5 +1,11 @@
 VAR	$myint,NUMERIC,100
 VAR	$myfloat,REAL,12.14
-VAR	$mychar,CHAR,’c’
-VAR	$mystr,STRING,100,”Hello world MIS!!!”
-ADD $myfloat, $myint, 10, 20.5, 3, $myfloat
+VAR	$mychar,CHAR,'c'
+VAR	$mystr,STRING,100,"Hello world MIS!!!"
+ADD $myint, 1000, 2, $myfloat, $myint
+SUB $myfloat, $myint, 20.5  
+MUL $myfloat, 10.7 , $myint , 3.4
+DIV $myint, 14, 15
+OUT $mystr, "Test"
+SET_STR_CHAR	 $mystr , 1, '\n' 
+GET_STR_CHAR	 $mystr , 2, $mychar 

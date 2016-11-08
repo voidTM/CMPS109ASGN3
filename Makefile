@@ -10,7 +10,8 @@ Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
 MODULES		= ${INSTMOD} ${TYPEMOD} parser machine
-INSTMOD		= add instruction assign out sleep jump condjump compjump
+
+INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
 TYPEMOD 	= numeric real character mis_string
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} identifier.h 
