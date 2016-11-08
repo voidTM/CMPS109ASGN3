@@ -51,7 +51,8 @@ void ComparativeJump::initialize(std::vector<char*> & argv){
 				reportError("Arguments is neither constant nor variable", lineNumber);
 		}
 
-	if((*identifiers)[token]->getType() != Numeric::type())
+	string type = (*identifiers)[token]->getType();
+	if(type != Numeric::type() && type != Real::type())
 		reportError("Arguments to comparative jump not of valid type.", lineNumber);
 	
 	args.push_back(token);

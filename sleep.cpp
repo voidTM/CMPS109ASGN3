@@ -43,10 +43,9 @@ void Sleep::initialize(std::vector<char*> & argv){
 	}
 
 	// Check to see the two parameters are of the same type
-	cout << (*identifiers)[parA]->getType() << endl;
-	cout << Numeric::type() << endl;
-	if((*identifiers)[parA]->getType() != Numeric::type())
-		reportError("Arguments to sleep not of same valid.", lineNumber);
+	string type = (*identifiers)[parA]->getType();
+	if(type != Numeric::type() && type != Real::type())
+		reportError("Arguments to sleep not of valid type.", lineNumber);
 	
 	args.push_back(parA);
 }

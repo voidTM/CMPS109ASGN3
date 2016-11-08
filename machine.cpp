@@ -6,6 +6,7 @@
 #include <string>
 #include "jump.h"
 #include "condjump.h"
+#include "compjump.h"
 //#include "stdlib.h"
 
 Machine::Machine() {}
@@ -26,15 +27,15 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	instSet["JMP"] = new Jump(this);
 	instSet["JMPZ"] = new ConditionalJump(this, 1);
 	instSet["JMPNZ"] = new ConditionalJump(this, 2);
+	instSet["JMPGT"] = new ComparativeJump(this, 1);
+    instSet["JMPLT"] = new ComparativeJump(this, 2);
+    instSet["JMPGTE"] = new ComparativeJump(this, 3);
+    instSet["JMPLTE"] = new ComparativeJump(this, 4);
 	/* instSet["SUB"]
 	   instSet["MUL"]
 	   instSet["DIV"]
 	   instSet["SET_STR_CHAR"]
 	   instSet["GET_STR_CHAR"]
-	   instSet["JMPGT"]
-	   instSet["JMPLT"]
-	   instSet["JMPGTE"]
-	   instSet["JMPLTE"]
 	 */
 }
 

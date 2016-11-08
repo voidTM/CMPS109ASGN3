@@ -53,7 +53,8 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 	// Check to see the two parameters are of the same type
 	//cout << (*identifiers)[parB]->getType() << endl;
 	//cout << Numeric::type() << endl;
-	if((*identifiers)[parB]->getType() != Numeric::type())
+	string type = (*identifiers)[parB]->getType();
+	if(type != Numeric::type() && type != Real::type())
 		reportError("Arguments to conditional jump not of valid type.", lineNumber);
 	
 	args.push_back(parB);
