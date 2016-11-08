@@ -172,7 +172,7 @@ void Machine::run()
 	// if there is an error in parsing the program file, terminate the execution
 	parseFile();
 	if (parseError) return;
-	cout << "Running \n";
+
 	// try to execute the program line by line (instruction by instruction)
 	int retval, currentInstIdx = 0;
 	try

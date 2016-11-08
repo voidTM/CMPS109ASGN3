@@ -33,36 +33,39 @@ void testCharacter();
 void testString();
 
 int main (int argc, char** argv) {
-   int exit_status = EXIT_SUCCESS;
-   string suffix, prefix;
-   string line;
-   Parser parser;
-
-   // Assumes last argument is file name
-   char* filename = argv[argc - 1];
-   //printf ("command=\"%s\"\n", command.c_str());
-   //Check to see if it filename has .oc suffix.
-   splitFileName(filename, prefix, suffix);
-
-   testNumeric();
-   testReal();
-   testCharacter();
-   testString();
-
-   if (suffix != ".mis")
-   {
-      fprintf (stderr, "File not of file type .mis\n");
-      return EXIT_FAILURE;
-   }
-
-   string programFileName = filename;
-   string errorFileName = "output.err";
-   string outputFileName = "output.out";
-   Machine machine(programFileName, errorFileName, outputFileName);
-   machine.run();
-
-   return exit_status;
+	string programFileName = argv[argc - 1];
+	string errorFileName = "output.err";
+	string outputFileName = "output.out";
+	Machine machine(programFileName, errorFileName, outputFileName);
+	machine.run();
 }
+
+//int main (int argc, char** argv) {
+//   int exit_status = EXIT_SUCCESS;
+//   string suffix, prefix;
+//   string line;
+//   Parser parser;
+//
+//   // Assumes last argument is file name
+//   char* filename = argv[argc - 1];
+//   //printf ("command=\"%s\"\n", command.c_str());
+//   //Check to see if it filename has .oc suffix.
+//   splitFileName(filename, prefix, suffix);
+//
+//   //testNumeric();
+//   //testReal();
+//   //testCharacter();
+//
+//   if (suffix != ".mis")
+//   {
+//      fprintf (stderr, "File not of file type .mis\n");
+//      return EXIT_FAILURE;
+//   }
+//
+//   parser.parseFile(filename);
+//
+//   return exit_status;
+//}
 
 
 
@@ -83,7 +86,6 @@ void splitFileName(char* arg, string &prefix, string &suffix){
 void testNumeric(){
    cout << "Testing Numeric" << endl;
    Numeric* numb = new Numeric();
-   cout << "Type = " << numb->getType() <<endl;
    numb->initialize("20");
    auto x = numb->getValue();
 
@@ -97,7 +99,6 @@ void testNumeric(){
 void testReal(){
    cout << "Testing Real" << endl;
    Real* decimal = new Real();
-   cout << "Type = " << decimal->getType()<<endl;
    decimal->initialize("1234.324");
    auto x = decimal->getValue();
    printf("Real: %lf \n", x);
@@ -108,9 +109,8 @@ void testReal(){
 }
 
 void testCharacter(){
-   cout << "Testing Char " << endl; ;
+   cout << "Testing Real" << endl;
    Character* letter = new Character();
-   cout << "Type = " << letter->getType()<<endl;
    letter->initialize("x");
    auto x = letter->getValue();
    printf("letter: %c \n", x);
@@ -119,15 +119,4 @@ void testCharacter(){
    x = letter->getValue();
    printf("letter: %c \n", x);
 }
-void testString(){
-   cout << "Testing " << String::type() <<endl; ;
-   String* str = new String();
-   cout << "Type = " << str->getType()<<endl;
-   str->initialize("Hello");
-   auto x = str->getValue();
-   printf("phrase: %s \n", x);
-
-   str->setValue("World");
-   x = str->getValue();
-   printf("phrase: %s \n", x);
-}
+void testString();

@@ -49,7 +49,7 @@ void Add::initialize(vector<char*> & argv) {
 				else
 				{
 					// check if the variable is of type Numeric or Real
-					if (typeid(*((*identifiers)[token])) != typeid(Numeric()) && typeid(*((*identifiers)[token])) != typeid(Real()))
+					if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
 					{
 						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
 					}
@@ -72,7 +72,7 @@ void Add::initialize(vector<char*> & argv) {
 				else
 				{
 					// check if the variable is of type Numeric or Real
-					if (typeid(*((*identifiers)[token])) != typeid(Numeric()) && typeid(*((*identifiers)[token])) != typeid(Real()))
+					if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
 					{
 						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
 					}
@@ -90,7 +90,7 @@ void Add::initialize(vector<char*> & argv) {
 }
 
 int Add::execute() {
-	/*
+
 	auto identifiers = machine->getidentifiers();
 	double result = 0;
 	for (int i=1; i<args.size(); i++)
@@ -98,32 +98,33 @@ int Add::execute() {
 		// if the argument is a variable retrieve its value
 		if (args[i][0] == '$')
 		{
-			if (typeid(*((*identifiers)[args[i]])) == typeid(Numeric()))
-				result += (dynamic_cast<Numeric*>((*identifiers)[args[i]]))->getValue();
+			Identifier * ident = (*identifiers)[args[i]];
+			if (ident->getType() == Numeric::type())
+			{
+				Numeric * num = (Numeric*)ident;
+				result += num->getValue();
+			}
 			else
-				result += (dynamic_cast<Real*>((*identifiers)[args[i]]))->getValue();
+			{
+				Real * real = (Real*)ident;
+				result += real->getValue();
+			}
 		}
 		else
 			result += atof(args[i].c_str());
 	}
 
-	if (typeid(*((*identifiers)[args[0]])) == typeid(Numeric()))
-		(dynamic_cast<Numeric*>((*identifiers)[args[0]]))->setValue(result);
-	else
-		(dynamic_cast<Real*>((*identifiers)[args[0]]))->setValue(result);
-
-	// ***** for testing
-	if (typeid(*((*identifiers)[args[0]])) == typeid(Numeric()))
+	Identifier * ident0 = (*identifiers)[args[0]];
+	if (ident0->getType() == Numeric::type())
 	{
-		cout << (dynamic_cast<Numeric*>((*identifiers)[args[0]]))->getValue();
-		cout << ++result;
+		Numeric * num = (Numeric*)ident0;
+		num->setValue(result);
 	}
 	else
 	{
-		cout << (dynamic_cast<Real*>((*identifiers)[args[0]]))->getValue();
-		cout << ++result;
+		Real * real = (Real*)ident0;
+		real->setValue(result);
 	}
-    // **** end for testing
 
-	return -1;*/
+	return -1;
 }
