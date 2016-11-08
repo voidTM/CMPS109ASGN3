@@ -1,6 +1,9 @@
 #include "machine.h"
 #include "add.h"
 #include "sub.h"
+#include "mul.h"
+#include "div.h"
+#include "set_str_char.h"
 #include <string>
 //#include "stdlib.h"
 
@@ -18,12 +21,11 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	instSet["ADD"] = new Add(this);
 	instSet["SUB"] = new Sub(this);
 	instSet["MUL"] = new Mul(this);
+	instSet["DIV"] = new Div(this);
+	instSet["SET_STR_CHAR"] = new SetStrChar(this);
 
-	/*
-	   instSet["DIV"]
-	   instSet["ASSIGN"]
+	/* instSet["ASSIGN"]
 	   instSet["OUT"]
-	   instSet["SET_STR_CHAR"]
 	   instSet["GET_STR_CHAR"]
 	   instSet["LABEL"]? <-not instruction class
 	   instSet["JMP"]
@@ -163,10 +165,11 @@ vector<char*> Machine::parseLine (stringstream &line) {
 }
 
 // removes from both ends
-void Machine::trimWhitespace(string& str){
+string Machine::trimWhitespace(string& str){
     size_t first = str.find_first_not_of(" \t\n");
     size_t last = str.find_last_not_of(" \t\n");
     str = str.substr(first, (last-first+1));
+    return str;
 }
 
 void Machine::run()
@@ -220,4 +223,8 @@ void Machine::setParseError(bool val) {
 
 map<string,Identifier*> * Machine::getidentifiers() {
 	return & identifiers;
+}
+
+map<string,Identifier*> * Machine::getTypes(){
+	return & typeSet;
 }

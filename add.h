@@ -4,15 +4,12 @@
 #include "instruction.h"
 #include "numeric.h"
 #include "real.h"
-//#include <regex>
 
 using namespace std;
 
 class Add : public Instruction {
 
 public:
-	//Add();
-
 	Add(Machine * machine);
 	Add(Machine * machine, int lineNumber);
 
