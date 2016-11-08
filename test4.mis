@@ -1,0 +1,10 @@
+VAR $myint,NUMERIC,100
+VAR $myfloat,REAL,12.14
+VAR $mychar,CHAR,'c'
+VAR $mystr,STRING,100, "Hello world MIS!!!"
+ASSIGN $myfloat, 20.3
+OUT $myfloat, $myint, $mychar
+LABEL	LAB1
+SLEEP 5
+OUT $mystr
+JMP	LAB1

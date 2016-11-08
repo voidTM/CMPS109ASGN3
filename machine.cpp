@@ -4,6 +4,7 @@
 #include "out.h"
 #include "sleep.h"
 #include <string>
+#include "jump.h"
 //#include "stdlib.h"
 
 Machine::Machine() {}
@@ -21,6 +22,7 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	instSet["ASSIGN"] = new Assign(this);
 	instSet["OUT"] = new Out(this);
 	instSet["SLEEP"] = new Sleep(this);
+	instSet["JMP"] = new Jump(this);
 	/* instSet["SUB"]
 	   instSet["MUL"]
 	   instSet["DIV"]
@@ -45,6 +47,7 @@ Machine::~Machine() {
 
 void Machine::parseFile(){
 	int lineNumber;
+	int instNumber;
 	parseError = false;
 	cout << programFileName << endl;
 	ifstream file(programFileName);
@@ -53,17 +56,22 @@ void Machine::parseFile(){
 	{
 		string command;
 		lineNumber = 1;
+		instNumber = 0;
 		while(getline(file,line))
 		{
          	cout << line << endl;
          	stringstream iss(line);
          	iss >> command;
          	// check to see if it is a variable
-         	if(!command.compare("VAR"))
+   			if(!command.compare("LABEL")){
+				vector <char*> arguments = parseLine(iss);
+   				labels[arguments[0]] = instNumber;
+   			} else if(!command.compare("VAR"))
             	parseVar(iss, lineNumber);
          	else{
             	cout << "Instruction: " << command <<endl;
             	parseInst(command, iss, lineNumber);
+            	instNumber++;
         	}
 
 			//should parse and split input into variable
@@ -82,12 +90,8 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 	{
 		string token;
 		vector<char*> arguments;
-		char* cstr;
 
 		arguments = parseLine(argv);
-
-   		if(!command.compare("LABEL"))
-   			labels[arguments[0]] = lineNumber;
 
 		Instruction* obj = instSet[command];
 		if(obj != NULL){
@@ -108,7 +112,6 @@ void Machine::parseVar(stringstream &line, int lineNumber){
 	{
 		string token;
 		vector<char*> arguments;
-		char* cstr;
 
 		arguments = parseLine(line);
 
