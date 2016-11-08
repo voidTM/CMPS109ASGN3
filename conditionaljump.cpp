@@ -1,5 +1,5 @@
-#ifndef JUMPS
-#define JUMPS
+#ifndef CONDITIONALJUMPS
+#define CONDITIONALJUMPS
 
 #include "instruction.h"
 #include "identifier.h"
@@ -10,10 +10,10 @@
 
 using namespace std;
 
-class Jump : public Instruction {
+class ConditionalJump : public Instruction {
 
 	public:
-	Jump(){};
+	//Add();
 
 	Jump(Machine * machine);
 	Jump(Machine * machine, int lineNumber);

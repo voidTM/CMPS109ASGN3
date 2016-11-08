@@ -5,6 +5,7 @@
 #include "sleep.h"
 #include <string>
 #include "jump.h"
+#include "condjump.h"
 //#include "stdlib.h"
 
 Machine::Machine() {}
@@ -23,22 +24,17 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	instSet["OUT"] = new Out(this);
 	instSet["SLEEP"] = new Sleep(this);
 	instSet["JMP"] = new Jump(this);
+	instSet["JMPZ"] = new ConditionalJump(this, 1);
+	instSet["JMPNZ"] = new ConditionalJump(this, 2);
 	/* instSet["SUB"]
 	   instSet["MUL"]
 	   instSet["DIV"]
-	   instSet["ASSIGN"]
-	   instSet["OUT"]
 	   instSet["SET_STR_CHAR"]
 	   instSet["GET_STR_CHAR"]
-	   instSet["LABEL"]? <-not instruction class
-	   instSet["JMP"]
-	   instSet["JMPZ"]
-	   instSet["JMPNZ"]
 	   instSet["JMPGT"]
 	   instSet["JMPLT"]
 	   instSet["JMPGTE"]
 	   instSet["JMPLTE"]
-	   instSet["SLEEP"]
 	 */
 }
 

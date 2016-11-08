@@ -24,18 +24,24 @@ void Jump::initialize(std::vector<char*> & argv){
 	if (argv.size() != 1)
 		reportError("The number of arguments for JMP should be 1", lineNumber);
 
-	auto labels = machine->getLabels();
 	char* parA = argv[0];
-	// check if it is a variable
+	// Assume first is a label
 	args.push_back(parA);
 }
 
-int Jump::execute(){
+// Given a Label name it will look it up and 
+// return the line number to jump to if found.
+int Jump::jumpLookUp(string label){
 	auto labels = machine->getLabels();
 
-	if (labels->find(args[0]) == labels->end())
-		reportError("The label " + string(args[0]) + " not found.", lineNumber);
-	int jmpLine = (*labels)[args[0]];
-	cout << "Jumping to " << jmpLine << endl;
+	if (labels->find(label) == labels->end())
+		reportError("The label " + string(label) + " not found.", lineNumber);
+	
+	return (*labels)[label];
+}
+
+int Jump::execute(){
+	int jmpLine = jumpLookUp(args[0]);
+	//cout << "Jumping to " << jmpLine << endl;
 	return jmpLine;
 }
