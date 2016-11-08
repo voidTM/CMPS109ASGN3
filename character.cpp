@@ -47,6 +47,12 @@ char Character::getValue(){
 	return value;
 }
 
+string Character::getStrValue(){
+	string x = "" + value;
+	return x;
+}
+
+
 void Character::setValue(char val){
 	value = val;
 }

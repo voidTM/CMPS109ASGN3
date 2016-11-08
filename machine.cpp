@@ -1,5 +1,7 @@
 #include "machine.h"
 #include "add.h"
+#include "assign.h"
+#include "out.h"
 #include <string>
 //#include "stdlib.h"
 
@@ -15,8 +17,9 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	typeSet["STRING"] = new String();
 
 	instSet["ADD"] = new Add(this);
-
-	/*instSet["SUB"]
+	instSet["ASSIGN"] = new Assign(this);
+	instSet["OUT"] = new Out(this);
+	/* instSet["SUB"]
 	   instSet["MUL"]
 	   instSet["DIV"]
 	   instSet["ASSIGN"]
@@ -172,7 +175,7 @@ void Machine::run()
 	// if there is an error in parsing the program file, terminate the execution
 	parseFile();
 	if (parseError) return;
-
+	//cout << "Running Script" << endl;
 	// try to execute the program line by line (instruction by instruction)
 	int retval, currentInstIdx = 0;
 	try

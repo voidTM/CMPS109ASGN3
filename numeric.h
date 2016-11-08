@@ -23,7 +23,10 @@ class Numeric: public Identifier{
 		int getValue();
 		void setValue(int);
 		static string type();
+
 		string getType();
+		string getStrValue();
+
 		// Destructor
 		virtual ~Numeric();
 };

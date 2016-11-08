@@ -28,6 +28,7 @@ class Real: public Identifier{
 
 		static string type();
 		string getType();
+		string getStrValue();
 
 		// Destructor
 		virtual ~Real();

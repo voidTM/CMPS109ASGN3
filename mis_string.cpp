@@ -86,6 +86,8 @@ void String::setValue(char* val){
 	value = val;
 }
 
+string String::getStrValue(){ return value; }
+
 string String::type(){ return "STRING"; }
 string String::getType(){ return "STRING"; }
 
