@@ -15,6 +15,8 @@ class Numeric: public Identifier{
 		// Constructor
 		Numeric(); 
 		Numeric(int val);
+		Numeric(const Numeric &copy);
+
 		// Method
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);

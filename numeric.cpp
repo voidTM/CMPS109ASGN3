@@ -13,6 +13,10 @@ Numeric::Numeric(int val){
 	value = val;
 }
 
+Numeric::Numeric(const Numeric &copy){
+	this->value = copy.value;
+}
+
 void Numeric::initialize(char* token){
 	int val;
 	int t;

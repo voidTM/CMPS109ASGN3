@@ -16,6 +16,8 @@ class Real: public Identifier{
 		// Constructor
 		Real(); 
 		Real(double val);
+		Real(const Real &copy);
+
 		// Method
 		//double getValue();
 		double getValue();

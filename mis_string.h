@@ -19,6 +19,7 @@ class String: public Identifier{
 		String();
 		String(string val);
 		String(int size);
+		String(const String &copy);
 
 		// Method
 		void initialize (char* token);

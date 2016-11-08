@@ -9,11 +9,15 @@ String::String(){
 }
 
 String::String(string val){
-	strcpy(value, val.c_str());
+	value = strdup(val.c_str());
 	size = val.size();
 	//value = val;
 }
 
+String::String(const String &copy){
+	value = strdup(copy.value);
+	this->size = size;
+}
 
 String::String(int size){
 	value = new char[size];
