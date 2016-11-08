@@ -24,7 +24,7 @@ class Assign : public Instruction {
 	void initialize (vector<char*> & argv);
 	int execute();
 
-	Identifier* identifyConstant(char* constant);
+	//Identifier* identifyConstant(char* constant);
 
 	virtual ~Assign();
 };

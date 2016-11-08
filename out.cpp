@@ -45,38 +45,6 @@ void Out::initialize(std::vector<char*> & argv){
 	args.push_back(param);
 }
 
-Identifier* Out::identifyConstant(char* constant){
-	int a;
-	double b;
-	char c;
-	string type;
-	Identifier* obj = NULL;
-
-
-	if(sscanf(constant, "%lf", &b)){
-		obj = new Real(a);
-	}
-	else if(sscanf(constant, "%d", &a)){
-		obj = new Numeric(b);
-	}
-	else if(sscanf(constant, "%c", &c)){
-		obj = new Character(c);
-	}
-	else {
-		int length = strlen(constant);
-		if(constant[0] == '\"' && constant[length - 1] == '\"')
-		{
-			// copy without first and last value
-			// removes double quotes
-			string val = constant;
-			val.erase(val.begin());
-			val.erase(val.end());
-			obj = new String(val);
-		}
-	}
-
-	return obj;
-}
 
 int Out::execute(){
 
