@@ -44,9 +44,10 @@ int main (int argc, char** argv) {
    //Check to see if it filename has .oc suffix.
    splitFileName(filename, prefix, suffix);
 
-   //testNumeric();
-   //testReal();
-   //testCharacter();
+   testNumeric();
+   testReal();
+   testCharacter();
+   testString();
 
    if (suffix != ".mis")
    {
@@ -82,6 +83,7 @@ void splitFileName(char* arg, string &prefix, string &suffix){
 void testNumeric(){
    cout << "Testing Numeric" << endl;
    Numeric* numb = new Numeric();
+   cout << "Type = " << numb->type() <<endl;
    numb->initialize("20");
    auto x = numb->getValue();
 
@@ -95,6 +97,7 @@ void testNumeric(){
 void testReal(){
    cout << "Testing Real" << endl;
    Real* decimal = new Real();
+   cout << "Type = " << decimal->type()<<endl;
    decimal->initialize("1234.324");
    auto x = decimal->getValue();
    printf("Real: %lf \n", x);
@@ -105,8 +108,9 @@ void testReal(){
 }
 
 void testCharacter(){
-   cout << "Testing Real" << endl;
+   cout << "Testing Char " << endl; ;
    Character* letter = new Character();
+   cout << "Type = " << letter->type()<<endl;
    letter->initialize("x");
    auto x = letter->getValue();
    printf("letter: %c \n", x);
@@ -115,4 +119,15 @@ void testCharacter(){
    x = letter->getValue();
    printf("letter: %c \n", x);
 }
-void testString();
+void testString(){
+   cout << "Testing " << String::type() <<endl; ;
+   String* str = new String();
+   cout << "Type = " << str->type()<<endl;
+   str->initialize("Hello");
+   auto x = str->getValue();
+   printf("phrase: %s \n", x);
+
+   str->setValue("World");
+   x = str->getValue();
+   printf("phrase: %s \n", x);
+}

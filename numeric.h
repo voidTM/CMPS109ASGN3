@@ -20,7 +20,7 @@ class Numeric: public Identifier{
 		Identifier* clone(vector<char*> argv);
 		int getValue();
 		void setValue(int);
-		string type();
+		static string type();
 		// Destructor
 		virtual ~Numeric();
 };

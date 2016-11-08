@@ -22,7 +22,7 @@ class Real: public Identifier{
 		void setValue(double val);
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
-		string type();
+		static string type();
 		// Destructor
 		virtual ~Real();
 };
