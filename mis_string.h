@@ -25,8 +25,11 @@ class String: public Identifier{
 		Identifier* clone(vector<char*> argv);
 
 		char* getValue();
-		static string type();
 		void setValue(char* val);
+		string getType();
+		static string type();
+
+
 		// Destructor
 		virtual ~String();
 };

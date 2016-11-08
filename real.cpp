@@ -46,5 +46,6 @@ Identifier* Real::clone(vector<char*> argv){
 }
 
 string Real::type(){ return "REAL"; }
+string Real::getType(){ return "REAL"; }
 
 Real::~Real(){}

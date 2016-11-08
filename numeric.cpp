@@ -47,5 +47,6 @@ void Numeric::setValue(int val){
 }
 
 string Numeric::type() {return "NUMERIC"; }
+string Numeric::getType() {return "NUMERIC"; }
 
 Numeric::~Numeric(){}

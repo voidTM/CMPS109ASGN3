@@ -20,9 +20,13 @@ class Real: public Identifier{
 		//double getValue();
 		double getValue();
 		void setValue(double val);
+		
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
+
 		static string type();
+		string getType();
+
 		// Destructor
 		virtual ~Real();
 };

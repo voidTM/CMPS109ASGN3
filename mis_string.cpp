@@ -83,6 +83,7 @@ void String::setValue(char* val){
 }
 
 string String::type(){ return "STRING"; }
+string String::getType(){ return "STRING"; }
 
 // Destructor
 String::~String(){}

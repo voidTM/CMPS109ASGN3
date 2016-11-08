@@ -18,7 +18,7 @@ class Identifier{
 		Identifier(){}; //Constructor
 
 		virtual void initialize (char* token) = 0;
-		//virtual string type();
+		//virtual string getType();
 		virtual Identifier* clone(vector<char*> argv) = 0;
 		virtual ~Identifier(){};
 };
