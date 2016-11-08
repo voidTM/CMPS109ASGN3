@@ -12,6 +12,10 @@ Real::Real(double val){
 	value = val;
 }
 
+Real::Real(const Real &copy){
+	this->value = copy.value;
+}
+
 double Real::getValue(){
 	return value;
 }

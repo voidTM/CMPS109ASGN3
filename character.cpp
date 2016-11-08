@@ -11,6 +11,10 @@ Character::Character(char val){
 	value = val;
 }
 
+Character::Character(const Character &copy){
+	value = copy.value;
+}
+
 //Methods
 
 void Character::initialize(char* token){

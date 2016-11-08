@@ -16,6 +16,7 @@ class Character: public Identifier{
 		// Constructor
 		Character(); 
 		Character(char val);
+		Character(const Character &copy);
 
 		// Method
 		void initialize (char* token);
