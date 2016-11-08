@@ -50,6 +50,8 @@ void Numeric::setValue(int val){
 	value = val;
 }
 
+string Numeric::getStrValue(){ return to_string(value); }
+
 string Numeric::type() {return "NUMERIC"; }
 string Numeric::getType() {return "NUMERIC"; }
 

@@ -28,23 +28,24 @@ String::String(int size){
 void String::initialize(char* token){
 	int t;
 	int length;
-	string val;
+	int charVal;
+	string val = token;
 	length = strlen(token);
-
-	// check for double quotes at each end of quotation
-	if(token[0] == '\"' && token[length - 1] == '\"')
+	cout << "token initialize" << val << endl; 
+	if(val[0] == '\"' && val[length - 1] == '\"')
 	{
 		t = 1;
 		// copy without first and last value
 		// removes double quotes
 		val = token;
 		val.erase(val.begin());
-		val.erase(val.end());
+		val.erase(val.end() -1);
 	}
 
+	//cout << value << endl;
 
 	if(t == 1)
-		strcpy(value, val.c_str());
+		value = strdup(val.c_str());
 }
 
 Identifier* String::clone(vector<char*> argv){
@@ -64,11 +65,15 @@ Identifier* String::clone(vector<char*> argv){
 		// of the string
 		//*tokSize = argv[0];
 		tokVal = argv[1];
+		cout << "tokVal" << tokVal << endl;
 		sscanf(argv[0], " %d", &tokSize); //get sizes
 	}
 	else{
 		// Assume there is only 1 argument
+
 		tokVal = argv[0];
+		cout << "tokVal" << tokVal << endl;
+
 		//*chr = new String();
 	}
 
@@ -85,6 +90,8 @@ char* String::getValue(){
 void String::setValue(char* val){
 	value = val;
 }
+
+string String::getStrValue(){ return value; }
 
 string String::type(){ return "STRING"; }
 string String::getType(){ return "STRING"; }

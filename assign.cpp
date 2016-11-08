@@ -32,7 +32,7 @@ void Assign::initialize(std::vector<char*> & argv){
 
 	// check if it is a variable
 	if (parA[0] == '$'){
-		if (identifiers->find(parB) == identifiers->end()) //check if the variable name is not found in the variable list
+		if (identifiers->find(parA) == identifiers->end()) //check if the variable name is not found in the variable list
 			reportError("The variable " + string(parA) + " not found.", lineNumber); // report error
 	}
 	else
@@ -61,44 +61,13 @@ void Assign::initialize(std::vector<char*> & argv){
 	args.push_back(parB);
 }
 
-Identifier* Assign::identifyConstant(char* constant){
-	int a;
-	double b;
-	char c;
-	char* d;
-	string type;
-	Identifier* obj = NULL;
-
-
-	sscanf(constant, " %d %lf %c \"%s\" ", &a, &b, &c, d);
-
-	if(a != NULL)
-		obj = new Numeric(a);
-	if(b != NULL)
-		obj = new Real(b);
-	if(c != NULL)
-		obj = new Character(c);
-	if(d != NULL){
-		int length = strlen(d);
-		if(d[0] == '\"' && d[length - 1] == '\"')
-		{
-			// copy without first and last value
-			// removes double quotes
-			string val = d;
-			val.erase(val.begin());
-			val.erase(val.end());
-			obj = new String(val);
-		}
-	}
-
-	return obj;
-}
-
 int Assign::execute() {
 
 	auto identifiers = machine->getidentifiers();
+	cout << (*identifiers)[args[0]]->getStrValue() << endl;
 
 	(*identifiers)[args[0]] = (*identifiers)[args[1]];
 
-	return 0;
+	cout << (*identifiers)[args[0]]->getStrValue() << endl;
+	return -1;
 }

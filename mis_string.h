@@ -29,6 +29,7 @@ class String: public Identifier{
 		void setValue(char* val);
 		string getType();
 		static string type();
+		string getStrValue();
 
 
 		// Destructor

@@ -23,6 +23,8 @@ class Identifier{
 
 		virtual string getType() = 0;
 
+		virtual string getStrValue() = 0;
+
 		virtual ~Identifier(){};
 };
 

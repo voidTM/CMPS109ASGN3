@@ -24,6 +24,7 @@ private:
 	map<string,Identifier*> identifiers;
 	map<string,Identifier*> typeSet;
 	map<string,Instruction*> instSet;
+	map<string,int> labels;
 
 	string programFileName;
 	string errorFileName;
@@ -50,8 +51,13 @@ public:
 
 	map<string,Identifier*> * getidentifiers();
 	map<string,Identifier*> * getTypes();
+	map<string, int> *  getLabels();
 	vector<char*> parseLine (stringstream &line);
-	string trimWhitespace(string& str);
+
+	//string trimWhitespace(string& str);
+	void trimWhitespace(string& str);
+	string ReplaceAll(string str, const string& from, const string& to);
+
 
 	virtual ~Machine();
 };

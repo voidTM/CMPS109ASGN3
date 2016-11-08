@@ -4,7 +4,14 @@
 #include "mul.h"
 #include "div.h"
 #include "set_str_char.h"
+#include "get_str_char.h"
+#include "assign.h"
+#include "out.h"
+#include "sleep.h"
 #include <string>
+#include "jump.h"
+#include "condjump.h"
+#include "compjump.h"
 //#include "stdlib.h"
 
 Machine::Machine() {}
@@ -23,6 +30,7 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	instSet["MUL"] = new Mul(this);
 	instSet["DIV"] = new Div(this);
 	instSet["SET_STR_CHAR"] = new SetStrChar(this);
+	instSet["GET_STR_CHAR"] = new GetStrChar(this);
 
 	/* instSet["ASSIGN"]
 	   instSet["OUT"]
@@ -37,13 +45,35 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	   instSet["JMPLTE"]
 	   instSet["SLEEP"]
 	 */
+
+	instSet["ASSIGN"] = new Assign(this);
+	instSet["OUT"] = new Out(this);
+	instSet["SLEEP"] = new Sleep(this);
+	instSet["JMP"] = new Jump(this);
+	instSet["JMPZ"] = new ConditionalJump(this, 1);
+	instSet["JMPNZ"] = new ConditionalJump(this, 2);
+	instSet["JMPGT"] = new ComparativeJump(this, 1);
+    instSet["JMPLT"] = new ComparativeJump(this, 2);
+    instSet["JMPGTE"] = new ComparativeJump(this, 3);
+    instSet["JMPLTE"] = new ComparativeJump(this, 4);
+
 }
 
 Machine::~Machine() {
 }
 
+string Machine::ReplaceAll(std::string str, const std::string& from, const std::string& to) {
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+    }
+    return str;
+}
+
 void Machine::parseFile(){
 	int lineNumber;
+	int instNumber;
 	parseError = false;
 	cout << programFileName << endl;
 	ifstream file(programFileName);
@@ -52,17 +82,25 @@ void Machine::parseFile(){
 	{
 		string command;
 		lineNumber = 1;
+		instNumber = 0;
 		while(getline(file,line))
 		{
-         	cout << line << endl;
+         	//cout << line << endl;
+			line = ReplaceAll(line, "\\n", "\n");
+			line = ReplaceAll(line, "\\t", "\t");
+			line = ReplaceAll(line, "\\r", "\r");
          	stringstream iss(line);
          	iss >> command;
          	// check to see if it is a variable
-         	if(!command.compare("VAR"))
+   			if(!command.compare("LABEL")){
+				vector <char*> arguments = parseLine(iss);
+   				labels[arguments[0]] = instNumber;
+   			} else if(!command.compare("VAR"))
             	parseVar(iss, lineNumber);
          	else{
             	cout << "Instruction: " << command <<endl;
             	parseInst(command, iss, lineNumber);
+            	instNumber++;
         	}
 
 			//should parse and split input into variable
@@ -81,15 +119,8 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 	{
 		string token;
 		vector<char*> arguments;
-		char* cstr;
 
-
-	   	while(getline(argv, token, ',')){
-    		trimWhitespace(token);
-      		cout << "Token: " << token << endl;
-      		cstr = strdup(token.c_str());
-      		arguments.push_back(cstr);
-   		}
+		arguments = parseLine(argv);
 
 		Instruction* obj = instSet[command];
 		if(obj != NULL){
@@ -110,15 +141,8 @@ void Machine::parseVar(stringstream &line, int lineNumber){
 	{
 		string token;
 		vector<char*> arguments;
-		char* cstr;
 
-		//use , as delimiter for now?
-	   	while(getline(line, token, ',')){
-    		trimWhitespace(token);
-      		cout << "Token: " << token << endl;
-      		cstr = strdup(token.c_str());
-      		arguments.push_back(cstr);
-   		}
+		arguments = parseLine(line);
 
 		// get the name and type of variable
 		// after parsing
@@ -165,11 +189,11 @@ vector<char*> Machine::parseLine (stringstream &line) {
 }
 
 // removes from both ends
-string Machine::trimWhitespace(string& str){
+void Machine::trimWhitespace(string& str){
     size_t first = str.find_first_not_of(" \t\n");
     size_t last = str.find_last_not_of(" \t\n");
     str = str.substr(first, (last-first+1));
-    return str;
+    //return str;
 }
 
 void Machine::run()
@@ -177,7 +201,7 @@ void Machine::run()
 	// if there is an error in parsing the program file, terminate the execution
 	parseFile();
 	if (parseError) return;
-
+	//cout << "Running Script" << endl;
 	// try to execute the program line by line (instruction by instruction)
 	int retval, currentInstIdx = 0;
 	try
@@ -227,4 +251,7 @@ map<string,Identifier*> * Machine::getidentifiers() {
 
 map<string,Identifier*> * Machine::getTypes(){
 	return & typeSet;
+}
+map<string, int>* Machine::getLabels(){
+	return & labels;
 }

@@ -1,5 +1,5 @@
-#ifndef ASSIGN
-#define ASSIGN
+#ifndef SLEEPTIMER
+#define SLEEPTIMER
 
 #include "instruction.h"
 #include "identifier.h"
@@ -7,26 +7,24 @@
 #include "real.h"
 #include "character.h"
 #include "mis_string.h"
-//#include <regex>
+#include "unistd.h"
 
 using namespace std;
 
-class Assign : public Instruction {
+class Sleep : public Instruction {
 
 	public:
 	//Add();
 
-	Assign(Machine * machine);
-	Assign(Machine * machine, int lineNumber);
+	Sleep(Machine * machine);
+	Sleep(Machine * machine, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 
 	void initialize (vector<char*> & argv);
 	int execute();
 
-	//Identifier* identifyConstant(char* constant);
-
-	virtual ~Assign();
+	virtual ~Sleep();
 };
 
 #endif

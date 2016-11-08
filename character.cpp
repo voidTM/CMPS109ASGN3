@@ -18,11 +18,16 @@ Character::Character(const Character &copy){
 //Methods
 
 void Character::initialize(char* token){
-	char val;
+	int val;
 	int t;
 	// check for single quotes at end of quotation
+	//cout << "token = " << token << endl;
+	string init = token;
+	//init->
 	//if(val[0] == '\'' && val[length - 1] == '\'')
-	t = sscanf(token, " %c", &val);
+	t = sscanf(token, " \'%d\'", &val);
+
+	cout << "val = " << val << endl;
 	if(t == 1)
 		value = val;
 }
@@ -46,6 +51,13 @@ Identifier* Character::clone(vector<char*> argv){
 char Character::getValue(){
 	return value;
 }
+
+string Character::getStrValue(){
+	string s;
+	s.push_back(value);
+	return s;
+}
+
 
 void Character::setValue(char val){
 	value = val;

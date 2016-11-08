@@ -11,7 +11,7 @@ DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
 MODULES		= ${INSTMOD} ${TYPEMOD} parser machine
 
-INSTMOD		= add sub mul div set_str_char assign instruction
+INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
 TYPEMOD 	= numeric real character mis_string
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} identifier.h 
@@ -19,7 +19,7 @@ EXECBIN  	= misvm
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}
 
-all : ${EXECBIN} clean
+all : ${EXECBIN} 
 
 ${EXECBIN} : ${OBJECTS}
 	${GCC} -o${EXECBIN} ${OBJECTS}

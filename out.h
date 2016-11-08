@@ -1,5 +1,5 @@
-#ifndef ASSIGN
-#define ASSIGN
+#ifndef PRINTOUT
+#define PRINTOUT
 
 #include "instruction.h"
 #include "identifier.h"
@@ -7,17 +7,16 @@
 #include "real.h"
 #include "character.h"
 #include "mis_string.h"
-//#include <regex>
 
 using namespace std;
 
-class Assign : public Instruction {
+class Out : public Instruction {
 
 	public:
 	//Add();
 
-	Assign(Machine * machine);
-	Assign(Machine * machine, int lineNumber);
+	Out(Machine * machine);
+	Out(Machine * machine, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 
@@ -26,7 +25,7 @@ class Assign : public Instruction {
 
 	//Identifier* identifyConstant(char* constant);
 
-	virtual ~Assign();
+	virtual ~Out();
 };
 
 #endif

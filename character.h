@@ -24,6 +24,7 @@ class Character: public Identifier{
 		void setValue(char val);
 		static string type();
 		string getType();
+		string getStrValue();
 		char getValue();
 		// Destructor
 		virtual ~Character();

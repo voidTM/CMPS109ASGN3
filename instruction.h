@@ -33,6 +33,8 @@ public:
 
 	int getLineNumber();
 
+	Identifier* identifyConstant(char* constant);
+
 	void reportError(string errMsg , int lineNumber = -1 , bool exit = false);
 
 	virtual ~Instruction();
