@@ -18,12 +18,14 @@ Character::Character(const Character &copy){
 //Methods
 
 void Character::initialize(char* token){
-	char val;
+	int val;
 	int t;
 	// check for single quotes at end of quotation
-	cout << "token = " << token << endl;
+	//cout << "token = " << token << endl;
+	string init = token;
+	//init->
 	//if(val[0] == '\'' && val[length - 1] == '\'')
-	t = sscanf(token, " \'%c\'", &val);
+	t = sscanf(token, " \'%d\'", &val);
 
 	cout << "val = " << val << endl;
 	if(t == 1)

@@ -1,7 +1,7 @@
 VAR $myint,NUMERIC,10
 VAR $myfloat,REAL,12.14
-VAR $mychar,CHAR,'c'
-VAR $mystr,STRING,100, "Hello world MIS!!!"
+VAR $mychar,CHAR,'\n'
+VAR $mystr,STRING,100, "Hello world \n MIS!!"
 ASSIGN $myfloat, 20.3
 OUT $myfloat, $myint, $mychar
 LABEL	LAB1

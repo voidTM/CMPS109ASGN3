@@ -31,15 +31,18 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
     instSet["JMPLT"] = new ComparativeJump(this, 2);
     instSet["JMPGTE"] = new ComparativeJump(this, 3);
     instSet["JMPLTE"] = new ComparativeJump(this, 4);
-	/* instSet["SUB"]
-	   instSet["MUL"]
-	   instSet["DIV"]
-	   instSet["SET_STR_CHAR"]
-	   instSet["GET_STR_CHAR"]
-	 */
 }
 
 Machine::~Machine() {
+}
+
+string Machine::ReplaceAll(std::string str, const std::string& from, const std::string& to) {
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+    }
+    return str;
 }
 
 void Machine::parseFile(){
@@ -56,7 +59,9 @@ void Machine::parseFile(){
 		instNumber = 0;
 		while(getline(file,line))
 		{
-         	cout << line << endl;
+         	//cout << line << endl;
+			line = ReplaceAll(line, "\\n", "\n");
+			line = ReplaceAll(line, "\\t", "\t");
          	stringstream iss(line);
          	iss >> command;
          	// check to see if it is a variable

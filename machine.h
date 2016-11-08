@@ -54,6 +54,7 @@ public:
 	map<string, int> *  getLabels();
 	vector<char*> parseLine (stringstream &line);
 	void trimWhitespace(string& str);
+	string ReplaceAll(string str, const string& from, const string& to);
 
 	virtual ~Machine();
 };
