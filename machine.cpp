@@ -172,13 +172,14 @@ void Machine::run()
 	// if there is an error in parsing the program file, terminate the execution
 	parseFile();
 	if (parseError) return;
-
+	cout << "Running \n";
 	// try to execute the program line by line (instruction by instruction)
 	int retval, currentInstIdx = 0;
 	try
 	{
 		while (currentInstIdx < instructions.size())
 		{
+			cout << "At: " << currentInstIdx << endl;
 			retval = instructions[currentInstIdx]->execute();
 
 			if (retval == -1)
@@ -197,7 +198,7 @@ void Machine::run()
 
 void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool terminate /*= false*/) {
 
-	ofstream file(programFileName);
+	ofstream file(errorFileName);
 	if(file.is_open())
 	{
 		string output = errMsg + "\n";

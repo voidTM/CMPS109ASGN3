@@ -65,14 +65,16 @@ void Add::initialize(vector<char*> & argv) {
 			// check if it is a variable
 			if (token[0] == '$')
 			{
-				if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
+				auto obj = identifiers[token];
+				cout << "Got " << token << " Value: " << obj->getValue();
+				if (obj == NULL) //check if the variable name is not found in the variable list
 				{
 					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
 				}
 				else
 				{
 					// check if the variable is of type Numeric or Real
-					if (typeid(*((*identifiers)[token])) != typeid(Numeric()) && typeid(*((*identifiers)[token])) != typeid(Real()))
+					if (decltVal(obj) != decltype(Numeric()) && decltype(obj) != decltype(Real()))
 					{
 						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
 					}

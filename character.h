@@ -21,6 +21,7 @@ class Character: public Identifier{
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 		void setValue(char val);
+		string type();
 		char getValue();
 		// Destructor
 		virtual ~Character();

@@ -19,6 +19,7 @@
 #include "character.h"
 #include "mis_string.h"
 #include "parser.h"
+#include "machine.h"
 
 using namespace std;
 
@@ -53,7 +54,11 @@ int main (int argc, char** argv) {
       return EXIT_FAILURE;
    }
 
-   parser.parseFile(filename);
+   string programFileName = filename;
+   string errorFileName = "output.err";
+   string outputFileName = "output.out";
+   Machine machine(programFileName, errorFileName, outputFileName);
+   machine.run();
 
    return exit_status;
 }
