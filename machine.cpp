@@ -219,3 +219,7 @@ void Machine::setParseError(bool val) {
 map<string,Identifier*> * Machine::getidentifiers() {
 	return & identifiers;
 }
+
+map<string,Identifier*> * Machine::getTypes(){
+	return & typeSet;
+}

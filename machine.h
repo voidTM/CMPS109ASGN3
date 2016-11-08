@@ -49,6 +49,7 @@ public:
 	void setParseError(bool val);
 
 	map<string,Identifier*> * getidentifiers();
+	map<string,Identifier*> * getTypes();
 	vector<char*> parseLine (stringstream &line);
 	void trimWhitespace(string& str);
 
