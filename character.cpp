@@ -47,5 +47,6 @@ void Character::setValue(char val){
 	value = val;
 }
 
+string Character::type(){ return "CHAR"; }
 // Destructor
 Character::~Character(){}

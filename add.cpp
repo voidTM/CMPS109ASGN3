@@ -65,16 +65,14 @@ void Add::initialize(vector<char*> & argv) {
 			// check if it is a variable
 			if (token[0] == '$')
 			{
-				auto obj = identifiers[token];
-				cout << "Got " << token << " Value: " << obj->getValue();
-				if (obj == NULL) //check if the variable name is not found in the variable list
+				if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
 				{
 					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
 				}
 				else
 				{
 					// check if the variable is of type Numeric or Real
-					if (decltVal(obj) != decltype(Numeric()) && decltype(obj) != decltype(Real()))
+					if (typeid(*((*identifiers)[token])) != typeid(Numeric()) && typeid(*((*identifiers)[token])) != typeid(Real()))
 					{
 						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
 					}
@@ -92,7 +90,7 @@ void Add::initialize(vector<char*> & argv) {
 }
 
 int Add::execute() {
-
+	/*
 	auto identifiers = machine->getidentifiers();
 	double result = 0;
 	for (int i=1; i<args.size(); i++)
@@ -127,5 +125,5 @@ int Add::execute() {
 	}
     // **** end for testing
 
-	return -1;
+	return -1;*/
 }

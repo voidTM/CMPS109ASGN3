@@ -10,11 +10,15 @@ using namespace std;
 
 class Identifier{
 	protected:
+		//string name;
+		//string type;
+		//auto value;
+
 	public:
 		Identifier(){}; //Constructor
 
 		virtual void initialize (char* token) = 0;
-		virtual string type();
+		//virtual string type();
 		virtual Identifier* clone(vector<char*> argv) = 0;
 		virtual ~Identifier(){};
 };
