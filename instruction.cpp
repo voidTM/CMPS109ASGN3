@@ -29,7 +29,7 @@ Identifier* Instruction::identifyConstant(char* constant){
 	else if(sscanf(constant, "%d", &a)){
 		obj = new Numeric(a);
 	}
-	else if(sscanf(constant, "%c", &c)){
+	else if(sscanf(constant, " \'%c\'", &c)){
 		obj = new Character(c);
 	}
 	else {
