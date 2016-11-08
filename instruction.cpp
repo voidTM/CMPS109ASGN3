@@ -9,6 +9,9 @@ Instruction::Instruction(Machine * machine, int lineNumber) : machine(machine) ,
 
 Instruction::~Instruction() {}
 
+// The methods takes an constant and tries
+// to inteptet its type and then creates an
+// object based on the type if valid
 Identifier* Instruction::identifyConstant(char* constant){
 	int a;
 	int p;
@@ -17,6 +20,9 @@ Identifier* Instruction::identifyConstant(char* constant){
 	string type;
 	Identifier* obj = NULL;
 
+	// looking for Real
+	// since both %lf and %d will pick up numbers
+	// %d.%d is used to distinguish Real from Numeric
 	if(sscanf(constant,"%d.%d", &a, &p) == 2 &&sscanf(constant, "%lf", &b)){
 		obj = new Real(b);
 	}
