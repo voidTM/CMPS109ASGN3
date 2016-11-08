@@ -79,7 +79,7 @@ char* String::getValue(){
 }
 
 void String::setValue(char* val){
-	char* value = val;
+	value = val;
 }
 
 // Destructor

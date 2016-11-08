@@ -9,7 +9,9 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
-MODULES		= numeric real character mis_string parser
+MODULES		= ${INSTMOD} ${TYPEMOD} parser machine
+INSTMOD		= add instruction
+TYPEMOD 	= numeric real character mis_string
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} identifier.h 
 EXECBIN  	= misvm
