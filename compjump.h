@@ -13,7 +13,9 @@ using namespace std;
 
 class ComparativeJump : public Jump {
 	private:
-		int state;
+		int state; // each state is for a different comparative jump instruction
+		// State 1: JMPGT		State 2: JMPLT
+		// State 3: JMPGTE		State 4: JMPLTE
 	public:
 
 	ComparativeJump(Machine * machine, int opt);

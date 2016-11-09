@@ -19,6 +19,8 @@ Instruction * Jump::clone(vector<char*> & argv, int lineNumber) {
 	return jmp;
 }
 
+// initialize the instruction to have 1 arguement 
+// that is presumed to be a label name
 void Jump::initialize(std::vector<char*> & argv){
 	// Check for size
 	if (argv.size() != 1)
@@ -31,6 +33,7 @@ void Jump::initialize(std::vector<char*> & argv){
 
 // Given a Label name it will look it up and 
 // return the line number to jump to if found.
+// otherwise continue forward to next line
 int Jump::jumpLookUp(string label){
 	int line = -1;
 	auto labels = machine->getLabels();
@@ -38,9 +41,8 @@ int Jump::jumpLookUp(string label){
 	if (labels->find(label) == labels->end()){
 		reportError("The label " + string(label) + " not found.", lineNumber);	
 	}
-	else{
+	else
 		line = (*labels)[label];
-	}
 	
 	return line;
 }

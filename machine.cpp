@@ -213,11 +213,13 @@ void Machine::run()
 	}
 }
 
+// prints out any errors into a seperate .err file.
 void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool terminate /*= false*/) {
 
 	ofstream file(errorFileName);
 	if(file.is_open())
 	{
+		// print error to file;
 		string output = errMsg + "\n";
 		if (lineNumber > -1)
 			output = "Error in line " + to_string(lineNumber) + ": " + output;
@@ -225,6 +227,7 @@ void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool termina
 		file.close();
 	}
 
+	// if an error is considered fatal terminate the program.
 	if (terminate)
 		exit(1);
 }

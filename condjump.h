@@ -13,7 +13,8 @@ using namespace std;
 
 class ConditionalJump : public Jump {
 	private:
-		int state;
+		int state; // each state is for a different conditional jump instruction
+		// State 1: JMPZ 	Stace 2: JMPNZ
 	public:
 
 	ConditionalJump(Machine * machine, int opt);

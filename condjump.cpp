@@ -16,26 +16,30 @@ ConditionalJump::ConditionalJump(Machine* machine, int opt, int lineNumber){
 
 ConditionalJump::~ConditionalJump(){}
 
+// Creates clone of the ConditionalJump object
+// Since each state points to a different
+// comparasion the state for the ConditionalJump
+// is inheirited during cloning.
 Instruction * ConditionalJump::clone(vector<char*> & argv, int lineNumber) {
 	ConditionalJump * jmp = new ConditionalJump(this->machine, this->state, lineNumber);
 	jmp->initialize(argv);
 	return jmp;
 }
 
+// Expects (Label name, conditional number)
 void ConditionalJump::initialize(std::vector<char*> & argv){
 	// Check for size
 	if (argv.size() != 2)
 		reportError("The number of arguments for Conditional Jumps should be 2", lineNumber);
 
 	auto identifiers = machine->getidentifiers();
+
+	// Assume first is a label
 	char* parA = argv[0];
-	// check if it is a variable
 	args.push_back(parA);
 
+	// check if it is a variable
 	char* parB = argv[1];
-	// Assume first is a label
-
-	// Check on conditional
 	if (parB[0] == '$'){
 		if (identifiers->find(parB) == identifiers->end()){ //check if the variable name is not found in the variable list
 			reportError("The variable " + string(parB) + " not found.", lineNumber); // report error
@@ -65,6 +69,9 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 	args.push_back(parB);
 }
 
+// execute compares to see the conditional value is equal to 
+// zero or not. A decision is then made depending on if it is
+// JMPZ or JMPNZ
 int ConditionalJump::execute(){
 	bool jump = false;
 	int jumpLine = -1;
@@ -79,6 +86,8 @@ int ConditionalJump::execute(){
 					jump = true;
 				break;
 	}
+
+	// if decision is true then jump
 	if(jump)
 		jumpLine = jumpLookUp(args[0]);
 	return jumpLine;
