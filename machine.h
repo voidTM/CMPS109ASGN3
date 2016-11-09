@@ -38,7 +38,6 @@ private:
 
 	void parseInst(string command, stringstream &argv, int lineNumber);
 
-	void trimWhitespace(string& str); // trims whitespace
 	string ReplaceAll(string str, const string& from, const string& to); // replaces all occurrences of a string inside of another string
 
 public:
@@ -60,6 +59,7 @@ public:
 	map<string, int> *  getLabels(); // get a pointer to the map of existing labels
 
 	vector<char*> parseLine (stringstream &line);
+	void trimWhitespace(string& str); // trims whitespace
 
     // destructor
 	virtual ~Machine();

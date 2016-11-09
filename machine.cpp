@@ -45,21 +45,14 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
     instSet["JMPLT"] = new ComparativeJump(this, 2);
     instSet["JMPGTE"] = new ComparativeJump(this, 3);
     instSet["JMPLTE"] = new ComparativeJump(this, 4);
-<<<<<<< HEAD
-=======
-
->>>>>>> 8c1ca34edc8b73498927562df5521f2bd08afd8d
 }
 
 //destructor
 Machine::~Machine() {
 }
 
-<<<<<<< HEAD
 // replaces all occurrences of a string inside of another string
-=======
 // Replaces \n \t \r with the appropriate actual escape symbol
->>>>>>> 8c1ca34edc8b73498927562df5521f2bd08afd8d
 string Machine::ReplaceAll(std::string str, const std::string& from, const std::string& to) {
     size_t start_pos = 0;
     while((start_pos = str.find(from, start_pos)) != std::string::npos) {
@@ -228,11 +221,7 @@ void Machine::run()
 	}
 }
 
-<<<<<<< HEAD
 // write the error message to the error file (.err)
-=======
-// prints out any errors into a seperate .err file.
->>>>>>> 8c1ca34edc8b73498927562df5521f2bd08afd8d
 void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool terminate /*= false*/) {
 
 	ofstream file(errorFileName);
@@ -246,11 +235,7 @@ void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool termina
 		file.close();
 	}
 
-<<<<<<< HEAD
 	// if terminate is true, then terminate the execution of the program
-=======
-	// if an error is considered fatal terminate the program.
->>>>>>> 8c1ca34edc8b73498927562df5521f2bd08afd8d
 	if (terminate)
 		exit(1);
 }

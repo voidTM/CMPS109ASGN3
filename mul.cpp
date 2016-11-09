@@ -42,22 +42,7 @@ void Mul::initialize(vector<char*> & argv) {
 		{
 			if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
 			{
-<<<<<<< HEAD
 				reportError("The variable " + string(token) + " not found.", lineNumber); // report error
-=======
-				if (identifiers->find(token) != identifiers->end()) //check if the variable name is not found in the variable list
-				{
-					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
-				}
-				else
-				{
-					// check if the variable is of type Numeric or Real
-					if ((*identifiers)[token]->getType() == Real::type() && (*identifiers)[token]->getType()  == Numeric::type())
-					{
-						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
-					}
-				}
->>>>>>> 8c1ca34edc8b73498927562df5521f2bd08afd8d
 			}
 			else
 			{
@@ -73,22 +58,7 @@ void Mul::initialize(vector<char*> & argv) {
 			// the first argument cannot be constant
 			if (i == 0)
 			{
-<<<<<<< HEAD
 				reportError(string(token) + " is not a variable.", lineNumber); // report error
-=======
-				if (identifiers->find(token) != identifiers->end()) //check if the variable name is not found in the variable list
-				{
-					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
-				}
-				else
-				{
-					// check if the variable is of type Numeric or Real
-					if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
-					{
-						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
-					}
-				}
->>>>>>> 8c1ca34edc8b73498927562df5521f2bd08afd8d
 			}
 			else if ((sscanf(token, "%lf", &val1) != 1) and (sscanf(token, "%d", &val2) != 1)) // check if the constant is of type Numeric or Real
 			{
