@@ -45,7 +45,7 @@ void ComparativeJump::initialize(vector<char*> & argv){
 		char* token = argv[i];
 	// check if it is a variable
 		if (token[0] == '$'){
-			if (identifiers->find(token) != identifiers->end()){ //check if the variable name is not found in the variable list
+			if (identifiers->find(token) == identifiers->end()){ //check if the variable name is not found in the variable list
 				reportError("The variable " + string(token) + " not found.", lineNumber); // report error
 				return;}
 		} else{
