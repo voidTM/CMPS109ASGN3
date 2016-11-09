@@ -28,7 +28,7 @@ void Out::initialize(std::vector<char*> & argv){
 	int argsCount = argv.size();
 	for(int i=0; i<argsCount; i++)
 	{
-		auto identifiers = machine->getidentifiers();
+		//auto identifiers = machine->getidentifiers();
 		char* token = argv[i];
 
 		if (token[0] == '$'){

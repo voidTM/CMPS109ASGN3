@@ -25,8 +25,8 @@ private:
 	map<string,int> labels; // a map of defined labels
 
 	string programFileName; // the filename for the MIS program
-	string errorFileName; // the filename for the error file
-	string outputFileName; // the filename for the output file
+	//string errorFileName; // the filename for the error file
+	//string outputFileName; // the filename for the output file
 
 	// becomes true if error happens during parsing or executing
 	// remains false if there is no error
@@ -43,7 +43,7 @@ private:
 public:
 	// constructor
 	Machine();
-	Machine(string programFileName, string errorFileName, string outputFileName);
+	Machine(string programFileName);
 
 	// run the MIS machine: parse the MIS program file and then run it
 	void run();

@@ -17,8 +17,8 @@
 Machine::Machine() {}
 
 // constructor
-Machine::Machine(string programFileName, string errorFileName, string outputFileName) :
-		programFileName(programFileName) , errorFileName(errorFileName) , outputFileName(outputFileName) {
+Machine::Machine(string programFileName) :
+		programFileName(programFileName) {
 
 	parseError = false;
 
@@ -224,16 +224,11 @@ void Machine::run()
 // write the error message to the error file (.err)
 void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool terminate /*= false*/) {
 
-	ofstream file(errorFileName);
-	if(file.is_open())
-	{
-		// print error to file;
-		string output = errMsg + "\n";
-		if (lineNumber > -1)
-			output = "Error in line " + to_string(lineNumber) + ": " + output;
-		file << output;
-		file.close();
-	}
+	// print error to file;
+	string output = errMsg + "\n";
+	if (lineNumber > -1)
+		output = "Error in line " + to_string(lineNumber) + ": " + output;
+	cerr << output;
 
 	// if terminate is true, then terminate the execution of the program
 	if (terminate)

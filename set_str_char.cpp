@@ -19,7 +19,7 @@ Instruction * SetStrChar::clone(vector<char*> & argv, int lineNumber) {
 // initialize and parse the instruction with the provided parameters
 void SetStrChar::initialize(vector<char*> & argv) {
 
-	int val1; char val2;
+	int val1; //char val2;
 
 	// check the number of arguments
 	int argsCount = argv.size();

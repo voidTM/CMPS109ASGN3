@@ -17,7 +17,7 @@ int main (int argc, char** argv) {
 	streambuf *cerrbuf = cerr.rdbuf();
 	cerr.rdbuf(err.rdbuf());
 
-	Machine machine(programFileName, errorFileName, outputFileName);
+	Machine machine(programFileName);
 	machine.run();
     
     cout.rdbuf(coutbuf); //reset to standard output again
