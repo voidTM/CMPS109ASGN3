@@ -11,7 +11,7 @@ using namespace std;
 
 class String: public Identifier{
 	private:
-		char* value;
+		char* value;	// holds a cstring of size size
 		int size;
 	public:
 
@@ -25,7 +25,7 @@ class String: public Identifier{
 		void initialize (char* token);
 		Identifier* clone(vector<char*> argv);
 
-		char* getValue();
+		char* getValue();		
 		void setValue(char* val);
 		string getType();
 		static string type();

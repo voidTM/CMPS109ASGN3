@@ -27,7 +27,7 @@ void Character::initialize(char* token){
 	//if(val[0] == '\'' && val[length - 1] == '\'')
 	t = sscanf(token, " \'%d\'", &val);
 
-	cout << "val = " << val << endl;
+	//cout << "val = " << val << endl;
 	if(t == 1)
 		value = val;
 }
@@ -36,7 +36,7 @@ Identifier* Character::clone(vector<char*> argv){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		cerr << "Invalid value to Character" << endl;
+		cerr << "Invalid arguement size to Character" << endl;
 		exit(1);
 	}
 

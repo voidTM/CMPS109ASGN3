@@ -44,7 +44,7 @@ Identifier* Instruction::identifyConstant(char* constant){
 			obj = new String(val);
 		}
 	}
-	cout << obj->getStrValue() << endl;
+	//cout << obj->getStrValue() << endl;
 
 	return obj;
 }

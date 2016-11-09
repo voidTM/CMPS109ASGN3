@@ -21,11 +21,11 @@ class Identifier{
 
 		virtual Identifier* clone(vector<char*> argv) = 0;
 
-		virtual string getType() = 0;
+		virtual string getType() = 0; //Returns the class type for an object
 
-		virtual string getStrValue() = 0;
+		virtual string getStrValue() = 0; //Converts the value of an object into a string and return it
 
-		virtual ~Identifier(){};
+		virtual ~Identifier(){}; // Destructor
 };
 
 #endif

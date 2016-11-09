@@ -31,7 +31,6 @@ void String::initialize(char* token){
 	int charVal;
 	string val = token;
 	length = strlen(token);
-	cout << "token initialize" << val << endl; 
 	if(val[0] == '\"' && val[length - 1] == '\"')
 	{
 		t = 1;
@@ -56,7 +55,7 @@ Identifier* String::clone(vector<char*> argv){
 	if (argv.size() > 2){
 		// Throw error due to in proper amount of
 		// values
-		cerr << "Invalid value to Character" << endl;
+		cerr <<"Invalid number of arguments to String" << endl;
 		exit(1);
 	}
 	else if(argv.size() == 2){
@@ -65,16 +64,11 @@ Identifier* String::clone(vector<char*> argv){
 		// of the string
 		//*tokSize = argv[0];
 		tokVal = argv[1];
-		cout << "tokVal" << tokVal << endl;
 		sscanf(argv[0], " %d", &tokSize); //get sizes
 	}
 	else{
-		// Assume there is only 1 argument
 
 		tokVal = argv[0];
-		cout << "tokVal" << tokVal << endl;
-
-		//*chr = new String();
 	}
 
 	chr = new String(tokSize);

@@ -87,7 +87,7 @@ void Machine::parseFile(){
    			} else if(!command.compare("VAR"))
             	parseVar(iss, lineNumber);
          	else{
-            	cout << "Instruction: " << command <<endl;
+            	//cout << "Instruction: " << command <<endl;
             	parseInst(command, iss, lineNumber);
             	instNumber++; // Ticks for every instruction read
         	}
@@ -141,7 +141,7 @@ void Machine::parseVar(stringstream &line, int lineNumber){
    		// remove name and type from argument vector
    		arguments.erase(arguments.begin());
    		arguments.erase(arguments.begin());
-   		cout << "arguments length: " << arguments.size() << endl;
+   		//cout << "arguments length: " << arguments.size() << endl;
    		//call appropriate type object
    		Identifier* obj = typeSet[varType];
    		if(obj != NULL){

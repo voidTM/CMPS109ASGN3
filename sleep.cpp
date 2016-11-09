@@ -19,6 +19,8 @@ Instruction * Sleep::clone(vector<char*> & argv, int lineNumber) {
 	return snooze;
 }
 
+// Initializs a sleep objct
+// expects a parameter of (time)
 void Sleep::initialize(std::vector<char*> & argv){
 	// Check for size
 	if (argv.size() != 1)
@@ -29,8 +31,9 @@ void Sleep::initialize(std::vector<char*> & argv){
 
 	// check if it is a variable
 	if (parA[0] == '$'){
-		if (identifiers->find(parA) == identifiers->end()) //check if the variable name is not found in the variable list
+		if (identifiers->find(parA) == identifiers->end()){ //check if the variable name is not found in the variable list
 			reportError("The variable " + string(parA) + " not found.", lineNumber); // report error
+			return;}
 	}
 	else{
 		//try to make constant into a typeable object
@@ -38,11 +41,13 @@ void Sleep::initialize(std::vector<char*> & argv){
 		if(obj != NULL){
 			(*identifiers)[parA] = obj;
 		}
-		else
+		else{
 			reportError("Arguments is neither constant nor variable", lineNumber);
+			return;
+		}
 	}
 
-	// Check to see the two parameters are of the same type
+	// Check to see the parameter are of the appropriate type
 	string type = (*identifiers)[parA]->getType();
 	if(type != Numeric::type() && type != Real::type())
 		reportError("Arguments to sleep not of valid type.", lineNumber);
@@ -50,13 +55,15 @@ void Sleep::initialize(std::vector<char*> & argv){
 	args.push_back(parA);
 }
 
+// 	the program sleeps for the requested amount of seconds
+//  rounded down.
 int Sleep::execute() {
 
 	auto identifiers = machine->getidentifiers();
-	cout << (*identifiers)[args[0]]->getStrValue() << endl;
-
 	Identifier* obj = (Numeric*)(*identifiers)[args[0]];
 	string val = obj->getStrValue();
+	// since sleep takes uint the result is type cased
+	// to the appropriate type
 	uint time = stoi(val);
 	sleep(time);
 	return -1;

@@ -33,7 +33,7 @@ void Assign::initialize(std::vector<char*> & argv){
 	char* parA = argv[0];
 	char* parB = argv[1];
 
-	cout << "identifiers has " << identifiers->size() << endl;
+	//cout << "identifiers has " << identifiers->size() << endl;
 	// check if it is a variable
 	if (parA[0] == '$'){
 		if (identifiers->find(parA) == identifiers->end()){ //check if the variable name is not found in the variable list
@@ -75,10 +75,10 @@ void Assign::initialize(std::vector<char*> & argv){
 int Assign::execute() {
 
 	auto identifiers = machine->getidentifiers();
-	cout << (*identifiers)[args[0]]->getStrValue() << endl;
+	//out << (*identifiers)[args[0]]->getStrValue() << endl;
 
 	(*identifiers)[args[0]] = (*identifiers)[args[1]];
 
-	cout << (*identifiers)[args[0]]->getStrValue() << endl;
+	//cout << (*identifiers)[args[0]]->getStrValue() << endl;
 	return -1;
 }
