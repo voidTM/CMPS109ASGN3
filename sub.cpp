@@ -1,94 +1,83 @@
 #include "sub.h"
 #include <string>
 #include <iostream>
-
+//constructor
 Sub::Sub (Machine * machine) {this->machine = machine;}
-
+//constructor
 Sub::Sub (Machine * machine, int lineNumber) {
 	this->machine = machine;
 	this->lineNumber = lineNumber;
 }
-
+//destructor
 Sub::~Sub() {}
 
+// clone an object of the same type
 Instruction * Sub::clone(vector<char*> & argv, int lineNumber) {
 	Sub * sub = new Sub(this->machine, lineNumber);
 	sub->initialize(argv);
 	return sub;
 }
 
+// initialize and parse the instruction with the provided parameter
 void Sub::initialize(vector<char*> & argv) {
 
 	double val1; int val2;
+
+	// check the number of arguments
 	int argsCount = argv.size();
 	if (argsCount != 3)
 	{
 		reportError("The number of arguments for SUB should be 3.", lineNumber); // report error
+		return;
 	}
 
+	char* token;
+	auto identifiers = machine->getidentifiers();
 	for(int i=0; i<argsCount; i++)
 	{
-		auto identifiers = machine->getidentifiers();
-		char* token = argv[i];
+		token = argv[i];
 
-		// check the first argument: it should be a valid variable and of type Numeric or Real
-		if (i == 0)
+		// check if it is a variable
+		if (token[0] == '$')
 		{
-			// check if it is a variable
-			if (token[0] == '$')
+			if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
 			{
-				if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
-				{
-					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
-				}
-				else
-				{
-					// check if the variable is of type Numeric or Real
-					if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
-					{
-						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
-					}
-				}
+				reportError("The variable " + string(token) + " not found.", lineNumber); // report error
 			}
 			else
 			{
-				reportError(string(token) + " is not a variable.", lineNumber); // report error
+				// check if the variable is of type Numeric or Real
+				if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
+				{
+					reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
+				}
 			}
 		}
 		else
 		{
-			// check if it is a variable
-			if (token[0] == '$')
+			// the first argument cannot be constant
+			if (i == 0)
 			{
-				if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
-				{
-					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
-				}
-				else
-				{
-					// check if the variable is of type Numeric or Real
-					if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
-					{
-						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
-					}
-				}
+				reportError(string(token) + " is not a variable.", lineNumber); // report error
 			}
-			// check if the constant (literal) is of type Numeric or Real
-			else if ((sscanf(token, "%lf", &val1) != 1) and (sscanf(token, "%d", &val2) != 1))
+			else if ((sscanf(token, "%lf", &val1) != 1) and (sscanf(token, "%d", &val2) != 1)) // check if the constant is of type Numeric or Real
 			{
 				reportError(string(token) + " is not of type Numeric or Real.", lineNumber); // report error
 			}
 		}
 
+		// push the argument into a container
 		args.push_back(token);
 	}
 }
 
+// execute the instruction
 int Sub::execute() {
 
 	auto identifiers = machine->getidentifiers();
-	double result = 0;
 
+	// calculating the subtraction
+	double result = 0;
 	// retrieve the value of the second argument and add it to the result
 	if (args[1][0] == '$') // if the second argument is a variable
 	{
@@ -106,6 +95,7 @@ int Sub::execute() {
 	}
 	else // if the second argument is a constant
 		result += atof(args[1].c_str());
+
 
 	// retrieve the value of the third argument and deduct it from the result
 	if (args[2][0] == '$') // if the third argument is a variable
@@ -125,6 +115,7 @@ int Sub::execute() {
 	else // if the third argument is a constant
 		result -= atof(args[2].c_str());
 
+
 	// save the results in the first variable
 	Identifier * ident0 = (*identifiers)[args[0]];
 	if (ident0->getType() == Numeric::type())
@@ -138,5 +129,6 @@ int Sub::execute() {
 		real->setValue(result);
 	}
 
+    // proceed to the execution of the next instruction
 	return -1;
 }

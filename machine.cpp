@@ -12,40 +12,29 @@
 #include "jump.h"
 #include "condjump.h"
 #include "compjump.h"
-//#include "stdlib.h"
 
+// constructor
 Machine::Machine() {}
 
+// constructor
 Machine::Machine(string programFileName, string errorFileName, string outputFileName) :
 		programFileName(programFileName) , errorFileName(errorFileName) , outputFileName(outputFileName) {
 
 	parseError = false;
+
+	// Create a new object for each subclass of the identifier hierarchy and put them in the map. They will be used for cloning.
 	typeSet["NUMERIC"] = new Numeric();
 	typeSet["REAL"] = new Real();
 	typeSet["CHAR"] = new Character();
 	typeSet["STRING"] = new String();
 
+   	// Create a new object for each subclass of the instruction hierarchy and put them in the map. They will be used for cloning.
 	instSet["ADD"] = new Add(this);
 	instSet["SUB"] = new Sub(this);
 	instSet["MUL"] = new Mul(this);
 	instSet["DIV"] = new Div(this);
 	instSet["SET_STR_CHAR"] = new SetStrChar(this);
 	instSet["GET_STR_CHAR"] = new GetStrChar(this);
-
-	/* instSet["ASSIGN"]
-	   instSet["OUT"]
-	   instSet["GET_STR_CHAR"]
-	   instSet["LABEL"]? <-not instruction class
-	   instSet["JMP"]
-	   instSet["JMPZ"]
-	   instSet["JMPNZ"]
-	   instSet["JMPGT"]
-	   instSet["JMPLT"]
-	   instSet["JMPGTE"]
-	   instSet["JMPLTE"]
-	   instSet["SLEEP"]
-	 */
-
 	instSet["ASSIGN"] = new Assign(this);
 	instSet["OUT"] = new Out(this);
 	instSet["SLEEP"] = new Sleep(this);
@@ -56,12 +45,13 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
     instSet["JMPLT"] = new ComparativeJump(this, 2);
     instSet["JMPGTE"] = new ComparativeJump(this, 3);
     instSet["JMPLTE"] = new ComparativeJump(this, 4);
-
 }
 
+//destructor
 Machine::~Machine() {
 }
 
+// replaces all occurrences of a string inside of another string
 string Machine::ReplaceAll(std::string str, const std::string& from, const std::string& to) {
     size_t start_pos = 0;
     while((start_pos = str.find(from, start_pos)) != std::string::npos) {
@@ -196,19 +186,22 @@ void Machine::trimWhitespace(string& str){
     //return str;
 }
 
+// runs the Machine: parses and runs the program file
 void Machine::run()
 {
-	// if there is an error in parsing the program file, terminate the execution
+	// parse the entire program file
 	parseFile();
+
+	// if there was an error in parsing the file, terminate the execution
 	if (parseError) return;
-	//cout << "Running Script" << endl;
-	// try to execute the program line by line (instruction by instruction)
+
+	// try to execute the program instruction by instruction
 	int retval, currentInstIdx = 0;
 	try
 	{
 		while (currentInstIdx < instructions.size())
 		{
-			cout << "At: " << currentInstIdx << endl;
+			// execute the current instruction
 			retval = instructions[currentInstIdx]->execute();
 
 			if (retval == -1)
@@ -225,6 +218,7 @@ void Machine::run()
 	}
 }
 
+// write the error message to the error file (.err)
 void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool terminate /*= false*/) {
 
 	ofstream file(errorFileName);
@@ -237,21 +231,27 @@ void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool termina
 		file.close();
 	}
 
+	// if terminate is true, then terminate the execution of the program
 	if (terminate)
 		exit(1);
 }
 
+// set parseError
 void Machine::setParseError(bool val) {
 	parseError = val;
 }
 
+// get a pointer to the map of existing identifiers
 map<string,Identifier*> * Machine::getidentifiers() {
 	return & identifiers;
 }
 
+// get a pointer to the map of identifiers' prototypes (typeSet)
 map<string,Identifier*> * Machine::getTypes(){
 	return & typeSet;
 }
+
+// get a pointer to the map of existing labels
 map<string, int>* Machine::getLabels(){
 	return & labels;
 }

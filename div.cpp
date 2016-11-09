@@ -2,35 +2,43 @@
 #include <string>
 #include <iostream>
 
+// constructor
 Div::Div (Machine * machine) {this->machine = machine;}
 
+// constructor
 Div::Div (Machine * machine, int lineNumber) {
 	this->machine = machine;
 	this->lineNumber = lineNumber;
 }
 
+// destructor
 Div::~Div() {}
 
+// clone an object of the same type
 Instruction * Div::clone(vector<char*> & argv, int lineNumber) {
 	Div * div = new Div(this->machine, lineNumber);
 	div->initialize(argv);
 	return div;
 }
 
+// initialize and parse with provided parameters
 void Div::initialize(vector<char*> & argv) {
 
 	double val1; int val2;
+
+	// check the number of parameters
 	int argsCount = argv.size();
 	if (argsCount != 3)
 	{
 		reportError("The number of arguments for DIV should be 3.", lineNumber); // report error
+		return;
 	}
 
+	char* token;
+	auto identifiers = machine->getidentifiers();
 	for(int i=0; i<argsCount; i++)
 	{
-		auto identifiers = machine->getidentifiers();
-		char* token = argv[i];
-
+		token = argv[i];
 
 		// check if it is a variable
 		if (token[0] == '$')
@@ -55,18 +63,20 @@ void Div::initialize(vector<char*> & argv) {
 			{
 				reportError(string(token) + " is not a variable.", lineNumber); // report error
 			}
-			else if ((sscanf(token, "%lf", &val1) != 1) and (sscanf(token, "%d", &val2) != 1))
+			else if ((sscanf(token, "%lf", &val1) != 1) and (sscanf(token, "%d", &val2) != 1)) // check if the constant is of type Numeric or Real
 			{
 				reportError(string(token) + " is not of type Numeric or Real.", lineNumber); // report error
 			}
 		}
 
+		// push the argument to a container
 		args.push_back(token);
 	}
 }
 
 int Div::execute() {
 
+	// a pointer to the map of identifiers
 	auto identifiers = machine->getidentifiers();
 	double result = 1, denom;
 
@@ -126,5 +136,6 @@ int Div::execute() {
 		real->setValue(result);
 	}
 
+	// proceed to the execution of the next instruction
 	return -1;
 }

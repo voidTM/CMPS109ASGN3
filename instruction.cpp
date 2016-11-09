@@ -1,12 +1,13 @@
 #include "instruction.h"
 #include "machine.h"
 
+// constructor
 Instruction::Instruction() {}
-
+// constructor
 Instruction::Instruction(Machine * machine) : machine(machine) {}
-
+// constructor
 Instruction::Instruction(Machine * machine, int lineNumber) : machine(machine) , lineNumber(lineNumber) {}
-
+// destructor
 Instruction::~Instruction() {}
 
 // The methods takes an constant and tries
@@ -49,11 +50,13 @@ Identifier* Instruction::identifyConstant(char* constant){
 	return obj;
 }
 
+// report an error message to Machine object
 void Instruction::reportError(string errMsg , int lineNumber /*= -1*/ , bool exit /*= false*/) {
 	machine->reportError(errMsg, lineNumber, exit);
 	machine->setParseError(true);
 }
 
+// get the line number of this instruction in the program file
 int Instruction::getLineNumber() {
 	return lineNumber;
 }

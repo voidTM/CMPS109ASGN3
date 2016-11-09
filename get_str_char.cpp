@@ -1,20 +1,25 @@
 #include "get_str_char.h"
 
+// constructor
 GetStrChar::GetStrChar (Machine * machine) {this->machine = machine;}
 
+// constructor
 GetStrChar::GetStrChar (Machine * machine, int lineNumber) {
 	this->machine = machine;
 	this->lineNumber = lineNumber;
 }
 
+// destructor
 GetStrChar::~GetStrChar() {}
 
+// clone an object of the same type
 Instruction * GetStrChar::clone(vector<char*> & argv, int lineNumber) {
 	GetStrChar * getStrChar = new GetStrChar(this->machine, lineNumber);
 	getStrChar->initialize(argv);
 	return getStrChar;
 }
 
+// initialize and parse with the provided parameters
 void GetStrChar::initialize(vector<char*> & argv) {
 
 	int val1; char val2;
@@ -28,6 +33,7 @@ void GetStrChar::initialize(vector<char*> & argv) {
 		return;
 	}
 
+	// a pointer to the map of identifiers
 	auto identifiers = machine->getidentifiers();
 
 	// check the first argument: it should be a valid String variable
@@ -139,5 +145,6 @@ int GetStrChar::execute() {
 	char* s = sVar->getValue();
 	cVar->setValue(s[idx]);
 
+	// proceed to the execution of the next instruction
 	return -1;
 }

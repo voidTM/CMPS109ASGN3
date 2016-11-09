@@ -1,6 +1,7 @@
-VAR $myint,NUMERIC,100
-VAR $myfloat,REAL,12.14
-VAR $mychar,CHAR,’c’
-VAR $mystr,STRING,100, "Hello world MIS!!!"
-ASSIGN $myfloat, 20.3
-OUT $mystr
+STRING	$mystring,100,"Hello	world	MIS:"
+NUMERIC	$counter,0
+EQUAL	$counter,10
+LABEL LOOP
+OUT	$mystring,$counter,"	!!\n"
+SUB	$counter,$counter,1
+JMPNZ	LOOP,$counter

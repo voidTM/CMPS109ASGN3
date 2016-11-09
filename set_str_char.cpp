@@ -1,20 +1,22 @@
 #include "set_str_char.h"
-
+// constructor
 SetStrChar::SetStrChar (Machine * machine) {this->machine = machine;}
-
+// constructor
 SetStrChar::SetStrChar (Machine * machine, int lineNumber) {
 	this->machine = machine;
 	this->lineNumber = lineNumber;
 }
-
+// destructor
 SetStrChar::~SetStrChar() {}
 
+// clone an object of the same type
 Instruction * SetStrChar::clone(vector<char*> & argv, int lineNumber) {
 	SetStrChar * setStrChar = new SetStrChar(this->machine, lineNumber);
 	setStrChar->initialize(argv);
 	return setStrChar;
 }
 
+// initialize and parse the instruction with the provided parameters
 void SetStrChar::initialize(vector<char*> & argv) {
 
 	int val1; char val2;
@@ -114,6 +116,7 @@ void SetStrChar::initialize(vector<char*> & argv) {
 	args.push_back(token);
 }
 
+// execute the instruction
 int SetStrChar::execute() {
 
 	auto identifiers = machine->getidentifiers();
@@ -157,5 +160,6 @@ int SetStrChar::execute() {
 	result[idx] = c;
 	sVar->setValue(result);
 
+	// proceed to the execution of the next instruction
 	return -1;
 }
