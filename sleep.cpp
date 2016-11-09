@@ -55,9 +55,9 @@ int Sleep::execute() {
 	auto identifiers = machine->getidentifiers();
 	cout << (*identifiers)[args[0]]->getStrValue() << endl;
 
-	Numeric* obj = (Numeric*)(*identifiers)[args[0]];
-
-	uint time = obj->getValue();
+	Identifier* obj = (Numeric*)(*identifiers)[args[0]];
+	string val = obj->getStrValue();
+	uint time = stoi(val);
 	sleep(time);
 	return -1;
 }
