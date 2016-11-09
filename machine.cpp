@@ -47,6 +47,7 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 Machine::~Machine() {
 }
 
+// Replaces \n \t \r with the appropriate actual escape symbol
 string Machine::ReplaceAll(std::string str, const std::string& from, const std::string& to) {
     size_t start_pos = 0;
     while((start_pos = str.find(from, start_pos)) != std::string::npos) {
@@ -56,6 +57,7 @@ string Machine::ReplaceAll(std::string str, const std::string& from, const std::
     return str;
 }
 
+// Continuosly parse an mis file
 void Machine::parseFile(){
 	int lineNumber;
 	int instNumber;
@@ -63,6 +65,7 @@ void Machine::parseFile(){
 	cout << programFileName << endl;
 	ifstream file(programFileName);
 	string line;
+
 	if(file.is_open())
 	{
 		string command;
@@ -77,11 +80,7 @@ void Machine::parseFile(){
          	stringstream iss(line);
          	iss >> command;
 
-			cout << "identifiers = " << identifiers.size() << endl;
-			for(auto kv : identifiers){
-				cout << kv.first << endl;
-			}
-         	// check to see if it is a variable
+         	// check to see if it is a variable, label, or instruction
    			if(!command.compare("LABEL")){
 				vector <char*> arguments = parseLine(iss);
    				labels[arguments[0]] = instNumber;
@@ -90,12 +89,8 @@ void Machine::parseFile(){
          	else{
             	cout << "Instruction: " << command <<endl;
             	parseInst(command, iss, lineNumber);
-            	instNumber++;
+            	instNumber++; // Ticks for every instruction read
         	}
-
-			//should parse and split input into variable
-			// and instructions
-			// does not act upon it.
 
 			lineNumber++;
 		}
@@ -104,14 +99,17 @@ void Machine::parseFile(){
 
 }
 
+// Parses one line for an given instruction
 void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 	try
 	{
 		string token;
 		vector<char*> arguments;
 
-		arguments = parseLine(argv);
-		Instruction* obj = instSet[command];
+		arguments = parseLine(argv);		 
+		Instruction* obj = instSet[command]; // look for appropriate command
+
+		// Check to see object was created
 		if(obj != NULL){
 			obj = obj->clone(arguments, lineNumber);
 
@@ -121,13 +119,13 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 			reportError("No such instruction.", lineNumber);
 		}
 	}
-
 	catch (int e)
 	{
 		reportError("An error was generated while parsing the line.", lineNumber);
 	}
 }
 
+// Parses one line for an given variable
 void Machine::parseVar(stringstream &line, int lineNumber){
 	try
 	{
@@ -164,28 +162,26 @@ void Machine::parseVar(stringstream &line, int lineNumber){
 }
 
 // parses line for every token/argument after the initial
-// one
 vector<char*> Machine::parseLine (stringstream &line) {
    string token;
    vector<char*> tokens;
    char* cstr;
 
-   //use , as delimiter for now?
+   // tokens are created using . as the delimiter
    while(getline(line, token, ',')){
       trimWhitespace(token);
-      cout << "Token: " << token << endl;
-      cstr = strdup(token.c_str());
+      //cout << "Token: " << token << endl;
+      cstr = strdup(token.c_str()); // convert to c-string
       tokens.push_back(cstr);
    }
    return tokens;
 }
 
-// removes from both ends
+// removes whitespace from both ends
 void Machine::trimWhitespace(string& str){
     size_t first = str.find_first_not_of(" \t\n");
     size_t last = str.find_last_not_of(" \t\n");
     str = str.substr(first, (last-first+1));
-    //return str;
 }
 
 void Machine::run()

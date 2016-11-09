@@ -54,8 +54,6 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 	}
 
 	// Check to see the two parameters are of the same type
-	//cout << (*identifiers)[parB]->getType() << endl;
-	//cout << Numeric::type() << endl;
 	Identifier* obj =(*identifiers)[parB];
 	cout << obj->getStrValue() << endl;
 	string type = (*identifiers)[parB]->getType();
