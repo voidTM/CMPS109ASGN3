@@ -37,14 +37,14 @@ void Mul::initialize(vector<char*> & argv) {
 			// check if it is a variable
 			if (token[0] == '$')
 			{
-				if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
+				if (identifiers->find(token) != identifiers->end()) //check if the variable name is not found in the variable list
 				{
 					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
 				}
 				else
 				{
 					// check if the variable is of type Numeric or Real
-					if ((*identifiers)[token]->getType() != Real::type() && (*identifiers)[token]->getType() != Numeric::type())
+					if ((*identifiers)[token]->getType() == Real::type() && (*identifiers)[token]->getType()  == Numeric::type())
 					{
 						reportError("The variable " + string(token) + " should be of type Numeric or Real.", lineNumber); // report error
 					}
@@ -60,7 +60,7 @@ void Mul::initialize(vector<char*> & argv) {
 			// check if it is a variable
 			if (token[0] == '$')
 			{
-				if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
+				if (identifiers->find(token) != identifiers->end()) //check if the variable name is not found in the variable list
 				{
 					reportError("The variable " + string(token) + " not found.", lineNumber); // report error
 				}

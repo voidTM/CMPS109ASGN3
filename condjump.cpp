@@ -37,8 +37,9 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 
 	// Check on conditional
 	if (parB[0] == '$'){
-		if (identifiers->find(parB) == identifiers->end()) //check if the variable name is not found in the variable list
+		if (identifiers->find(parB) == identifiers->end()){ //check if the variable name is not found in the variable list
 			reportError("The variable " + string(parB) + " not found.", lineNumber); // report error
+			return;}
 	}
 	else{
 		//try to make constant into a typeable object
@@ -46,16 +47,22 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 		if(obj != NULL){
 			(*identifiers)[parB] = obj;
 		}
-		else
+		else{
 			reportError("Arguments is neither constant nor variable", lineNumber);
+			return;
+		}
 	}
 
 	// Check to see the two parameters are of the same type
 	//cout << (*identifiers)[parB]->getType() << endl;
 	//cout << Numeric::type() << endl;
+	Identifier* obj =(*identifiers)[parB];
+	cout << obj->getStrValue() << endl;
 	string type = (*identifiers)[parB]->getType();
-	if(type != Numeric::type() && type != Real::type())
+	if(type != Numeric::type() && type != Real::type()){
 		reportError("Arguments to conditional jump not of valid type.", lineNumber);
+		return;
+	}
 	
 	args.push_back(parB);
 }
@@ -69,10 +76,10 @@ int ConditionalJump::execute(){
 	switch(state){
 		case 1: if(obj->getValue() == 0) //For JMPZ
 					jump = true;
-					break;
+				break;
 		case 2: if(obj->getValue() != 0) //For JMPNZ
 					jump = true;
-					break;
+				break;
 	}
 	if(jump)
 		jumpLine = jumpLookUp(args[0]);

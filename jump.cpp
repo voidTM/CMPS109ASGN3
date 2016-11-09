@@ -32,12 +32,17 @@ void Jump::initialize(std::vector<char*> & argv){
 // Given a Label name it will look it up and 
 // return the line number to jump to if found.
 int Jump::jumpLookUp(string label){
+	int line = -1;
 	auto labels = machine->getLabels();
 
-	if (labels->find(label) == labels->end())
-		reportError("The label " + string(label) + " not found.", lineNumber);
+	if (labels->find(label) == labels->end()){
+		reportError("The label " + string(label) + " not found.", lineNumber);	
+	}
+	else{
+		line = (*labels)[label];
+	}
 	
-	return (*labels)[label];
+	return line;
 }
 
 int Jump::execute(){

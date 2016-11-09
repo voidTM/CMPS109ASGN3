@@ -31,21 +31,6 @@ Machine::Machine(string programFileName, string errorFileName, string outputFile
 	instSet["DIV"] = new Div(this);
 	instSet["SET_STR_CHAR"] = new SetStrChar(this);
 	instSet["GET_STR_CHAR"] = new GetStrChar(this);
-
-	/* instSet["ASSIGN"]
-	   instSet["OUT"]
-	   instSet["GET_STR_CHAR"]
-	   instSet["LABEL"]? <-not instruction class
-	   instSet["JMP"]
-	   instSet["JMPZ"]
-	   instSet["JMPNZ"]
-	   instSet["JMPGT"]
-	   instSet["JMPLT"]
-	   instSet["JMPGTE"]
-	   instSet["JMPLTE"]
-	   instSet["SLEEP"]
-	 */
-
 	instSet["ASSIGN"] = new Assign(this);
 	instSet["OUT"] = new Out(this);
 	instSet["SLEEP"] = new Sleep(this);
@@ -91,6 +76,11 @@ void Machine::parseFile(){
 			line = ReplaceAll(line, "\\r", "\r");
          	stringstream iss(line);
          	iss >> command;
+
+			cout << "identifiers = " << identifiers.size() << endl;
+			for(auto kv : identifiers){
+				cout << kv.first << endl;
+			}
          	// check to see if it is a variable
    			if(!command.compare("LABEL")){
 				vector <char*> arguments = parseLine(iss);
@@ -121,12 +111,14 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 		vector<char*> arguments;
 
 		arguments = parseLine(argv);
-
 		Instruction* obj = instSet[command];
 		if(obj != NULL){
 			obj = obj->clone(arguments, lineNumber);
 
 			instructions.push_back(obj);
+		}
+		else{
+			reportError("No such instruction.", lineNumber);
 		}
 	}
 
@@ -162,7 +154,7 @@ void Machine::parseVar(stringstream &line, int lineNumber){
     	  //return obj;
 	   }
 	   else
-	      cerr << "class not found" << endl;
+	      reportError("class not found", lineNumber );
 	}
 
 	catch (int e)
