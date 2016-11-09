@@ -32,15 +32,18 @@ void Out::initialize(std::vector<char*> & argv){
 		char* token = argv[i];
 
 		if (token[0] == '$'){
-			if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
+			if (identifiers->find(token) == identifiers->end()){ //check if the variable name is not found in the variable list
 				reportError("The variable " + string(token) + " not found.", lineNumber); // report error
+				return;}
 		} else{
 			//try to make constant into a typeable object
 			Identifier* obj = identifyConstant(token);
 			if(obj != NULL)
 				(*identifiers)[token] = obj;
-			else
+			else{
 				reportError("Arguments is neither constant nor variable", lineNumber);
+				return;
+			}
 		}
 
 		args.push_back(token);

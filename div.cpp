@@ -79,11 +79,11 @@ int Div::execute() {
 	// a pointer to the map of identifiers
 	auto identifiers = machine->getidentifiers();
 	double result = 1, denom;
+	Identifier * ident = (*identifiers)[args[1]];
 
 	// retrieve the value of the second argument and multiply it to result
 	if (args[1][0] == '$') // if the second argument is a variable
 	{
-		Identifier * ident = (*identifiers)[args[1]];
 		if (ident->getType() == Numeric::type())
 		{
 			Numeric * num = (Numeric*)ident;

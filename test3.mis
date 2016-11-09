@@ -4,7 +4,5 @@ VAR $mychar,CHAR,'c'
 VAR $mystr,STRING,100, "Hello world MIS!!!"
 ASSIGN $myfloat, 20.3
 OUT $myfloat, $myint, $mychar
-LABEL	LAB1
-JMP	LAB1
-SLEEP 20
+SLEEP 10.3
 OUT $mystr

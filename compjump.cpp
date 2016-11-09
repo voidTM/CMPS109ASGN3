@@ -16,13 +16,19 @@ ComparativeJump::ComparativeJump(Machine* machine, int opt, int lineNumber){
 
 ComparativeJump::~ComparativeJump(){}
 
+// Creates clone of the ComparativeJump object
+// Since each state points to a different
+// comparasion the state for the ComparativeJump
+// is inheirited during cloning.
 Instruction * ComparativeJump::clone(vector<char*> & argv, int lineNumber) {
 	ComparativeJump * jmp = new ComparativeJump(this->machine, this->state, lineNumber);
 	jmp->initialize(argv);
 	return jmp;
 }
 
-void ComparativeJump::initialize(std::vector<char*> & argv){
+// initialize a ComparativeJump instruction to hold three arguements
+// of format (label name, comparative param1, comparative param2)
+void ComparativeJump::initialize(vector<char*> & argv){
 	// Check for size
 	if (argv.size() != 3)
 		reportError("The number of arguments for Comparative Jumps should be 3", lineNumber);
@@ -39,22 +45,24 @@ void ComparativeJump::initialize(std::vector<char*> & argv){
 		char* token = argv[i];
 	// check if it is a variable
 		if (token[0] == '$'){
-			if (identifiers->find(token) == identifiers->end()) //check if the variable name is not found in the variable list
+			if (identifiers->find(token) != identifiers->end()){ //check if the variable name is not found in the variable list
 				reportError("The variable " + string(token) + " not found.", lineNumber); // report error
+				return;}
 		} else{
 			//try to make constant into a typeable object
 			Identifier* obj = identifyConstant(token);
 			if(obj != NULL){
 				(*identifiers)[token] = obj;
 			}
-			else
+			else{
 				reportError("Arguments is neither constant nor variable", lineNumber);
+				return;
+			}
 		}
 
 	string type = (*identifiers)[token]->getType();
 	if(type != Numeric::type() && type != Real::type())
 		reportError("Arguments to comparative jump not of valid type.", lineNumber);
-	
 	args.push_back(token);
 	}
 
@@ -64,12 +72,16 @@ int ComparativeJump::execute(){
 	bool jump = false;
 	int jumpLine = -1;
 	auto identifiers = machine->getidentifiers();
+	
 	auto lambdGT =  [](auto a, auto b) { return a > b; };
 	auto lambdaGTE =  [](auto a, auto b) { return a >= b; };
+
 	Numeric* objA = (Numeric*)(*identifiers)[args[1]];
 	Numeric* objB = (Numeric*)(*identifiers)[args[2]];
+	
 	int parA = objA->getValue();
 	int parB = objB->getValue();
+	
 	switch(state){
 		case 1: jump = lambdGT(parA,parB); //For JMGT
 					break;
