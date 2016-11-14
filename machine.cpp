@@ -67,7 +67,7 @@ void Machine::parseFile(){
 	int lineNumber;
 	int instNumber;
 	parseError = false;
-	cout << programFileName << endl;
+
 	ifstream file(programFileName);
 	string line;
 
