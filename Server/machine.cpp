@@ -68,7 +68,11 @@ void Machine::parseFile(){
 	int lineNumber;
 	int instNumber;
 	parseError = false;
+<<<<<<< HEAD:Server/machine.cpp
 	//cout << programFileName << endl;
+=======
+
+>>>>>>> 3fc94fc56858884dee5d1845cb45113ed83144e5:machine.cpp
 	ifstream file(programFileName);
 	string line;
 

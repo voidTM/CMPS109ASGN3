@@ -32,10 +32,13 @@ private:
 	// remains false if there is no error
 	bool parseError;
 
+	// Continuously parse an mis file
 	void parseFile();
 
+	// Parses one line for an given variable
 	void parseVar(stringstream &line, int lineNumber);
 
+	// Parses one line for an given instruction
 	void parseInst(string command, stringstream &argv, int lineNumber);
 
 	string ReplaceAll(string str, const string& from, const string& to); // replaces all occurrences of a string inside of another string
@@ -58,6 +61,7 @@ public:
 	map<string,Identifier*> * getTypes(); // get a pointer to the map of identifiers' prototypes (typeSet)
 	map<string, int> *  getLabels(); // get a pointer to the map of existing labels
 
+	// parses line for every token/argument
 	vector<char*> parseLine (stringstream &line);
 	void trimWhitespace(string& str); // trims whitespace
 
