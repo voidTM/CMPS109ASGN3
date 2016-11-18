@@ -9,6 +9,7 @@
 #include "out.h"
 #include "sleep.h"
 #include <string>
+#include "stdio.h"
 #include "jump.h"
 #include "condjump.h"
 #include "compjump.h"
@@ -67,7 +68,7 @@ void Machine::parseFile(){
 	int lineNumber;
 	int instNumber;
 	parseError = false;
-	cout << programFileName << endl;
+	//cout << programFileName << endl;
 	ifstream file(programFileName);
 	string line;
 
