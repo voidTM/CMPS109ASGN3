@@ -1,0 +1,6 @@
+numeric.o: numeric.cpp numeric.h identifier.h
+real.o: real.cpp real.h identifier.h
+character.o: character.cpp character.h identifier.h
+mis_string.o: mis_string.cpp mis_string.h identifier.h
+TCPSocket.o: TCPSocket.cpp TCPSocket.h includes.h common.h
+main.o: main.cpp TCPSocket.h includes.h common.h

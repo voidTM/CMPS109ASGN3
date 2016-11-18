@@ -9,8 +9,9 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
-MODULES		= TCPSocket
-
+MODULES		= ${TYPEMOD} parser TCPSocket
+#INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
+TYPEMOD 	= numeric real character mis_string
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} include.h common.h
 EXECBIN  	= client_misvm
