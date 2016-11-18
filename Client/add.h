@@ -11,8 +11,8 @@ class Add : public Instruction {
 
 public:
 	// constructor
-	Add(Machine * machine);
-	Add(Machine * machine, int lineNumber);
+	Add(Parser* parser);
+	Add(Parser* parser, int lineNumber);
 
 	// clone object
 	Instruction * clone(vector<char*> & argv, int lineNumber);

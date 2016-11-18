@@ -1,11 +1,11 @@
 #include "get_str_char.h"
 
 // constructor
-GetStrChar::GetStrChar (Machine * machine) {this->machine = machine;}
+GetStrChar::GetStrChar (Parser* parser) {this->parser = parser;}
 
 // constructor
-GetStrChar::GetStrChar (Machine * machine, int lineNumber) {
-	this->machine = machine;
+GetStrChar::GetStrChar (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -14,7 +14,7 @@ GetStrChar::~GetStrChar() {}
 
 // clone an object of the same type
 Instruction * GetStrChar::clone(vector<char*> & argv, int lineNumber) {
-	GetStrChar * getStrChar = new GetStrChar(this->machine, lineNumber);
+	GetStrChar * getStrChar = new GetStrChar(this->parser, lineNumber);
 	getStrChar->initialize(argv);
 	return getStrChar;
 }
@@ -34,7 +34,7 @@ void GetStrChar::initialize(vector<char*> & argv) {
 	}
 
 	// a pointer to the map of identifiers
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 
 	// check the first argument: it should be a valid String variable
 	char* token = argv[0];
@@ -114,7 +114,7 @@ void GetStrChar::initialize(vector<char*> & argv) {
 
 int GetStrChar::execute() {
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	Identifier * ident = (*identifiers)[args[0]];
 	String * sVar = (String*) ident;
 

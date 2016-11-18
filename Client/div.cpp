@@ -3,11 +3,11 @@
 #include <iostream>
 
 // constructor
-Div::Div (Machine * machine) {this->machine = machine;}
+Div::Div (Parser* parser) {this->parser = parser;}
 
 // constructor
-Div::Div (Machine * machine, int lineNumber) {
-	this->machine = machine;
+Div::Div (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -16,7 +16,7 @@ Div::~Div() {}
 
 // clone an object of the same type
 Instruction * Div::clone(vector<char*> & argv, int lineNumber) {
-	Div * div = new Div(this->machine, lineNumber);
+	Div * div = new Div(this->parser, lineNumber);
 	div->initialize(argv);
 	return div;
 }
@@ -35,7 +35,7 @@ void Div::initialize(vector<char*> & argv) {
 	}
 
 	char* token;
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	for(int i=0; i<argsCount; i++)
 	{
 		token = argv[i];
@@ -77,7 +77,7 @@ void Div::initialize(vector<char*> & argv) {
 int Div::execute() {
 
 	// a pointer to the map of identifiers
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	double result = 1, denom;
 	Identifier * ident = (*identifiers)[args[1]];
 

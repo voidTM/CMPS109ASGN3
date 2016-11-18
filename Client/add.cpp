@@ -4,11 +4,11 @@
 #include <typeinfo>
 
 // constructor
-Add::Add (Machine * machine) {this->machine = machine;}
+Add::Add (Parser* parser) {this->parser = parser;}
 
 // constructor
-Add::Add (Machine * machine, int lineNumber) {
-	this->machine = machine;
+Add::Add (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -17,7 +17,7 @@ Add::~Add() {}
 
 // clone an object of the same type
 Instruction * Add::clone(vector<char*> & argv, int lineNumber) {
-	Add * add = new Add(this->machine, lineNumber);
+	Add * add = new Add(this->parser, lineNumber);
 	add->initialize(argv);
 	return add;
 }
@@ -35,7 +35,7 @@ void Add::initialize(vector<char*> & argv) {
 	}
 
 	char* token;
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	for(int i=0; i<argsCount; i++)
 	{
 		token = argv[i];
@@ -77,7 +77,7 @@ void Add::initialize(vector<char*> & argv) {
 int Add::execute() {
 
 	// a pointer to the map of identifiers
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	double result = 0;
 
 	// calculate the sum

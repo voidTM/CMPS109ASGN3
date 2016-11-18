@@ -1,12 +1,11 @@
 #include "instruction.h"
-#include "machine.h"
-
+#include "parser.h"
 // constructor
 Instruction::Instruction() {}
 // constructor
-Instruction::Instruction(Machine * machine) : machine(machine) {}
+Instruction::Instruction(Parser * parser) : parser(parser) {}
 // constructor
-Instruction::Instruction(Machine * machine, int lineNumber) : machine(machine) , lineNumber(lineNumber) {}
+Instruction::Instruction(Parser * parser, int lineNumber) : parser(parser) , lineNumber(lineNumber) {}
 // destructor
 Instruction::~Instruction() {}
 
@@ -50,10 +49,10 @@ Identifier* Instruction::identifyConstant(char* constant){
 	return obj;
 }
 
-// report an error message to Machine object
+// report an error message to Parser object
 void Instruction::reportError(string errMsg , int lineNumber /*= -1*/ , bool exit /*= false*/) {
-	machine->reportError(errMsg, lineNumber, exit);
-	machine->setParseError(true);
+	parser->reportError(errMsg, lineNumber, exit);
+	parser->setParseError(true);
 }
 
 // get the line number of this instruction in the program file

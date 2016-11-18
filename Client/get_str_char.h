@@ -12,8 +12,8 @@ class GetStrChar : public Instruction {
 
 public:
 	// constructor
-	GetStrChar(Machine * machine);
-	GetStrChar(Machine * machine, int lineNumber);
+	GetStrChar(Parser* parser);
+	GetStrChar(Parser* parser, int lineNumber);
 
 	// clone an object of the same type
 	Instruction * clone(vector<char*> & argv, int lineNumber);

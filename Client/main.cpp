@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char** argv){
 	// Check to see proper number of arguments
-	Parser parser;
+	//Parser parser;
 	int port;
 	char* filename; char* serverAddr;
 	//TCPSocket socket;
@@ -24,7 +24,7 @@ int main(int argc, char** argv){
 
 	// Establish Connection
 	TCPSocket socket = TCPSocket(serverAddr, port);
-	
+	//parser.parseFile(filename);
 	// Send connection to parser.
 
 }

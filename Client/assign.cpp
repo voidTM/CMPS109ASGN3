@@ -1,12 +1,12 @@
 #include "assign.h"
 
 // Construtor
-Assign::Assign(Machine* machine){
-	this->machine = machine;
+Assign::Assign(Parser* parser){
+	this->parser = parser;
 }
 
-Assign::Assign(Machine* machine, int lineNumber){
-	this->machine = machine;
+Assign::Assign(Parser* parser, int lineNumber){
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -16,7 +16,7 @@ Assign::~Assign(){}
 // Methods
 
 Instruction * Assign::clone(vector<char*> & argv, int lineNumber) {
-	Assign * assign = new Assign(this->machine, lineNumber);
+	Assign * assign = new Assign(this->parser, lineNumber);
 	assign->initialize(argv);
 	return assign;
 }
@@ -29,7 +29,7 @@ void Assign::initialize(std::vector<char*> & argv){
 	}
 
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	char* parA = argv[0];
 	char* parB = argv[1];
 
@@ -74,7 +74,7 @@ void Assign::initialize(std::vector<char*> & argv){
 
 int Assign::execute() {
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	//out << (*identifiers)[args[0]]->getStrValue() << endl;
 
 	(*identifiers)[args[0]] = (*identifiers)[args[1]];

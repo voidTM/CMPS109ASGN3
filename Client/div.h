@@ -11,8 +11,8 @@ class Div : public Instruction {
 
 public:
 	// constructor
-	Div(Machine * machine);
-	Div(Machine * machine, int lineNumber);
+	Div(Parser* parser);
+	Div(Parser* parser, int lineNumber);
 
 	// clone an object of the same type
 	Instruction * clone(vector<char*> & argv, int lineNumber);

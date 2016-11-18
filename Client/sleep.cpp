@@ -1,12 +1,12 @@
 #include "sleep.h"
 
 // Construtor
-Sleep::Sleep(Machine* machine){
-	this->machine = machine;
+Sleep::Sleep(Parser* parser){
+	this->parser = parser;
 }
 
-Sleep::Sleep(Machine* machine, int lineNumber){
-	this->machine = machine;
+Sleep::Sleep(Parser* parser, int lineNumber){
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -14,7 +14,7 @@ Sleep::Sleep(Machine* machine, int lineNumber){
 Sleep::~Sleep(){}
 
 Instruction * Sleep::clone(vector<char*> & argv, int lineNumber) {
-	Sleep * snooze = new Sleep(this->machine, lineNumber);
+	Sleep * snooze = new Sleep(this->parser, lineNumber);
 	snooze->initialize(argv);
 	return snooze;
 }
@@ -26,7 +26,7 @@ void Sleep::initialize(std::vector<char*> & argv){
 	if (argv.size() != 1)
 		reportError("The number of arguments for Sleep should be 1", lineNumber);
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	char* parA = argv[0];
 
 	// check if it is a variable
@@ -59,7 +59,7 @@ void Sleep::initialize(std::vector<char*> & argv){
 //  rounded down.
 int Sleep::execute() {
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	Identifier* obj = (Numeric*)(*identifiers)[args[0]];
 	string val = obj->getStrValue();
 	// since sleep takes uint the result is type cased

@@ -1,13 +1,13 @@
 #include "condjump.h"
 
 // Constructor
-ConditionalJump::ConditionalJump(Machine * machine, int opt){
-	this->machine = machine;
+ConditionalJump::ConditionalJump(Parser* parser, int opt){
+	this->parser = parser;
 	state = opt;
 }
 
-ConditionalJump::ConditionalJump(Machine* machine, int opt, int lineNumber){
-	this->machine = machine;
+ConditionalJump::ConditionalJump(Parser* parser, int opt, int lineNumber){
+	this->parser = parser;
 	this->state = opt;
 	this->lineNumber = lineNumber;
 }
@@ -21,7 +21,7 @@ ConditionalJump::~ConditionalJump(){}
 // comparasion the state for the ConditionalJump
 // is inheirited during cloning.
 Instruction * ConditionalJump::clone(vector<char*> & argv, int lineNumber) {
-	ConditionalJump * jmp = new ConditionalJump(this->machine, this->state, lineNumber);
+	ConditionalJump * jmp = new ConditionalJump(this->parser, this->state, lineNumber);
 	jmp->initialize(argv);
 	return jmp;
 }
@@ -32,7 +32,7 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 	if (argv.size() != 2)
 		reportError("The number of arguments for Conditional Jumps should be 2", lineNumber);
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 
 	// Assume first is a label
 	char* parA = argv[0];
@@ -73,7 +73,7 @@ void ConditionalJump::initialize(std::vector<char*> & argv){
 int ConditionalJump::execute(){
 	bool jump = false;
 	int jumpLine = -1;
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 
 	Numeric* obj = (Numeric*)(*identifiers)[args[1]];
 	switch(state){

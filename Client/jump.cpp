@@ -1,12 +1,12 @@
 #include "jump.h"
 
 // Construtor
-Jump::Jump(Machine* machine){
-	this->machine = machine;
+Jump::Jump(Parser* parser){
+	this->parser = parser;
 }
 
-Jump::Jump(Machine* machine, int lineNumber){
-	this->machine = machine;
+Jump::Jump(Parser* parser, int lineNumber){
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -14,7 +14,7 @@ Jump::Jump(Machine* machine, int lineNumber){
 Jump::~Jump(){}
 
 Instruction * Jump::clone(vector<char*> & argv, int lineNumber) {
-	Jump * jmp = new Jump(this->machine, lineNumber);
+	Jump * jmp = new Jump(this->parser, lineNumber);
 	jmp->initialize(argv);
 	return jmp;
 }
@@ -36,7 +36,7 @@ void Jump::initialize(std::vector<char*> & argv){
 // otherwise continue forward to next line
 int Jump::jumpLookUp(string label){
 	int line = -1;
-	auto labels = machine->getLabels();
+	auto labels = parser->getLabels();
 
 	if (labels->find(label) == labels->end()){
 		reportError("The label " + string(label) + " not found.", lineNumber);	

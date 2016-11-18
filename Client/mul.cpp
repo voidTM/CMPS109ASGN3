@@ -3,10 +3,10 @@
 #include <iostream>
 
 // constructor
-Mul::Mul (Machine * machine) {this->machine = machine;}
+Mul::Mul (Parser* parser) {this->parser = parser;}
 // constructor
-Mul::Mul (Machine * machine, int lineNumber) {
-	this->machine = machine;
+Mul::Mul (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 // destructor
@@ -14,7 +14,7 @@ Mul::~Mul() {}
 
 // clone an object of the same type
 Instruction * Mul::clone(vector<char*> & argv, int lineNumber) {
-	Mul * mul = new Mul(this->machine, lineNumber);
+	Mul * mul = new Mul(this->parser, lineNumber);
 	mul->initialize(argv);
 	return mul;
 }
@@ -32,7 +32,7 @@ void Mul::initialize(vector<char*> & argv) {
 	}
 
 	char* token;
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	for(int i=0; i<argsCount; i++)
 	{
 		token = argv[i];
@@ -74,7 +74,7 @@ void Mul::initialize(vector<char*> & argv) {
 // execute the instruction
 int Mul::execute() {
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 
 	// calculate the multiplication result
 	double result = 1;

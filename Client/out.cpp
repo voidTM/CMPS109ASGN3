@@ -1,10 +1,10 @@
 #include "out.h"
 
 // Constructor
-Out::Out (Machine * machine) {this->machine = machine;}
+Out::Out (Parser* parser) {this->parser = parser;}
 
-Out::Out (Machine * machine, int lineNumber) {
-	this->machine = machine;
+Out::Out (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 
@@ -14,7 +14,7 @@ Out::~Out() {}
 // Methods
 
 Instruction * Out::clone(vector<char*> & argv, int lineNumber) {
-	Out * printOut = new Out(this->machine, lineNumber);
+	Out * printOut = new Out(this->parser, lineNumber);
 	printOut->initialize(argv);
 	return printOut;
 }
@@ -24,11 +24,11 @@ void Out::initialize(std::vector<char*> & argv){
 	if (argv.size() < 1)
 		reportError("The number of arguments for Out should be atleast 1", lineNumber);
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	int argsCount = argv.size();
 	for(int i=0; i<argsCount; i++)
 	{
-		//auto identifiers = machine->getidentifiers();
+		//auto identifiers = parser->getidentifiers();
 		char* token = argv[i];
 
 		if (token[0] == '$'){
@@ -54,7 +54,7 @@ void Out::initialize(std::vector<char*> & argv){
 
 int Out::execute(){
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	//cout << "printing" << endl;
 
 	for(string arg : args){

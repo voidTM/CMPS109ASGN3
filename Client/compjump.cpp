@@ -1,13 +1,13 @@
 #include "compjump.h"
 
 // Constructor
-ComparativeJump::ComparativeJump(Machine * machine, int opt){
-	this->machine = machine;
+ComparativeJump::ComparativeJump(Parser* parser, int opt){
+	this->parser = parser;
 	state = opt;
 }
 
-ComparativeJump::ComparativeJump(Machine* machine, int opt, int lineNumber){
-	this->machine = machine;
+ComparativeJump::ComparativeJump(Parser* parser, int opt, int lineNumber){
+	this->parser = parser;
 	this->state = opt;
 	this->lineNumber = lineNumber;
 }
@@ -21,7 +21,7 @@ ComparativeJump::~ComparativeJump(){}
 // comparasion the state for the ComparativeJump
 // is inheirited during cloning.
 Instruction * ComparativeJump::clone(vector<char*> & argv, int lineNumber) {
-	ComparativeJump * jmp = new ComparativeJump(this->machine, this->state, lineNumber);
+	ComparativeJump * jmp = new ComparativeJump(this->parser, this->state, lineNumber);
 	jmp->initialize(argv);
 	return jmp;
 }
@@ -33,7 +33,7 @@ void ComparativeJump::initialize(vector<char*> & argv){
 	if (argv.size() != 3)
 		reportError("The number of arguments for Comparative Jumps should be 3", lineNumber);
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	int argsCount = argv.size();
 
 	// Assume first is a label
@@ -71,7 +71,7 @@ void ComparativeJump::initialize(vector<char*> & argv){
 int ComparativeJump::execute(){
 	bool jump = false;
 	int jumpLine = -1;
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	
 	auto lambdGT =  [](auto a, auto b) { return a > b; };
 	auto lambdaGTE =  [](auto a, auto b) { return a >= b; };

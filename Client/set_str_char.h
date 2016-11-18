@@ -12,8 +12,8 @@ class SetStrChar : public Instruction {
 
 public:
 	// constructor
-	SetStrChar(Machine * machine);
-	SetStrChar(Machine * machine, int lineNumber);
+	SetStrChar(Parser* parser);
+	SetStrChar(Parser* parser, int lineNumber);
 
 	// clone an object of the same type
 	Instruction * clone(vector<char*> & argv, int lineNumber);

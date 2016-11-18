@@ -1,9 +1,9 @@
 #include "set_str_char.h"
 // constructor
-SetStrChar::SetStrChar (Machine * machine) {this->machine = machine;}
+SetStrChar::SetStrChar (Parser* parser) {this->parser = parser;}
 // constructor
-SetStrChar::SetStrChar (Machine * machine, int lineNumber) {
-	this->machine = machine;
+SetStrChar::SetStrChar (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 // destructor
@@ -11,7 +11,7 @@ SetStrChar::~SetStrChar() {}
 
 // clone an object of the same type
 Instruction * SetStrChar::clone(vector<char*> & argv, int lineNumber) {
-	SetStrChar * setStrChar = new SetStrChar(this->machine, lineNumber);
+	SetStrChar * setStrChar = new SetStrChar(this->parser, lineNumber);
 	setStrChar->initialize(argv);
 	return setStrChar;
 }
@@ -30,7 +30,7 @@ void SetStrChar::initialize(vector<char*> & argv) {
 		return;
 	}
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 
 	// check the first argument: it should be a valid String variable
 	char* token = argv[0];
@@ -103,7 +103,7 @@ void SetStrChar::initialize(vector<char*> & argv) {
 	else // if it is a constant, it should be of type Character
 	{
 		string s(token);
-		machine->trimWhitespace(s);
+		parser->trimWhitespace(s);
 		if (s.size() != 3)
 		{
 			reportError(string(token) + " is not of type Character.", lineNumber); // report error
@@ -119,7 +119,7 @@ void SetStrChar::initialize(vector<char*> & argv) {
 // execute the instruction
 int SetStrChar::execute() {
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	Identifier * ident = (*identifiers)[args[0]];
 	String * sVar = (String*) ident;
 

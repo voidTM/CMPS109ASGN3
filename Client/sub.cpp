@@ -2,10 +2,10 @@
 #include <string>
 #include <iostream>
 //constructor
-Sub::Sub (Machine * machine) {this->machine = machine;}
+Sub::Sub (Parser* parser) {this->parser = parser;}
 //constructor
-Sub::Sub (Machine * machine, int lineNumber) {
-	this->machine = machine;
+Sub::Sub (Parser* parser, int lineNumber) {
+	this->parser = parser;
 	this->lineNumber = lineNumber;
 }
 //destructor
@@ -13,7 +13,7 @@ Sub::~Sub() {}
 
 // clone an object of the same type
 Instruction * Sub::clone(vector<char*> & argv, int lineNumber) {
-	Sub * sub = new Sub(this->machine, lineNumber);
+	Sub * sub = new Sub(this->parser, lineNumber);
 	sub->initialize(argv);
 	return sub;
 }
@@ -32,7 +32,7 @@ void Sub::initialize(vector<char*> & argv) {
 	}
 
 	char* token;
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 	for(int i=0; i<argsCount; i++)
 	{
 		token = argv[i];
@@ -74,7 +74,7 @@ void Sub::initialize(vector<char*> & argv) {
 // execute the instruction
 int Sub::execute() {
 
-	auto identifiers = machine->getidentifiers();
+	auto identifiers = parser->getidentifiers();
 
 	// calculating the subtraction
 	double result = 0;

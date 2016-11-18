@@ -11,8 +11,8 @@ class Sub : public Instruction{
 
 public:
     // constructor
-	Sub(Machine * machine);
-	Sub(Machine * machine, int lineNumber);
+	Sub(Parser* parser);
+	Sub(Parser* parser, int lineNumber);
 
 	// clone an object of the same type
 	Instruction * clone(vector<char*> & argv, int lineNumber);

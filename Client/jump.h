@@ -15,8 +15,8 @@ class Jump : public Instruction {
 	public:
 	Jump(){};
 
-	Jump(Machine * machine);
-	Jump(Machine * machine, int lineNumber);
+	Jump(Parser* parser);
+	Jump(Parser* parser, int lineNumber);
 
 	virtual Instruction * clone(vector<char*> & argv, int lineNumber);
 
