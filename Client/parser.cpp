@@ -222,3 +222,5 @@ map<string,Identifier*> * Parser::getTypes(){
 map<string, int>* Parser::getLabels(){
 	return & labels;
 }
+
+bool Parser::getErrorStatus(){ return parseError; }

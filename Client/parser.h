@@ -32,8 +32,6 @@ private:
 	// remains false if there is no error
 	bool parseError;
 
-	// Continuously parse an mis file
-	void parseFile();
 
 	// Parses one line for an given variable
 	void parseVar(stringstream &line, int lineNumber);
@@ -51,6 +49,9 @@ public:
 	// write the error message to the error file (.err)
 	void reportError(string errMsg , int lineNumber = -1 , bool terminate = false);
 
+	// Continuously parse an mis file
+	void parseFile();
+
 	// set parseError member variable
 	void setParseError(bool val);
 
@@ -60,6 +61,7 @@ public:
 
 	// parses line for every token/argument
 	vector<char*> parseLine (stringstream &line);
+	bool getErrorStatus();
 	void trimWhitespace(string& str); // trims whitespace
 
     // destructor
