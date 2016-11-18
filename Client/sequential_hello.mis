@@ -1,0 +1,7 @@
+VAR STRING	$mystring,100,”Hello	world	MIS:”
+VAR NUMERIC	$counter,0
+EQUAL	$counter,10
+LABEL LOOP
+	OUT	$mystring,$counter,”	!!\n”
+	SUB	$counter,$counter,1
+JMPNZ	LOOP,$counter
