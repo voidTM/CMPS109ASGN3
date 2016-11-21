@@ -47,11 +47,21 @@ int main(int argc, char** argv){
 		ifstream scriptFile(filename);
 
 		string buffer;
+		string scriptBuffer;
 		char* headerBuffer[1024];
 		char* writeBuffer[1024];
 		if(scriptFile.is_open()){
+			scriptFile
 			while(getline(scriptFile,buffer))
-				socket.writeToSocket(buffer.c_str(), buffer.size());
+				scriptBuffer.append(buffer);
+
+			filesize = scriptBuffer.size();
+			string header = ""+filesize;
+			// Send header data
+			socket.writeToSocket(header.c_str(), header.size);
+			while(filesize > 0){
+				filesize -= socket.writeToSocket(scriptBuffer.c_str(), filesize);
+			}
 		}
 	
 		// Get Header
