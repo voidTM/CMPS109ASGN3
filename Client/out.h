@@ -15,8 +15,8 @@ class Out : public Instruction {
 	public:
 	//Add();
 
-	Out(Parser* parser);
-	Out(Parser* parser, int lineNumber);
+	Out(ErrorChecker* parser);
+	Out(ErrorChecker* parser, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 

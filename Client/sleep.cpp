@@ -1,11 +1,11 @@
 #include "sleep.h"
 
 // Construtor
-Sleep::Sleep(Parser* parser){
+Sleep::Sleep(ErrorChecker* parser){
 	this->parser = parser;
 }
 
-Sleep::Sleep(Parser* parser, int lineNumber){
+Sleep::Sleep(ErrorChecker* parser, int lineNumber){
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

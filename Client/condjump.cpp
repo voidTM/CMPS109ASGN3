@@ -1,12 +1,12 @@
 #include "condjump.h"
 
 // Constructor
-ConditionalJump::ConditionalJump(Parser* parser, int opt){
+ConditionalJump::ConditionalJump(ErrorChecker* parser, int opt){
 	this->parser = parser;
 	state = opt;
 }
 
-ConditionalJump::ConditionalJump(Parser* parser, int opt, int lineNumber){
+ConditionalJump::ConditionalJump(ErrorChecker* parser, int opt, int lineNumber){
 	this->parser = parser;
 	this->state = opt;
 	this->lineNumber = lineNumber;

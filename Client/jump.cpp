@@ -1,11 +1,11 @@
 #include "jump.h"
 
 // Construtor
-Jump::Jump(Parser* parser){
+Jump::Jump(ErrorChecker* parser){
 	this->parser = parser;
 }
 
-Jump::Jump(Parser* parser, int lineNumber){
+Jump::Jump(ErrorChecker* parser, int lineNumber){
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

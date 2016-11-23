@@ -1,9 +1,9 @@
 #include "out.h"
 
 // Constructor
-Out::Out (Parser* parser) {this->parser = parser;}
+Out::Out (ErrorChecker* parser) {this->parser = parser;}
 
-Out::Out (Parser* parser, int lineNumber) {
+Out::Out (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

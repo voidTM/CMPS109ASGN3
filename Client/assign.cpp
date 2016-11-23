@@ -1,11 +1,11 @@
 #include "assign.h"
 
 // Construtor
-Assign::Assign(Parser* parser){
+Assign::Assign(ErrorChecker* parser){
 	this->parser = parser;
 }
 
-Assign::Assign(Parser* parser, int lineNumber){
+Assign::Assign(ErrorChecker* parser, int lineNumber){
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

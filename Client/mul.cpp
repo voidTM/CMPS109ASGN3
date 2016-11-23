@@ -3,9 +3,9 @@
 #include <iostream>
 
 // constructor
-Mul::Mul (Parser* parser) {this->parser = parser;}
+Mul::Mul (ErrorChecker* parser) {this->parser = parser;}
 // constructor
-Mul::Mul (Parser* parser, int lineNumber) {
+Mul::Mul (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

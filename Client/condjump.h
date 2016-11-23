@@ -17,8 +17,8 @@ class ConditionalJump : public Jump {
 		// State 1: JMPZ 	Stace 2: JMPNZ
 	public:
 
-	ConditionalJump(Parser* parser, int opt);
-	ConditionalJump(Parser* parser, int opt, int lineNumber);
+	ConditionalJump(ErrorChecker* parser, int opt);
+	ConditionalJump(ErrorChecker* parser, int opt, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 

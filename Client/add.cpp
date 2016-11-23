@@ -4,10 +4,10 @@
 #include <typeinfo>
 
 // constructor
-Add::Add (Parser* parser) {this->parser = parser;}
+Add::Add (ErrorChecker* parser) {this->parser = parser;}
 
 // constructor
-Add::Add (Parser* parser, int lineNumber) {
+Add::Add (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

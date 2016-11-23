@@ -11,8 +11,8 @@ class Mul : public Instruction {
 
 public:
 	// constructor
-	Mul(Parser* parser);
-	Mul(Parser* parser, int lineNumber);
+	Mul(ErrorChecker* parser);
+	Mul(ErrorChecker* parser, int lineNumber);
 
 	// clone an object of the same type
 	Instruction * clone(vector<char*> & argv, int lineNumber);

@@ -1,12 +1,12 @@
 #include "compjump.h"
 
 // Constructor
-ComparativeJump::ComparativeJump(Parser* parser, int opt){
+ComparativeJump::ComparativeJump(ErrorChecker* parser, int opt){
 	this->parser = parser;
 	state = opt;
 }
 
-ComparativeJump::ComparativeJump(Parser* parser, int opt, int lineNumber){
+ComparativeJump::ComparativeJump(ErrorChecker* parser, int opt, int lineNumber){
 	this->parser = parser;
 	this->state = opt;
 	this->lineNumber = lineNumber;

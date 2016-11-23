@@ -1,11 +1,11 @@
 #include "instruction.h"
-#include "parser.h"
+#include "errorchecker.h"
 // constructor
 Instruction::Instruction() {}
 // constructor
-Instruction::Instruction(Parser * parser) : parser(parser) {}
+Instruction::Instruction(ErrorChecker * parser) : parser(parser) {}
 // constructor
-Instruction::Instruction(Parser * parser, int lineNumber) : parser(parser) , lineNumber(lineNumber) {}
+Instruction::Instruction(ErrorChecker * parser, int lineNumber) : parser(parser) , lineNumber(lineNumber) {}
 // destructor
 Instruction::~Instruction() {}
 
@@ -49,7 +49,7 @@ Identifier* Instruction::identifyConstant(char* constant){
 	return obj;
 }
 
-// report an error message to Parser object
+// report an error message to ErrorChecker object
 void Instruction::reportError(string errMsg , int lineNumber /*= -1*/ , bool exit /*= false*/) {
 	parser->reportError(errMsg, lineNumber, exit);
 	parser->setParseError(true);

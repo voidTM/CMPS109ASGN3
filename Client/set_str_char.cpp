@@ -1,8 +1,8 @@
 #include "set_str_char.h"
 // constructor
-SetStrChar::SetStrChar (Parser* parser) {this->parser = parser;}
+SetStrChar::SetStrChar (ErrorChecker* parser) {this->parser = parser;}
 // constructor
-SetStrChar::SetStrChar (Parser* parser, int lineNumber) {
+SetStrChar::SetStrChar (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

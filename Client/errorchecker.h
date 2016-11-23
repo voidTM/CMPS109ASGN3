@@ -1,5 +1,5 @@
-#ifndef MACHINE
-#define MACHINE
+#ifndef ERROR_CHECK
+#define ERROR_CHECK
 
 #include <map>
 #include <string>

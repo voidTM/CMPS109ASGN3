@@ -18,8 +18,8 @@ class ComparativeJump : public Jump {
 		// State 3: JMPGTE		State 4: JMPLTE
 	public:
 
-	ComparativeJump(Parser* parser, int opt);
-	ComparativeJump(Parser* parser, int opt, int lineNumber);
+	ComparativeJump(ErrorChecker* parser, int opt);
+	ComparativeJump(ErrorChecker* parser, int opt, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 

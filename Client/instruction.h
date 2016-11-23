@@ -2,7 +2,7 @@
 #define INSTRUCTION
 
 #include <vector>
-#include "parser.h"
+#include "errorchecker.h"
 #include "identifier.h"
 #include "numeric.h"
 #include "real.h"
@@ -15,14 +15,14 @@ class Instruction {
 
 protected:
 	vector<string> args; // a list of arguments provided for this instruction
-	Parser* parser; // a pointer to the wrapper object
+	ErrorChecker* parser; // a pointer to the wrapper object
 	int lineNumber; // line number, used for error reporting
 
 public:
 	// constructor
 	Instruction();
-	Instruction(Parser* parser);
-	Instruction(Parser* parser, int lineNumber);
+	Instruction(ErrorChecker* parser);
+	Instruction(ErrorChecker* parser, int lineNumber);
 
 	// pure virtual function used by sub-classes for cloning an object of their own type
 	virtual Instruction * clone(vector<char*> & argv, int lineNumber) = 0;
@@ -39,7 +39,7 @@ public:
 	// determines the class of the constant and return the object of the corresponding type
 	Identifier* identifyConstant(char* constant);
 
-	// report an error message to Parser object
+	// report an error message to ErrorChecker object
 	void reportError(string errMsg , int lineNumber = -1 , bool exit = false);
 
 	// destructor

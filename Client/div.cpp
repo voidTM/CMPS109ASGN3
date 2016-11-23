@@ -3,10 +3,10 @@
 #include <iostream>
 
 // constructor
-Div::Div (Parser* parser) {this->parser = parser;}
+Div::Div (ErrorChecker* parser) {this->parser = parser;}
 
 // constructor
-Div::Div (Parser* parser, int lineNumber) {
+Div::Div (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

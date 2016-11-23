@@ -16,8 +16,8 @@ class Assign : public Instruction {
 	public:
 	//Add();
 
-	Assign(Parser* parser);
-	Assign(Parser* parser, int lineNumber);
+	Assign(ErrorChecker* parser);
+	Assign(ErrorChecker* parser, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 

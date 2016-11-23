@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 //constructor
-Sub::Sub (Parser* parser) {this->parser = parser;}
+Sub::Sub (ErrorChecker* parser) {this->parser = parser;}
 //constructor
-Sub::Sub (Parser* parser, int lineNumber) {
+Sub::Sub (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

@@ -1,10 +1,10 @@
 #include "get_str_char.h"
 
 // constructor
-GetStrChar::GetStrChar (Parser* parser) {this->parser = parser;}
+GetStrChar::GetStrChar (ErrorChecker* parser) {this->parser = parser;}
 
 // constructor
-GetStrChar::GetStrChar (Parser* parser, int lineNumber) {
+GetStrChar::GetStrChar (ErrorChecker* parser, int lineNumber) {
 	this->parser = parser;
 	this->lineNumber = lineNumber;
 }

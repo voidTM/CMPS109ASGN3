@@ -16,8 +16,8 @@ class Sleep : public Instruction {
 	public:
 	//Add();
 
-	Sleep(Parser* parser);
-	Sleep(Parser* parser, int lineNumber);
+	Sleep(ErrorChecker* parser);
+	Sleep(ErrorChecker* parser, int lineNumber);
 
 	Instruction * clone(vector<char*> & argv, int lineNumber);
 
