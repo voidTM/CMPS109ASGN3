@@ -25,12 +25,13 @@ int main(int argc, char** argv){
 	port = atoi(argv[2]);
 	filename = argv[3];
 	errors = false;
-
 	// Establish Connection
 	string errorFileName = filename + ".err";
 	string outputFileName = filename + ".out";
 
+	cout << errorFileName << endl;
 	ofstream out(outputFileName);
+
 	ofstream err(errorFileName);
 	// Redirect output to filess
 	streambuf *coutbuf = cout.rdbuf();
@@ -56,16 +57,21 @@ int main(int argc, char** argv){
 				scriptBuffer.append(buffer);
 
 			filesize = scriptBuffer.size();
-			string header = ""+filesize;
+			string header = to_string(filesize);
+			printf( "file size %d \n", filesize);
+			cout << header << endl;
 			// Send header data
-			socket.writeToSocket(header.c_str(), header.size());
+			socket.writeToSocket(header.c_str(),100);
 			while(filesize > 0){
 				filesize -= socket.writeToSocket(scriptBuffer.c_str(), filesize);
 			}
 		}
-
+		else{
+			printf("errors!!\n");
+			return 1;
+		}
 		// Get Header
-		socket.readFromSocket(headerBuffer, 1024);
+		socket.readFromSocket(headerBuffer, 100);
 		//do something with header
 		filesize = atoi(headerBuffer);
 		//Reading data
@@ -76,7 +82,7 @@ int main(int argc, char** argv){
 			cout << writeBuffer;
 		}
 
-		socket.readFromSocket(headerBuffer, 1024);
+		socket.readFromSocket(headerBuffer, 100);
 		//do something with header
 		filesize = atoi(headerBuffer);
 		//Reading data
