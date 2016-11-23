@@ -38,7 +38,7 @@ Identifier* Real::clone(vector<char*> argv){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		cerr << "Invalid argument to Real" << endl;
+		reportError("Invalid argument to Real");
 		exit(1);
 	}
 

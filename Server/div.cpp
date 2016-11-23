@@ -118,7 +118,10 @@ int Div::execute() {
 
 	// if the third argument is equal to zero, report occurrence of division-by-zero
 	if (denom == 0)
-		reportError("Division by zero.", lineNumber, true);
+	{
+		reportError("Division by zero.", lineNumber); //, true);
+		exit(1);
+	}
 	// else divide result by it
 	else
 		result = result / denom;

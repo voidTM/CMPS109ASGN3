@@ -134,7 +134,8 @@ int GetStrChar::execute() {
 	// check index is inside the valid range
 	if (idx < 0 || idx >= strlen(sVar->getValue()))
 	{
-		reportError("Index out of range.", lineNumber, true);
+		reportError("Index out of range.", lineNumber); //, true);
+		exit(1);
 	}
 
 	// retrieve the variable object of the third parameter

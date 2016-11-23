@@ -10,6 +10,10 @@
 #include "real.h"
 #include "character.h"
 #include "mis_string.h"
+#include "TCPSocket.h"
+#include "TCPServerSocket.h"
+#include "output_buffer.h"
+#include "error_buffer.h"
 
 using namespace std;
 
@@ -24,9 +28,27 @@ private:
 	map<string,Instruction*> instSet; // a map of instructions' prototypes that are used for cloning
 	map<string,int> labels; // a map of defined labels
 
-	string programFileName; // the filename for the MIS program
+	//string programFileName; // the filename for the MIS program
 	//string errorFileName; // the filename for the error file
 	//string outputFileName; // the filename for the output file
+
+	// Address and port of the server
+	char * serverAddress;
+	int serverPort;
+	
+	// Server's backlog
+	int backlog;
+	
+	// Server read and write buffer size (default = 10*1024*1024)
+	int readBufferSize; 
+	int writeBufferSize;
+	
+	// client socket timeout
+	int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
+	
+	char* inputBuffer=0; // server input buffer
+	//char* outputBuffer=0; // server output buffer
+	//char* errorBuffer=0; // server error buffer
 
 	// becomes true if error happens during parsing or executing
 	// remains false if there is no error
@@ -41,18 +63,21 @@ private:
 	// Parses one line for an given instruction
 	void parseInst(string command, stringstream &argv, int lineNumber);
 
+    // parse and run a program file
+    void runProgram();
+
 	string ReplaceAll(string str, const string& from, const string& to); // replaces all occurrences of a string inside of another string
 
 public:
 	// constructor
 	Machine();
-	Machine(string programFileName);
+	Machine(char * serverAddress, int serverPort, int backlog = 50, int readBufferSize = 10*1024*1024, int writeBufferSize = 10*1024*1024);
 
-	// run the MIS machine: parse the MIS program file and then run it
+	// run the MIS server
 	void run();
 
 	// write the error message to the error file (.err)
-	void reportError(string errMsg , int lineNumber = -1 , bool terminate = false);
+	void reportError(string errMsg , int lineNumber = -1);// , bool terminate = false);
 
 	// set parseError member variable
 	void setParseError(bool val);

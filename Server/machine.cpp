@@ -18,8 +18,8 @@
 Machine::Machine() {}
 
 // constructor
-Machine::Machine(string programFileName) :
-		programFileName(programFileName) {
+Machine::Machine(char * serverAddress, int serverPort, int backlog, int readBufferSize, int writeBufferSize) :
+		serverAddress(serverAddress) , serverPort(serverPort) , backlog(backlog), readBufferSize(readBufferSize) , writeBufferSize(writeBufferSize) {
 
 	parseError = false;
 
@@ -68,17 +68,14 @@ void Machine::parseFile(){
 	int lineNumber;
 	int instNumber;
 	parseError = false;
-	ifstream file(programFileName);
+    istringstream f(inputBuffer);
 	string line;
-
-	if(file.is_open())
+	string command;
+	lineNumber = 1;
+	instNumber = 0;
+	while(getline(f,line))
 	{
-		string command;
-		lineNumber = 1;
-		instNumber = 0;
-		while(getline(file,line))
-		{
-         	//cout << line << endl;
+        	//cout << line << endl;
 			line = ReplaceAll(line, "\\n", "\n");
 			line = ReplaceAll(line, "\\t", "\t");
 			line = ReplaceAll(line, "\\r", "\r");
@@ -98,10 +95,7 @@ void Machine::parseFile(){
         	}
 
 			lineNumber++;
-		}
-		file.close();
 	}
-
 }
 
 // Parses one line for an given instruction
@@ -189,8 +183,8 @@ void Machine::trimWhitespace(string& str){
     str = str.substr(first, (last-first+1));
 }
 
-// runs the Machine: parses and runs the program file
-void Machine::run()
+// parses and runs a program file
+void Machine::runProgram()
 {
 	// parse the entire program file
 	parseFile();
@@ -217,12 +211,13 @@ void Machine::run()
 	catch (int e)
 	{
 		int lineNumber = instructions[currentInstIdx]->getLineNumber();
-		reportError("An error was generated while executing the line. Execution of the program terminated." , lineNumber, true);
+		reportError("An error was generated while executing the line. Execution of the program terminated." , lineNumber); //, true);
+		exit(1);
 	}
 }
 
 // write the error message to the error file (.err)
-void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool terminate /*= false*/) {
+void Machine::reportError(string errMsg , int lineNumber /*= -1*/) { // , bool terminate /*= false*/) {
 
 	// print error to file;
 	string output = errMsg + "\n";
@@ -231,8 +226,8 @@ void Machine::reportError(string errMsg , int lineNumber /*= -1*/ , bool termina
 	cerr << output;
 
 	// if terminate is true, then terminate the execution of the program
-	if (terminate)
-		exit(1);
+	//if (terminate)
+		//exit(1);
 }
 
 // set parseError
@@ -254,3 +249,61 @@ map<string,Identifier*> * Machine::getTypes(){
 map<string, int>* Machine::getLabels(){
 	return & labels;
 }
+
+// run the MIS server
+void Machine::run() {
+	int read;
+
+	TCPServerSocket tcpServerSocket = TCPServerSocket(serverAddress, serverPort, backlog);
+	if (tcpServerSocket.initializeSocket() == false)
+	{
+		cout << "Error while initializing the server socket." << endl;
+		return;
+	}
+	
+	while (true)
+	{
+		TCPSocket * tcpClientSocket = tcpServerSocket.getConnection(0, 0, readBufferSize, writeBufferSize);
+		
+		if (tcpClientSocket == NULL)
+			continue;
+		
+		char header[100];
+		memset (header,0,100);
+		read = tcpClientSocket->readFromSocketWithTimeout(header, 100, ClientTimeoutSec, ClientTimeoutMilli);
+		if (read < 1)
+		{
+			delete tcpClientSocket;
+			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
+			continue;
+		}
+		long readSize = atol(header);
+		read = tcpClientSocket->readFromSocketWithTimeout(inputBuffer, readSize, ClientTimeoutSec, ClientTimeoutMilli);
+		if (read < 1)
+		{
+			delete tcpClientSocket;
+			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
+			continue;
+		}
+		
+		runProgram();
+		
+		//char header[100];
+		memset (header ,0 , 100);
+		string outputBuffer = OutputBuffer::getOutputBuffer();
+		long outputBufferSize = outputBuffer.size(); 
+		strcpy(header , to_string(outputBufferSize).c_str());
+		tcpClientSocket->writeToSocket(header, 100);
+		tcpClientSocket->writeToSocket(outputBuffer.c_str(), outputBufferSize);
+		
+		memset (header ,0 , 100);
+		string errorBuffer = ErrorBuffer::getErrorBuffer();
+		long errorBufferSize = errorBuffer.size();
+		strcpy(header , to_string(errorBufferSize).c_str());
+		tcpClientSocket->writeToSocket(header, 100);
+		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);
+		
+		delete tcpClientSocket;		
+	}
+}
+

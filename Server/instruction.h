@@ -8,6 +8,7 @@
 #include "character.h"
 #include "mis_string.h"
 #include "machine.h"
+#include "error_buffer.h"
 
 using namespace std;
 
@@ -39,8 +40,8 @@ public:
 	// determines the class of the constant and return the object of the corresponding type
 	Identifier* identifyConstant(char* constant);
 
-	// report an error message to Machine object
-	void reportError(string errMsg , int lineNumber = -1 , bool exit = false);
+	// report an error message
+	void reportError(string errMsg , int lineNumber = -1); // , bool exit = false);
 
 	// destructor
 	virtual ~Instruction();

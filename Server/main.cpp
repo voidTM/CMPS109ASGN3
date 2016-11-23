@@ -5,6 +5,7 @@
 
 int main (int argc, char** argv) {
 
+/*
 	string programFileName = argv[argc - 1];
 	string errorFileName = programFileName + ".err";
 	string outputFileName = programFileName + ".out";
@@ -22,4 +23,9 @@ int main (int argc, char** argv) {
     
     cout.rdbuf(coutbuf); //reset to standard output again
     cerr.rdbuf(cerrbuf);
+*/
+
+	Machine machine(NULL, 1000);
+	machine.run();
+
 }
