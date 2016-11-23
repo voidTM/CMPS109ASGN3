@@ -2,7 +2,7 @@
 # CR: classroom or problem 1 files
 # INV: inventory or problem 2 files
 # HEAP: maxheap or problem 3 files.
-GCC       	= g++ -g -O0 -lpthread -Wall -Wextra -std=gnu++14
+GCC       	= g++ -g -O0 -pthread -Wall -Wextra -std=gnu++14
 MKDEP     	= g++ -MM -std=gnu++14
 VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 
