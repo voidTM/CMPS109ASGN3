@@ -8,11 +8,11 @@ class GarbageCollector
 {
   private:
 
-    vector<typename T> connections;
+    vector<T> objects;
 
   public:
     GarbageCollector();// Constructor
-    void addConnection(Connection * connection); // Add a connection
+    void addConnection(T machine); // Add a connection
     void cleanup(); // Perform a clean up by disposing expired connections.
     void terminate (); // Wait for all thread connections to terminate and cleanup all
     ~GarbageCollector(); // Destructor

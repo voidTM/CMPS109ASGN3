@@ -1,32 +1,35 @@
 #include "garbagecollector.h"
 
-typename T
-GarbageCollector::GarbageCollector(){
-  connections = new vector<T>;
+template <typename T>
+GarbageCollector<T>::GarbageCollector(){
+  objects = new vector<T>;
 }
 
-GarbageCollector::addConnection(Machine* machine){
-  connection.push_back(machine);
+template <typename T>
+void GarbageCollector<T>::addConnection(T machine){
+  objects.push_back(machine);
 }
 
 
-GarbageCollector::cleanup(){
-
-  for(int i = connection.begin(); i < connection.end(); i++){
-    if(connection[i] != NULL || !connection[i].isRunning()){
-      connection[i]->waitForRunToFinish();
-      connection.erase(i);
+template <typename T>
+void GarbageCollector<T>::cleanup(){
+  for(int i = objects.begin(); i < objects.end(); i++){
+    if(objects[i] != NULL || !objects[i].isRunning()){
+      objects[i]->waitForRunToFinish();
+      objects.erase(i);
     }
   }
 }
 
-GarbageCollector::terminate(){
-  for(int i = connection.begin(); i < connection.end(); i++){
-    if(connection[i] != NULL){
-      connection[i]->waitForRunToFinish();
-      connection.erase(i);
+template <typename T>
+void GarbageCollector<T>::terminate(){
+  for(int i = objects.begin(); i < objects.end(); i++){
+    if(objects[i] != NULL){
+      objects[i]->waitForRunToFinish();
+      objects.erase(i);
     }
   }
 }
 
-GarbageCollector::~GarbageCollector() { terminate(); }
+template <typename T>
+GarbageCollector<T>::~GarbageCollector() { terminate(); }
