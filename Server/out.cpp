@@ -54,15 +54,19 @@ void Out::initialize(std::vector<char*> & argv){
 
 int Out::execute(){
 
+	string out = "";
 	auto identifiers = machine->getidentifiers();
-	//cout << "printing" << endl;
 
 	for(string arg : args){
 		Identifier * ident = (*identifiers)[arg];
-		cout << ident->getStrValue() << "   ";
+		//cout << ident->getStrValue() << "   ";
+		out += ident->getStrValue() + "   ";
 	}
 
-	cout << endl;
+	//cout << endl;
+	out += "\n";
+	OutputBuffer::reportOutput(out);
 	return -1;
 	
 }
+

@@ -5,6 +5,7 @@
 #include <sstream>
 #include <map>
 #include <vector>
+#include "error_buffer.h"
 
 using namespace std;
 
@@ -26,6 +27,9 @@ class Identifier{
 		virtual string getStrValue() = 0; //Converts the value of an object into a string and return it
 
 		virtual ~Identifier(){}; // Destructor
+		
+		// report an error message
+    	void reportError(string errMsg , int lineNumber = -1);
 };
 
 #endif

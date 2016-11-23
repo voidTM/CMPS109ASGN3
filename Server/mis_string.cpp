@@ -55,7 +55,7 @@ Identifier* String::clone(vector<char*> argv){
 	if (argv.size() > 2){
 		// Throw error due to in proper amount of
 		// values
-		cerr <<"Invalid number of arguments to String" << endl;
+		reportError("Invalid number of arguments to String");
 		exit(1);
 	}
 	else if(argv.size() == 2){

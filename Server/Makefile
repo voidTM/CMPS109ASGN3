@@ -9,12 +9,12 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
-MODULES		= ${INSTMOD} ${TYPEMOD} machine
+MODULES		= ${INSTMOD} ${TYPEMOD} machine output_buffer error_buffer TCPServerSocket TCPSocket
 
 INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
-TYPEMOD 	= numeric real character mis_string
+TYPEMOD 	= numeric real character mis_string identifier
 OBJECTS  	= ${SOURCE:.cpp=.o}
-HEADERS  	= ${MODULES:=.h} identifier.h 
+HEADERS  	= ${MODULES:=.h} includes.h common.h 
 EXECBIN  	= misvm
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}

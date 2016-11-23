@@ -7,6 +7,7 @@
 #include "real.h"
 #include "character.h"
 #include "mis_string.h"
+#include "output_buffer.h"
 
 using namespace std;
 

@@ -51,8 +51,9 @@ Identifier* Instruction::identifyConstant(char* constant){
 }
 
 // report an error message to Machine object
-void Instruction::reportError(string errMsg , int lineNumber /*= -1*/ , bool exit /*= false*/) {
-	machine->reportError(errMsg, lineNumber, exit);
+void Instruction::reportError(string errMsg , int lineNumber /*= -1*/) { // , bool exit /*= false*/) {
+	//machine->reportError(errMsg, lineNumber); //, exit);
+	ErrorBuffer::reportError(errMsg, lineNumber);
 	machine->setParseError(true);
 }
 

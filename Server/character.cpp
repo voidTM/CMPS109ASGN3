@@ -36,7 +36,7 @@ Identifier* Character::clone(vector<char*> argv){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		cerr << "Invalid arguement size to Character" << endl;
+		reportError("Invalid arguement size to Character");
 		exit(1);
 	}
 
