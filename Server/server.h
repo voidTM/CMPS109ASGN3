@@ -2,7 +2,7 @@
 #define SERVER
 
 #include "machine.h"
-#include "garbage_collector.h"
+#include "garbagecollector.h"
 #include "TCPSocket.h"
 #include "TCPServerSocket.h"
 
@@ -23,7 +23,7 @@ class Server {
 public:
     Server(char * serverAddress, int serverPort, int backlog = 50, int readBufferSize = 10*1024*1024, int writeBufferSize = 10*1024*1024);
     void run(); // run the server
-}
+};
 
 #endif
 
