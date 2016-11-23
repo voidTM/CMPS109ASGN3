@@ -2,19 +2,18 @@
 #define GARBAGE_COLLECTOR
 
 #include <vector>
-
+#include "machine.h"
 using namespace std;
 
-template <typename T>
 class GarbageCollector
 {
   private:
 
-    vector<T> objects;
+    vector<Machine*> objects;
 
   public:
     GarbageCollector();// Constructor
-    void addConnection(T machine); // Add a connection
+    void addConnection(Machine* machine); // Add a connection
     void cleanup(); // Perform a clean up by disposing expired connections.
     void terminate (); // Wait for all thread connections to terminate and cleanup all
     ~GarbageCollector(); // Destructor

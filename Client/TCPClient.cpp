@@ -33,17 +33,22 @@ bool TCPClient::writeFileToSocket(filename){
   return success;
 }
 
-int TCPClient::readFileFromSocket(){
+string TCPClient::readFileFromSocket(){
   char headerBuffer[100];
+  char *writeBuffer;
+  string fileBuffer;
   socket.readFromSocket(headerBuffer, 100);
   //do something with header
   filesize = atoi(headerBuffer);
+  writeBuffer = (char*) calloc(filesize + 1, sizeof(char));
   //Reading data
   while(filesize > 0){
     // read until theoritical end of file
     filesize -= socket.readFromSocket(writeBuffer, filesize);
     //outfilebuffer.append(writeBuffer);
+    file.append(writeBuffer);
     cout << writeBuffer;
   }
-  
+  free(writeBuffer);)
+  return fileBuffer;
 }

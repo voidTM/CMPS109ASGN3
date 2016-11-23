@@ -19,5 +19,5 @@ class TCPClient{
     bool writeFileToSocket(string filename);
 
     // Reads an entire file from client
-    int readFileFromSocket();
+    string readFileFromSocket();
 }

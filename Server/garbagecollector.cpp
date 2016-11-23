@@ -1,35 +1,37 @@
 #include "garbagecollector.h"
 
-template <typename T>
-GarbageCollector<T>::GarbageCollector(){
-  objects = new vector<T>;
+GarbageCollector::GarbageCollector(){
 }
 
-template <typename T>
-void GarbageCollector<T>::addConnection(T machine){
+void GarbageCollector::addConnection(Machine* machine){
   objects.push_back(machine);
 }
 
 
-template <typename T>
-void GarbageCollector<T>::cleanup(){
-  for(int i = objects.begin(); i < objects.end(); i++){
-    if(objects[i] != NULL || !objects[i].isRunning()){
-      objects[i]->waitForRunToFinish();
-      objects.erase(i);
-    }
+void GarbageCollector::cleanup(){
+  auto i = objects.begin();
+
+  while (i != objects.end()) {
+      // do some stuff
+      if (*i != nullptr ||!(*i)->isRunning()){
+        (*i)->waitForRunToFinish();
+        i = objects.erase(i);
+      }
+      else
+          ++i;
   }
 }
 
-template <typename T>
-void GarbageCollector<T>::terminate(){
-  for(int i = objects.begin(); i < objects.end(); i++){
-    if(objects[i] != NULL){
-      objects[i]->waitForRunToFinish();
-      objects.erase(i);
-    }
+void GarbageCollector::terminate(){
+  auto i = objects.begin();
+
+  while (i != objects.end()) {
+      // do some stuff
+      if (*i != nullptr)
+          i = objects.erase(i);
+      else
+          ++i;
   }
 }
 
-template <typename T>
-GarbageCollector<T>::~GarbageCollector() { terminate(); }
+GarbageCollector::~GarbageCollector() { terminate(); }

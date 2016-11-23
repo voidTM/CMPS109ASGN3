@@ -12,12 +12,12 @@ class Server {
 	// Address and port of the server
 	char * serverAddress;
 	int serverPort;
-	
+
 	// Server's backlog
 	int backlog;
-	
+
 	// Server read and write buffer size (default = 10*1024*1024)
-	int readBufferSize; 
+	int readBufferSize;
 	int writeBufferSize;
 
 public:
@@ -26,4 +26,3 @@ public:
 };
 
 #endif
-
