@@ -10,16 +10,17 @@
 #include "real.h"
 #include "character.h"
 #include "mis_string.h"
-#include "TCPSocket.h"
+//#include "TCPSocket.h"
 #include "TCPServerSocket.h"
 #include "output_buffer.h"
 #include "error_buffer.h"
+#include "Thread.h"
 
 using namespace std;
 
 class Instruction;
 
-class Machine {
+class Machine : public Thread {
 
 private:
 	vector<Instruction*> instructions; // a list of all the existing instructions
@@ -32,13 +33,6 @@ private:
 	//string errorFileName; // the filename for the error file
 	//string outputFileName; // the filename for the output file
 
-	// Address and port of the server
-	char * serverAddress;
-	int serverPort;
-	
-	// Server's backlog
-	int backlog;
-	
 	// Server read and write buffer size (default = 10*1024*1024)
 	int readBufferSize; 
 	int writeBufferSize;
@@ -49,6 +43,8 @@ private:
 	string inputBuffer=""; // server input buffer
 	//char* outputBuffer=0; // server output buffer
 	//char* errorBuffer=0; // server error buffer
+	
+	TCPSocket * tcpClientSocket; // TCP Socket for communication with client
 
 	// becomes true if error happens during parsing or executing
 	// remains false if there is no error
@@ -71,7 +67,7 @@ private:
 public:
 	// constructor
 	Machine();
-	Machine(char * serverAddress, int serverPort, int backlog = 50, int readBufferSize = 10*1024*1024, int writeBufferSize = 10*1024*1024);
+	Machine(TCPSocket * tcpClientSocket, int readBufferSize = 10*1024*1024, int writeBufferSize = 10*1024*1024);
 
 	// run the MIS server
 	void run();
@@ -89,9 +85,12 @@ public:
 	// parses line for every token/argument
 	vector<char*> parseLine (stringstream &line);
 	void trimWhitespace(string& str); // trims whitespace
+	
+	void * threadMainBody (void * arg); // Main thread body that runs the MIS machine
 
     // destructor
 	virtual ~Machine();
 };
 
 #endif /* MACHINE */
+

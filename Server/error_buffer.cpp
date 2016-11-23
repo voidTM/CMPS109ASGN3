@@ -14,3 +14,7 @@ string ErrorBuffer::getErrorBuffer() {
     return errorBuffer;
 }
 
+void ErrorBuffer::emptyBuffer() {
+    errorBuffer = "";
+}
+

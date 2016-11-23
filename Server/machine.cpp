@@ -18,8 +18,11 @@
 Machine::Machine() {}
 
 // constructor
-Machine::Machine(char * serverAddress, int serverPort, int backlog, int readBufferSize, int writeBufferSize) :
-		serverAddress(serverAddress) , serverPort(serverPort) , backlog(backlog), readBufferSize(readBufferSize) , writeBufferSize(writeBufferSize) {
+Machine::Machine(TCPSocket * tcpClientSocket, int readBufferSize, int writeBufferSize) : Thread() {
+
+    this->tcpClientSocket = tcpClientSocket;
+    this->readBufferSize = readBufferSize;
+    this->writeBufferSize = writeBufferSize;
 
 	parseError = false;
 
@@ -50,6 +53,8 @@ Machine::Machine(char * serverAddress, int serverPort, int backlog, int readBuff
 
 //destructor
 Machine::~Machine() {
+	if (tcpClientSocket != NULL)
+		delete tcpClientSocket;		
 }
 
 // replaces all occurrences of a string inside of another string
@@ -252,36 +257,22 @@ map<string, int>* Machine::getLabels(){
 
 // run the MIS server
 void Machine::run() {
-	int read;
+	    int read;
 
-	TCPServerSocket tcpServerSocket = TCPServerSocket(serverAddress, serverPort, backlog);
-	if (tcpServerSocket.initializeSocket() == false)
-	{
-		cout << "Error while initializing the server socket." << endl;
-		return;
-	}
-	
-	while (true)
-	{
-		TCPSocket * tcpClientSocket = tcpServerSocket.getConnection(0, 0, readBufferSize, writeBufferSize);
-		
-		if (tcpClientSocket == NULL)
-			continue;
-		
 		cout << "connection established"<<endl;
 		char header[100];
 		memset (header,0,100);
 		read = tcpClientSocket->readFromSocketWithTimeout(header, 100, ClientTimeoutSec, ClientTimeoutMilli);
-		cout << "read=" << to_string(read) << endl;
+		//cout << "read=" << to_string(read) << endl;
 		if (read < 1)
 		{
-			delete tcpClientSocket;
+			//delete tcpClientSocket;
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
-			continue;
+			return;
 		}
 		long readSize = atol(header);
-		cout << "readSize=" << to_string(readSize) << endl;
-		cout << "header=\"" << header << "\"" << endl;
+		//cout << "readSize=" << to_string(readSize) << endl;
+		//cout << "header=\"" << header << "\"" << endl;
 		
 		long bytesRead = 0;
 		char buffer[1024];
@@ -296,13 +287,18 @@ void Machine::run() {
 			inputBuffer = inputBuffer + buffer;
 		}
 		
-		cout << "inputBuffer={" << inputBuffer << "}" << endl;
+		//cout << "inputBuffer={" << inputBuffer << "}" << endl;
 		if (bytesRead < 1)
 		{
-			delete tcpClientSocket;
+			//delete tcpClientSocket;
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
-			continue;
+			return;
 		}
+		
+		OutputBuffer::emptyBuffer();
+		ErrorBuffer::emptyBuffer();
+		
+		cout << OutputBuffer::getOutputBuffer()<< endl;
 		
 		runProgram();
 		
@@ -321,7 +317,11 @@ void Machine::run() {
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);
 		
-		delete tcpClientSocket;		
-	}
+		tcpClientSocket->shutDown();
+}
+
+void * Machine::threadMainBody (void * arg) { // Main thread body for serving the connection
+	run();
+	return NULL;
 }
 

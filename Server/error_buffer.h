@@ -13,6 +13,8 @@ public:
     static void reportError(string errorMsg, int lineNumber = -1);
 
     static string getErrorBuffer();
+    
+    static void emptyBuffer();
 };
 
 #endif

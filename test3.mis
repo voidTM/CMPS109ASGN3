@@ -4,5 +4,4 @@ VAR $mychar,CHAR,'c'
 VAR $mystr,STRING,100, "Hello world MIS!!!"
 ASSIGN $myfloat, 20.3
 OUT $myfloat, $myint, $mychar
-SLEEP 10.3
 OUT $mystr

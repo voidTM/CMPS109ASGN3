@@ -1,5 +1,5 @@
 #include <string>
-#include "machine.h"
+#include "server.h"
 #include <fstream>
 #include <iostream>
 
@@ -25,7 +25,8 @@ int main (int argc, char** argv) {
     cerr.rdbuf(cerrbuf);
 */
 
-	Machine machine(NULL, 1000);
-	machine.run();
+	Server server(NULL, 1000);
+	server.run();
 
 }
+

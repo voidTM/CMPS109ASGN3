@@ -10,3 +10,7 @@ string OutputBuffer::getOutputBuffer() {
     return outputBuffer;
 }
 
+void OutputBuffer::emptyBuffer() {
+    outputBuffer = "";
+}
+

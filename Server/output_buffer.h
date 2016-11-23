@@ -13,6 +13,8 @@ public:
     static void reportOutput(string output);
 
     static string getOutputBuffer();
+    
+    static void emptyBuffer();
 };
 
 #endif
