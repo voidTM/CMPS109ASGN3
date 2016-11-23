@@ -285,6 +285,7 @@ void Machine::run() {
 		
 		long bytesRead = 0;
 		char buffer[1024];
+		memset(buffer, 0 , 1024);
 		inputBuffer = "";
 		while (bytesRead < readSize)
 		{
