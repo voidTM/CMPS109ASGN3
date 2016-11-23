@@ -1,3 +1,4 @@
+VAR $myint, NUMERIC, 100
 VAR STRING	$mystring,100,”Hello	world	MIS:”
 VAR NUMERIC	$counter,0
 EQUAL	$counter,10
