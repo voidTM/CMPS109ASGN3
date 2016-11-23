@@ -63,11 +63,11 @@ int main(int argc, char** argv){
 			while(getline(scriptFile,buffer))
 				scriptBuffer.append(buffer + "\n");
 
-			printf("File Content: \n %s", scriptBuffer.c_str());
+			//printf("File Content: \n %s", scriptBuffer.c_str());
 			filesize = scriptBuffer.size();
 			string header = to_string(filesize);
-			printf( "file size %d \n", filesize);
-			cout << header << endl;
+			//printf( "file size %d \n", filesize);
+			//cout << header << endl;
 			// Send header data
 			socket.writeToSocket(header.c_str(),100);
 			while(filesize > 0){
@@ -85,7 +85,7 @@ int main(int argc, char** argv){
 		//Reading data
 		while(filesize > 0){
 			// read until theoritical end of file
-			filesize -= socket.readFromSocket(writeBuffer, 1024);
+			filesize -= socket.readFromSocket(writeBuffer, filesize);
 			//outfilebuffer.append(writeBuffer);
 			cout << writeBuffer;
 		}
@@ -94,11 +94,12 @@ int main(int argc, char** argv){
 		//do something with header
 		filesize = atoi(headerBuffer);
 		//Reading data
+		printf("error file size %d\n", filesize);
 		while(filesize > 0){
 			// read until theoritical end of file
 			filesize -= socket.readFromSocket(writeBuffer, 1024);
 			//errfileBuffer.append(writeBuffer);
-			cout << writeBuffer;
+			cerr << writeBuffer;
 		}
 	}
 

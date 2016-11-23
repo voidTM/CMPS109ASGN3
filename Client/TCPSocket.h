@@ -1,4 +1,3 @@
-
 #ifndef TCPSOCKET_H
 #define TCPSOCKET_H
 
@@ -45,4 +44,3 @@ class TCPSocket // TCP Socket Class
 };
 
 #endif // TCPSOCKET_H
-

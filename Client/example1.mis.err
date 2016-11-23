@@ -1,0 +1,17 @@
+Error in line 1: The variable $myint not found.
+Error in line 1: The variable $myint1 not found.
+Error in line 2: The variable $myint not found.
+Error in line 2: The variable $myint1 not found.
+Error in line 3: The variable $myint not found.
+Error in line 3: The variable $myint2 not found.
+Error in line 4: The variable $myfloat not found.
+Error in line 4: The variable $myint2 not found.
+Error in line 5: The variable $myint not found.
+Error in line 6: The variable $mystr1 not found.
+Error in line 7: The variable $mystr1 not found.
+Error in line 8: The variable $mystr1 not found.
+Error in line 8: ’
+’ is not of type Character.
+Error in line 11: The variable $myint not found.
+Error in line 12: The variable $myint1 not found.
+Error in line 14: The variable $myint not found.

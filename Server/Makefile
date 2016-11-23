@@ -9,17 +9,17 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
-MODULES		= ${INSTMOD} ${TYPEMOD} machine output_buffer error_buffer TCPServerSocket TCPSocket
+MODULES		= ${INSTMOD} ${TYPEMOD} machine output_buffer error_buffer TCPServerSocket TCPSocket garbagecollector
 
 INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
 TYPEMOD 	= numeric real character mis_string identifier
 OBJECTS  	= ${SOURCE:.cpp=.o}
-HEADERS  	= ${MODULES:=.h} includes.h common.h 
+HEADERS  	= ${MODULES:=.h} includes.h common.h
 EXECBIN  	= misvm
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}
 
-all : ${EXECBIN} 
+all : ${EXECBIN}
 
 ${EXECBIN} : ${OBJECTS}
 	${GCC} -o${EXECBIN} ${OBJECTS}
@@ -44,4 +44,3 @@ include Makefile.dep
 
 again :
 	${MAKE} spotless dep all
-
