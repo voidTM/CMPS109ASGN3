@@ -3,8 +3,9 @@ VAR $myfloat,REAL,12.14
 VAR $mychar,CHAR,'c'
 VAR $mystr,STRING,100, "Hello world MIS!!!"
 ASSIGN $myfloat, 20.3
+ASSIGN $myint, 3
 OUT $myfloat, $myint, $mychar
-LABEL	LAB1
-SLEEP 5
-OUT $mystr
-JMP	LAB1
+LABEL LOOP
+OUT	$mystr,$myint,"	!!\n"
+SUB	$myint,$myint,1
+JMPNZ	LOOP, $myint
