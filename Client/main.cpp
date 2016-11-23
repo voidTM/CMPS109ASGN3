@@ -49,7 +49,7 @@ int main(int argc, char** argv){
 
 		string buffer;
 		string scriptBuffer;
-		char headerBuffer[1024];
+		char headerBuffer[100];
 		char writeBuffer[1024];
 		if(scriptFile.is_open()){
 			while(getline(scriptFile,buffer))
