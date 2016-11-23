@@ -68,7 +68,7 @@ void Machine::parseFile(){
 	int lineNumber;
 	int instNumber;
 	parseError = false;
-    istringstream f(inputBuffer);
+    istringstream f(inputBuffer.c_str());
 	string line;
 	string command;
 	lineNumber = 1;
@@ -268,9 +268,11 @@ void Machine::run() {
 		if (tcpClientSocket == NULL)
 			continue;
 		
+		cout << "connection established"<<endl;
 		char header[100];
 		memset (header,0,100);
 		read = tcpClientSocket->readFromSocketWithTimeout(header, 100, ClientTimeoutSec, ClientTimeoutMilli);
+		cout << "read=" << to_string(read) << endl;
 		if (read < 1)
 		{
 			delete tcpClientSocket;
@@ -278,8 +280,23 @@ void Machine::run() {
 			continue;
 		}
 		long readSize = atol(header);
-		read = tcpClientSocket->readFromSocketWithTimeout(inputBuffer, readSize, ClientTimeoutSec, ClientTimeoutMilli);
-		if (read < 1)
+		cout << "readSize=" << to_string(readSize) << endl;
+		cout << "header=\"" << header << "\"" << endl;
+		
+		long bytesRead = 0;
+		char buffer[1024];
+		inputBuffer = "";
+		while (bytesRead < readSize)
+		{
+			read = tcpClientSocket->readFromSocketWithTimeout(buffer, 1024, ClientTimeoutSec, ClientTimeoutMilli);
+			if (read < 1) 
+				break;
+			bytesRead += read;
+			inputBuffer = inputBuffer + buffer;
+		}
+		
+		cout << "inputBuffer={" << inputBuffer << "}" << endl;
+		if (bytesRead < 1)
 		{
 			delete tcpClientSocket;
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;

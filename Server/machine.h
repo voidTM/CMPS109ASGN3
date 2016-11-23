@@ -46,7 +46,7 @@ private:
 	// client socket timeout
 	int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
 	
-	char* inputBuffer=0; // server input buffer
+	string inputBuffer=""; // server input buffer
 	//char* outputBuffer=0; // server output buffer
 	//char* errorBuffer=0; // server error buffer
 
