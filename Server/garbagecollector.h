@@ -1,8 +1,6 @@
 #ifndef GARBAGE_COLLECTOR
 #define GARBAGE_COLLECTOR
 
-#include "machine.h"
-
 template <typename T>
 class GarbageCollector
 {
