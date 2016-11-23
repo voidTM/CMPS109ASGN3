@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "stdio.h"
+#include <sstream>
 
 #include "TCPSocket.h"
 #include "errorchecker.h"
@@ -52,10 +53,17 @@ int main(int argc, char** argv){
 		string scriptBuffer;
 		char headerBuffer[100];
 		char writeBuffer[1024];
+		char readBuffer[1024];
 		if(scriptFile.is_open()){
+			/*
+			ostringstream oss;
+			oss << scriptFile.rdbuf();
+			scriptBuffer = oss.str();
+			*/
 			while(getline(scriptFile,buffer))
-				scriptBuffer.append(buffer);
+				scriptBuffer.append(buffer + "\n");
 
+			printf("File Content: \n %s", scriptBuffer.c_str());
 			filesize = scriptBuffer.size();
 			string header = to_string(filesize);
 			printf( "file size %d \n", filesize);
