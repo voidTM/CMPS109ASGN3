@@ -15,10 +15,11 @@ int main(int argc, char** argv){
 	string outfileBuffer; string errfileBuffer;
 	bool errors;
 	//TCPSocket socket;
-	if(argc != 4)
+	if(argc != 4){
 		cerr << "client_misvm <server IPaddress>"
 				"<server port> file" << endl;
-
+		exit(1);
+	}
 	// Try to get and categorize things.
 	serverAddr = argv[1];
 	port = atoi(argv[2]);

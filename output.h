@@ -5,8 +5,8 @@
 
 class Output{
   private:
-    string outBuffer;
-    string errBuffer;
+    static string outBuffer;
+    static string errBuffer;
     pthread_mutex_t mutex; // A mutex for managing critical section
     pthread_cond_t consume_cond; // A condition for the consumer to wait when buffer is empty
     pthread_cond_t produce_cond; // A condition for the producer to wiat when buffer is full
@@ -15,5 +15,11 @@ class Output{
     int count; // T
 
   public:
+    Output();
 
+    printError();
+    printOutput();
+
+    getErrorBuffer();
+    getPrintBuffer();
 }
