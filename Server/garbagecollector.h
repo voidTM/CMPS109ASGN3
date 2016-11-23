@@ -1,6 +1,10 @@
 #ifndef GARBAGE_COLLECTOR
 #define GARBAGE_COLLECTOR
 
+#include <vector>
+
+using namespace std;
+
 template <typename T>
 class GarbageCollector
 {
