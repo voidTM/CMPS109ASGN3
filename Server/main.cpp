@@ -20,13 +20,12 @@ int main (int argc, char** argv) {
 
 	Machine machine(programFileName);
 	machine.run();
-    
+
     cout.rdbuf(coutbuf); //reset to standard output again
     cerr.rdbuf(cerrbuf);
 */
 
-	Server server(NULL, 1000);
+	Server server("127.0.0.1", 1000);
 	server.run();
 
 }
-
