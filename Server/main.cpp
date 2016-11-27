@@ -25,7 +25,7 @@ int main (int argc, char** argv) {
     cerr.rdbuf(cerrbuf);
 */
 
-	Server server("127.0.0.1", 1000);
+	Server server(NULL, 1000);
 	server.run();
 
 }
