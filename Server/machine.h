@@ -28,6 +28,7 @@ private:
 	map<string,Identifier*> typeSet; // a map of identifiers' prototypes that are used for cloning
 	map<string,Instruction*> instSet; // a map of instructions' prototypes that are used for cloning
 	map<string,int> labels; // a map of defined labels
+	vector<pthread_t*> runningThreads; // a list of threads currently running
 
 	// read and write buffer size
     int readBufferSize;
@@ -60,7 +61,7 @@ private:
     void runProgram();
 
 	string ReplaceAll(string str, const string& from, const string& to); // replaces all occurrences of a string inside of another string
-
+  
 public:
 	// constructor
 	Machine();
@@ -77,10 +78,14 @@ public:
 
 	// set parseError member variable
 	void setParseError(bool val);
+	
+	// execute the instructions one by one
+	void executeInstructions(int startInstIdx = 0);
 
 	map<string,Identifier*> * getidentifiers(); // get a pointer to the map of existing identifiers
 	map<string,Identifier*> * getTypes(); // get a pointer to the map of identifiers' prototypes (typeSet)
 	map<string, int> *  getLabels(); // get a pointer to the map of existing labels
+	vector<pthread_t*> * getRunningThreads(); // get a pointer to the vector of the currently running threads
 
 	// parses line for every token/argument
 	vector<char*> parseLine (stringstream &line);

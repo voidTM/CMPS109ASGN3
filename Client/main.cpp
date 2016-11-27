@@ -40,12 +40,12 @@ int main(int argc, char** argv){
 	streambuf *cerrbuf = cerr.rdbuf();
 	cerr.rdbuf(err.rdbuf());
 
-	ErrorChecker parser(filename);
+	/*ErrorChecker parser(filename);
 	parser.parseFile();
-	errors = parser.getErrorStatus();
+	errors = parser.getErrorStatus();*/
 
 	// if there is no error send data over.
-	if(!errors){
+	if(!errors)	{
 		TCPSocket socket = TCPSocket(serverAddr, port);
 		ifstream scriptFile(filename);
 

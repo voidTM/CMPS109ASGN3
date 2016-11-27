@@ -13,6 +13,9 @@
 #include "jump.h"
 #include "condjump.h"
 #include "compjump.h"
+#include "thread_begin.h"
+#include "thread_end.h"
+#include "barrier.h"
 
 // constructor
 Machine::Machine() {}
@@ -49,6 +52,10 @@ Machine::Machine(TCPSocket * tcpClientSocket, int readBufferSize, int writeBuffe
     instSet["JMPLT"] = new ComparativeJump(this, 2);
     instSet["JMPGTE"] = new ComparativeJump(this, 3);
     instSet["JMPLTE"] = new ComparativeJump(this, 4);
+    
+    instSet["THREAD_BEGIN"] = new ThreadBegin(this);
+    instSet["THREAD_END"] = new ThreadEnd(this);
+    instSet["BARRIER"] = new Barrier(this);
 }
 
 //destructor
@@ -78,6 +85,7 @@ void Machine::parseFile(){
 	string command;
 	lineNumber = 1;
 	instNumber = 0;
+	int threadBeginInstNum = -1;
 	while(getline(f,line))
 	{
         	//cout << line << endl;
@@ -93,6 +101,30 @@ void Machine::parseFile(){
    				labels[arguments[0]] = instNumber;
    			} else if(!command.compare("VAR"))
             	parseVar(iss, lineNumber);
+         	  else if(!command.compare("THREAD_BEGIN")) {
+            	if (threadBeginInstNum > -1) 
+            	{
+            		reportError("THREAD_END not found.", lineNumber);
+            		return;
+            	}
+                threadBeginInstNum = instNumber;
+            	parseInst(command, iss, lineNumber);
+            	if (!parseError)
+            		((ThreadBegin*) instructions[instNumber])->setBeginInstIdx(instNumber);
+            	instNumber++; // Ticks for every instruction read
+         	}
+         	  else if(!command.compare("THREAD_END")) {
+            	if (threadBeginInstNum == -1) 
+            	{
+            		reportError("THREAD_BEGIN not found.", lineNumber);
+            		return;
+            	}
+            	parseInst(command, iss, lineNumber);
+            	if (!parseError)
+	            	((ThreadBegin*) instructions[threadBeginInstNum])->setEndInstIdx(instNumber);
+                threadBeginInstNum = -1;
+            	instNumber++; // Ticks for every instruction read
+         	}
          	else{
             	//cout << "Instruction: " << command <<endl;
             	parseInst(command, iss, lineNumber);
@@ -101,6 +133,8 @@ void Machine::parseFile(){
 
 			lineNumber++;
 	}
+	if (threadBeginInstNum > -1)
+		reportError("THREAD_END not found.", lineNumber);
 }
 
 // Parses one line for an given instruction
@@ -189,24 +223,39 @@ void Machine::trimWhitespace(string& str){
 }
 
 // parses and runs a program file
-void Machine::runProgram()
-{
+void Machine::runProgram() {
 	// parse the entire program file
 	parseFile();
 
 	// if there was an error in parsing the file, terminate the execution
 	if (parseError) return;
+	
+	// execute the instructions one by one
+	executeInstructions();
+} 
 
+// execute the instructions one by one
+void Machine::executeInstructions(int startInstIdx /* = 0 */)
+{
 	// try to execute the program instruction by instruction
-	int retval, currentInstIdx = 0;
+	int retval;
+	int currentInstIdx = startInstIdx;
+	/*if (startInstIdx == NULL) 
+	    currentInstIdx = 0;
+	else
+	    currentInstIdx = (long)startInstIdx;*/
+	int endInstIdx = instructions.size();
+	
 	try
 	{
-		while (currentInstIdx < instructions.size())
+		while (currentInstIdx < endInstIdx)
 		{
 			// execute the current instruction
 			retval = instructions[currentInstIdx]->execute();
 
-			if (retval == -1)
+			if (retval == -2)
+				return; // no more instructions will be executed
+			else if (retval == -1)
 				currentInstIdx++; // if it was a non-jump instructions, then go to the next instruction
 			else
 				currentInstIdx = retval; // if it was a jump instruction, then jump to that specified point
@@ -216,8 +265,7 @@ void Machine::runProgram()
 	catch (int e)
 	{
 		int lineNumber = instructions[currentInstIdx]->getLineNumber();
-		reportError("An error was generated while executing the line. Execution of the program terminated." , lineNumber); //, true);
-		exit(1);
+		reportError("An error was generated while executing the line. Execution of the program terminated." , lineNumber);
 	}
 }
 
@@ -318,5 +366,9 @@ void Machine::run() {
 void * Machine::threadMainBody (void * arg) {
 	run();
 	return NULL;
+}
+
+vector<pthread_t*> * Machine::getRunningThreads() {
+    return & runningThreads;
 }
 

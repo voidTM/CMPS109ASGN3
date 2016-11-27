@@ -11,7 +11,7 @@ DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
 MODULES		= ${INSTMOD} ${TYPEMOD} machine output_buffer error_buffer TCPServerSocket TCPSocket garbagecollector server Thread
 
-INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
+INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump thread_begin thread_end barrier
 TYPEMOD 	= numeric real character mis_string identifier
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} includes.h common.h
