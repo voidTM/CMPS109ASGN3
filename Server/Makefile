@@ -15,7 +15,7 @@ INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out slee
 TYPEMOD 	= numeric real character mis_string identifier
 OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} includes.h common.h
-EXECBIN  	= misvm
+EXECBIN  	= server_misvm
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}
 

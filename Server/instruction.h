@@ -16,7 +16,7 @@ class Instruction {
 
 protected:
 	vector<string> args; // a list of arguments provided for this instruction
-	Machine * machine; // a pointer to the wrapper object
+	Machine * machine; // a pointer to the modifier object
 	int lineNumber; // line number, used for error reporting
 
 public:

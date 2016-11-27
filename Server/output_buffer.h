@@ -7,14 +7,18 @@ using namespace std;
 
 class OutputBuffer {
 private:
-    static string outputBuffer;
+    string outputBuffer;
     
 public:
-    static void reportOutput(string output);
-
-    static string getOutputBuffer();
+    OutputBuffer();
     
-    static void emptyBuffer();
+    void reportOutput(string output);
+
+    string getOutputBuffer();
+    
+    void emptyBuffer();
+    
+    ~OutputBuffer();
 };
 
 #endif
