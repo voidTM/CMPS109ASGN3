@@ -23,6 +23,8 @@ void Numeric::initialize(char* token){
 	t = sscanf(token, "%d", &val);
 	if(t == 1)
 		value = val;
+	else
+		reportError("Argument is not a valid String");
 	// else throw error
 }
 

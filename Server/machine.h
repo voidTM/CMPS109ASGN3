@@ -34,16 +34,16 @@ private:
 	//string outputFileName; // the filename for the output file
 
 	// Server read and write buffer size (default = 10*1024*1024)
-	int readBufferSize; 
+	int readBufferSize;
 	int writeBufferSize;
-	
+
 	// client socket timeout
 	int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
-	
+
 	string inputBuffer=""; // server input buffer
 	//char* outputBuffer=0; // server output buffer
 	//char* errorBuffer=0; // server error buffer
-	
+
 	TCPSocket * tcpClientSocket; // TCP Socket for communication with client
 
 	// becomes true if error happens during parsing or executing
@@ -58,6 +58,8 @@ private:
 
 	// Parses one line for an given instruction
 	void parseInst(string command, stringstream &argv, int lineNumber);
+
+	void makeThread(istringstream* f, );
 
     // parse and run a program file
     void runProgram();
@@ -85,7 +87,7 @@ public:
 	// parses line for every token/argument
 	vector<char*> parseLine (stringstream &line);
 	void trimWhitespace(string& str); // trims whitespace
-	
+
 	void * threadMainBody (void * arg); // Main thread body that runs the MIS machine
 
     // destructor
@@ -93,4 +95,3 @@ public:
 };
 
 #endif /* MACHINE */
-

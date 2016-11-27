@@ -9,8 +9,9 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
 SOURCE   	= ${MODULES:=.cpp} main.cpp
-MODULES		= ${INSTMOD} ${TYPEMOD} machine output_buffer error_buffer TCPServerSocket TCPSocket garbagecollector server Thread
-
+MODULES		= ${INSTMOD} ${TYPEMOD} ${THREAD} ${SOCKET} machine output_buffer error_buffer
+THREAD		= Thread threadmanager
+SOCKET		= TCPServerSocket TCPSocket garbagecollector server
 INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump
 TYPEMOD 	= numeric real character mis_string identifier
 OBJECTS  	= ${SOURCE:.cpp=.o}

@@ -30,13 +30,16 @@ void Character::initialize(char* token){
 	//cout << "val = " << val << endl;
 	if(t == 1)
 		value = val;
+	else
+		reportError("Argument is not a valid Character");
+
 }
 
 Identifier* Character::clone(vector<char*> argv){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		reportError("Invalid arguement size to Character");
+		reportError("Invalid number of arguments to Character");
 		exit(1);
 	}
 

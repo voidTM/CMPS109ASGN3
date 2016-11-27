@@ -45,6 +45,8 @@ void String::initialize(char* token){
 
 	if(t == 1)
 		value = strdup(val.c_str());
+	else
+		reportError("Argument is not a valid String");
 }
 
 Identifier* String::clone(vector<char*> argv){

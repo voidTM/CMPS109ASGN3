@@ -15,7 +15,7 @@ using namespace std;
 
 class Instruction;
 
-class Parser {
+class ErrorChecker {
 
 	private:
 		vector<Instruction*> instructions; // a list of all the existing instructions

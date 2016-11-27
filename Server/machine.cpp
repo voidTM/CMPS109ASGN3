@@ -54,7 +54,7 @@ Machine::Machine(TCPSocket * tcpClientSocket, int readBufferSize, int writeBuffe
 //destructor
 Machine::~Machine() {
 	if (tcpClientSocket != NULL)
-		delete tcpClientSocket;		
+		delete tcpClientSocket;
 }
 
 // replaces all occurrences of a string inside of another string
@@ -85,7 +85,10 @@ void Machine::parseFile(){
 			line = ReplaceAll(line, "\\t", "\t");
 			line = ReplaceAll(line, "\\r", "\r");
          	stringstream iss(line);
-         	iss >> command;
+        	iss >> command;
+
+        	if(!command.compare("THREAD_BEGIN"))
+        		makeThread(&istringstream, lineNumber);
 
          	// check to see if it is a variable, label, or instruction
    			if(!command.compare("LABEL")){
@@ -103,6 +106,39 @@ void Machine::parseFile(){
 	}
 }
 
+// 
+void makeThread(istringstream* f, int lineNumber){
+	instNumber = 0;
+	string line;
+	string command;
+	while(getline(f,line))
+	{
+        	//cout << line << endl;
+			line = ReplaceAll(line, "\\n", "\n");
+			line = ReplaceAll(line, "\\t", "\t");
+			line = ReplaceAll(line, "\\r", "\r");
+         	stringstream iss(line);
+        	iss >> command;
+
+        	if(!command.compare("THREAD_BEGIN"))
+        		makeThread(&istringstream, lineNumber);
+
+         	// check to see if it is a variable, label, or instruction
+   			if(!command.compare("LABEL")){
+				vector <char*> arguments = parseLine(iss);
+   				labels[arguments[0]] = instNumber;
+   			} else if(!command.compare("VAR"))
+            	parseVar(iss, lineNumber);
+         	else{
+            	//cout << "Instruction: " << command <<endl;
+            	parseInst(command, iss, lineNumber);
+            	instNumber++; // Ticks for every instruction read
+        	}
+
+			lineNumber++;
+}
+
+
 // Parses one line for an given instruction
 void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 	try
@@ -110,7 +146,7 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 		string token;
 		vector<char*> arguments;
 
-		arguments = parseLine(argv);		 
+		arguments = parseLine(argv);
 		Instruction* obj = instSet[command]; // look for appropriate command
 
 		// Check to see object was created
@@ -273,7 +309,7 @@ void Machine::run() {
 		long readSize = atol(header);
 		//cout << "readSize=" << to_string(readSize) << endl;
 		//cout << "header=\"" << header << "\"" << endl;
-		
+
 		long bytesRead = 0;
 		char buffer[1024];
 		memset(buffer, 0 , 1024);
@@ -281,12 +317,12 @@ void Machine::run() {
 		while (bytesRead < readSize)
 		{
 			read = tcpClientSocket->readFromSocketWithTimeout(buffer, 1024, ClientTimeoutSec, ClientTimeoutMilli);
-			if (read < 1) 
+			if (read < 1)
 				break;
 			bytesRead += read;
 			inputBuffer = inputBuffer + buffer;
 		}
-		
+
 		//cout << "inputBuffer={" << inputBuffer << "}" << endl;
 		if (bytesRead < 1)
 		{
@@ -294,29 +330,29 @@ void Machine::run() {
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
 			return;
 		}
-		
+
 		OutputBuffer::emptyBuffer();
 		ErrorBuffer::emptyBuffer();
-		
+
 		cout << OutputBuffer::getOutputBuffer()<< endl;
-		
+
 		runProgram();
-		
+
 		//char header[100];
 		memset (header ,0 , 100);
 		string outputBuffer = OutputBuffer::getOutputBuffer();
-		long outputBufferSize = outputBuffer.size(); 
+		long outputBufferSize = outputBuffer.size();
 		strcpy(header , to_string(outputBufferSize).c_str());
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(outputBuffer.c_str(), outputBufferSize);
-		
+
 		memset (header ,0 , 100);
 		string errorBuffer = ErrorBuffer::getErrorBuffer();
 		long errorBufferSize = errorBuffer.size();
 		strcpy(header , to_string(errorBufferSize).c_str());
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);
-		
+
 		tcpClientSocket->shutDown();
 }
 
@@ -324,4 +360,3 @@ void * Machine::threadMainBody (void * arg) { // Main thread body for serving th
 	run();
 	return NULL;
 }
-

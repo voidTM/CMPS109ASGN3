@@ -30,6 +30,8 @@ void Real::initialize (char* token){
 	t = sscanf(token, "%lf", &val);
 	if(t == 1)
 		value = val;
+	else
+		reportError("Argument is not a valid Real");
 	//else throw error
 }
 
@@ -38,7 +40,7 @@ Identifier* Real::clone(vector<char*> argv){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		reportError("Invalid argument to Real");
+		reportError("Invalid number of arguments to Real");
 		exit(1);
 	}
 
