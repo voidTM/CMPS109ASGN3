@@ -13,7 +13,7 @@ void GarbageCollector::cleanup(){
 
   while (i != objects.end()) {
       // do some stuff
-      if (*i != nullptr ||!(*i)->isRunning()){
+      if (*i != nullptr && !(*i)->isRunning()){
         (*i)->waitForRunToFinish();
         i = objects.erase(i);
       }

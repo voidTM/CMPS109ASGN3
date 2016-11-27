@@ -7,14 +7,14 @@ void Server::run() {
 
 	TCPServerSocket tcpServerSocket = TCPServerSocket(serverAddress, serverPort, backlog);
 
-	GarbageCollector garbageCollector;
+	//
 
 	if (tcpServerSocket.initializeSocket() == false)
 	{
-		cout << "Error while initializing the server socket." << endl;
+		cerr << "Error while initializing the server socket." << endl;
 		return;
 	}
-
+	GarbageCollector garbageCollector;
 	while (true)
 	{
 		TCPSocket * tcpClientSocket = tcpServerSocket.getConnection(0, 0, readBufferSize, writeBufferSize);
