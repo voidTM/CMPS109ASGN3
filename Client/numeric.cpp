@@ -30,7 +30,7 @@ Identifier* Numeric::clone(vector<char*> argv){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		cerr << "Invalid argument to Numeric" << endl;
+		reportError("Invalid argument to Numeric"); << endl;
 		exit(1);
 	}
 

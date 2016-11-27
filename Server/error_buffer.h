@@ -7,14 +7,18 @@ using namespace std;
 
 class ErrorBuffer {
 private:
-    static string errorBuffer;
+    string errorBuffer;
     
 public:
-    static void reportError(string errorMsg, int lineNumber = -1);
-
-    static string getErrorBuffer();
+    ErrorBuffer();
     
-    static void emptyBuffer();
+    void reportError(string errorMsg, int lineNumber = -1);
+
+    string getErrorBuffer();
+    
+    void emptyBuffer();
+    
+    ~ErrorBuffer();
 };
 
 #endif

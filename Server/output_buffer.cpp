@@ -1,6 +1,10 @@
 #include "output_buffer.h"
 
-string OutputBuffer::outputBuffer = "";
+OutputBuffer::OutputBuffer() {
+    outputBuffer = "";
+}
+
+OutputBuffer::~OutputBuffer() {}
 
 void OutputBuffer::reportOutput(string output) {
     outputBuffer += output;

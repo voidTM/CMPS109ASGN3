@@ -5,3 +5,4 @@ VAR $mystr,STRING,100, "Hello world MIS!!!"
 ASSIGN $myfloat, 20.3
 OUT $myfloat, $myint, $mychar
 OUT $mystr
+SLEEP 2

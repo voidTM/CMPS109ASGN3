@@ -3,29 +3,31 @@
 #include <fstream>
 #include <iostream>
 
+using namespace std;
+
 int main (int argc, char** argv) {
 
-/*
-	string programFileName = argv[argc - 1];
-	string errorFileName = programFileName + ".err";
-	string outputFileName = programFileName + ".out";
+	if(argc != 2 && argc != 3 ) {
+		cout << "server_misvm <server port>" << endl;
+		cout << "or" << endl;
+		cout << "server_misvm <<server IPaddress> server port>" << endl;
+		exit(1);
+	}
 
-	ofstream out(outputFileName);
-	ofstream err(errorFileName);
-	// Redirect output to filess
-	streambuf *coutbuf = cout.rdbuf();
-	cout.rdbuf(out.rdbuf());
-	streambuf *cerrbuf = cerr.rdbuf();
-	cerr.rdbuf(err.rdbuf());
+    int port;
+    char* serverAddress;
+    if (argc == 2)
+    {
+    	serverAddress = NULL;
+	    port = atoi(argv[1]);
+    }
+    if (argc == 3)
+    {
+    	serverAddress = argv[1];
+	    port = atoi(argv[2]);
+    }
 
-	Machine machine(programFileName);
-	machine.run();
-
-    cout.rdbuf(coutbuf); //reset to standard output again
-    cerr.rdbuf(cerrbuf);
-*/
-
-	Server server(NULL, 1000);
+	Server server(serverAddress, port);
 	server.run();
-
 }
+

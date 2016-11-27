@@ -15,7 +15,7 @@
 #include "output_buffer.h"
 #include "error_buffer.h"
 #include "Thread.h"
-
+ 
 using namespace std;
 
 class Instruction;
@@ -29,6 +29,7 @@ private:
 	map<string,Instruction*> instSet; // a map of instructions' prototypes that are used for cloning
 	map<string,int> labels; // a map of defined labels
 
+<<<<<<< HEAD
 	//string programFileName; // the filename for the MIS program
 	//string errorFileName; // the filename for the error file
 	//string outputFileName; // the filename for the output file
@@ -37,13 +38,26 @@ private:
 	int readBufferSize;
 	int writeBufferSize;
 
+=======
+	// read and write buffer size
+    int readBufferSize;
+    int writeBufferSize;
+	
+>>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 	// client socket timeout
 	int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
 
 	string inputBuffer=""; // server input buffer
+<<<<<<< HEAD
 	//char* outputBuffer=0; // server output buffer
 	//char* errorBuffer=0; // server error buffer
 
+=======
+	
+	OutputBuffer outputBuffer; // output returned to the client
+	ErrorBuffer errorBuffer; // errors returned to the client 
+	
+>>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 	TCPSocket * tcpClientSocket; // TCP Socket for communication with client
 
 	// becomes true if error happens during parsing or executing
@@ -74,8 +88,11 @@ public:
 	// run the MIS server
 	void run();
 
-	// write the error message to the error file (.err)
-	void reportError(string errMsg , int lineNumber = -1);// , bool terminate = false);
+	// add the error message to the error buffer
+	void reportError(string errMsg , int lineNumber = -1);
+	
+	// add the output text to the output buffer
+	void reportOutput(string out);
 
 	// set parseError member variable
 	void setParseError(bool val);

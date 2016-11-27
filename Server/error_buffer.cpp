@@ -1,6 +1,10 @@
 #include "error_buffer.h"
 
-string ErrorBuffer::errorBuffer = "";
+ErrorBuffer::ErrorBuffer() {
+    errorBuffer = "";
+}
+
+ErrorBuffer::~ErrorBuffer() {}
 
 void ErrorBuffer::reportError(string errorMsg, int lineNumber /*= -1*/) {
 	string msg = errorMsg + "\n";

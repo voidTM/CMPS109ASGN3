@@ -11,12 +11,11 @@ using namespace std;
 
 class Identifier{
 	protected:
-		//string name;
-		//string type;
-		//auto value;
+		//Machine * machine; // a pointer to the modifier object
 
 	public:
-		Identifier(){}; //Constructor
+		//Identifier(Machine * machine); //Constructor
+		Identifier(); //Constructor
 
 		virtual void initialize (char* token) = 0;
 

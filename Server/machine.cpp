@@ -257,18 +257,15 @@ void Machine::runProgram()
 	}
 }
 
-// write the error message to the error file (.err)
-void Machine::reportError(string errMsg , int lineNumber /*= -1*/) { // , bool terminate /*= false*/) {
+// add the error message to the error buffer
+void Machine::reportError(string errMsg , int lineNumber /*= -1*/) { 
+	errorBuffer.reportError(errMsg, lineNumber);
+	setParseError(true);
+}
 
-	// print error to file;
-	string output = errMsg + "\n";
-	if (lineNumber > -1)
-		output = "Error in line " + to_string(lineNumber) + ": " + output;
-	cerr << output;
-
-	// if terminate is true, then terminate the execution of the program
-	//if (terminate)
-		//exit(1);
+// add the output text to the output buffer
+void Machine::reportOutput(string out) {
+    outputBuffer.reportOutput(out);
 }
 
 // set parseError
@@ -295,7 +292,7 @@ map<string, int>* Machine::getLabels(){
 void Machine::run() {
 	    int read;
 
-		cout << "connection established"<<endl;
+		//cout << "connection established"<<endl;
 		char header[100];
 		memset (header,0,100);
 		read = tcpClientSocket->readFromSocketWithTimeout(header, 100, ClientTimeoutSec, ClientTimeoutMilli);
@@ -330,6 +327,7 @@ void Machine::run() {
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
 			return;
 		}
+<<<<<<< HEAD
 
 		OutputBuffer::emptyBuffer();
 		ErrorBuffer::emptyBuffer();
@@ -346,17 +344,38 @@ void Machine::run() {
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(outputBuffer.c_str(), outputBufferSize);
 
+=======
+		
+		outputBuffer.emptyBuffer();
+		errorBuffer.emptyBuffer();
+				
+		runProgram();
+		
 		memset (header ,0 , 100);
-		string errorBuffer = ErrorBuffer::getErrorBuffer();
-		long errorBufferSize = errorBuffer.size();
-		strcpy(header , to_string(errorBufferSize).c_str());
+		string outputText = outputBuffer.getOutputBuffer();
+		long outputTextSize = outputText.size(); 
+		strcpy(header , to_string(outputTextSize).c_str());
 		tcpClientSocket->writeToSocket(header, 100);
+		tcpClientSocket->writeToSocket(outputText.c_str(), outputTextSize);
+		
+>>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
+		memset (header ,0 , 100);
+		string errorText = errorBuffer.getErrorBuffer();
+		long errorTextSize = errorText.size();
+		strcpy(header , to_string(errorTextSize).c_str());
+		tcpClientSocket->writeToSocket(header, 100);
+<<<<<<< HEAD
 		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);
 
+=======
+		tcpClientSocket->writeToSocket(errorText.c_str(), errorTextSize);
+		
+>>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 		tcpClientSocket->shutDown();
 }
 
-void * Machine::threadMainBody (void * arg) { // Main thread body for serving the connection
+// the thread main body function
+void * Machine::threadMainBody (void * arg) {
 	run();
 	return NULL;
 }
