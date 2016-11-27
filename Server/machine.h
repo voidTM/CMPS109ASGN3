@@ -29,35 +29,18 @@ private:
 	map<string,Instruction*> instSet; // a map of instructions' prototypes that are used for cloning
 	map<string,int> labels; // a map of defined labels
 
-<<<<<<< HEAD
-	//string programFileName; // the filename for the MIS program
-	//string errorFileName; // the filename for the error file
-	//string outputFileName; // the filename for the output file
-
-	// Server read and write buffer size (default = 10*1024*1024)
-	int readBufferSize;
-	int writeBufferSize;
-
-=======
 	// read and write buffer size
     int readBufferSize;
     int writeBufferSize;
 	
->>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 	// client socket timeout
 	int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
 
 	string inputBuffer=""; // server input buffer
-<<<<<<< HEAD
-	//char* outputBuffer=0; // server output buffer
-	//char* errorBuffer=0; // server error buffer
-
-=======
 	
 	OutputBuffer outputBuffer; // output returned to the client
 	ErrorBuffer errorBuffer; // errors returned to the client 
 	
->>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 	TCPSocket * tcpClientSocket; // TCP Socket for communication with client
 
 	// becomes true if error happens during parsing or executing
@@ -73,7 +56,7 @@ private:
 	// Parses one line for an given instruction
 	void parseInst(string command, stringstream &argv, int lineNumber);
 
-	void makeThread(istringstream* f, );
+	void makeThread(istringstream* f, int lineNumber);
 
     // parse and run a program file
     void runProgram();

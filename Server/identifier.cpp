@@ -5,6 +5,6 @@
 Identifier::Identifier() {}
 
 void Identifier::reportError(string errMsg , int lineNumber /* = -1 */) {
-    //machine->reportError(errMsg, lineNumber);
+    ErrorBuffer::reportError(errMsg, lineNumber);
 }
 

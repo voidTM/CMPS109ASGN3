@@ -88,7 +88,7 @@ void Machine::parseFile(){
         	iss >> command;
 
         	if(!command.compare("THREAD_BEGIN"))
-        		makeThread(&istringstream, lineNumber);
+        		makeThread(&f, lineNumber);
 
          	// check to see if it is a variable, label, or instruction
    			if(!command.compare("LABEL")){
@@ -107,11 +107,11 @@ void Machine::parseFile(){
 }
 
 // 
-void makeThread(istringstream* f, int lineNumber){
-	instNumber = 0;
+void Machine::makeThread(istringstream* f, int lineNumber){
+	int instNumber = 0;
 	string line;
 	string command;
-	while(getline(f,line))
+	while(getline(*f,line))
 	{
         	//cout << line << endl;
 			line = ReplaceAll(line, "\\n", "\n");
@@ -119,9 +119,6 @@ void makeThread(istringstream* f, int lineNumber){
 			line = ReplaceAll(line, "\\r", "\r");
          	stringstream iss(line);
         	iss >> command;
-
-        	if(!command.compare("THREAD_BEGIN"))
-        		makeThread(&istringstream, lineNumber);
 
          	// check to see if it is a variable, label, or instruction
    			if(!command.compare("LABEL")){
@@ -136,6 +133,7 @@ void makeThread(istringstream* f, int lineNumber){
         	}
 
 			lineNumber++;
+	}
 }
 
 
@@ -327,8 +325,7 @@ void Machine::run() {
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
 			return;
 		}
-<<<<<<< HEAD
-
+/*
 		OutputBuffer::emptyBuffer();
 		ErrorBuffer::emptyBuffer();
 
@@ -344,8 +341,7 @@ void Machine::run() {
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(outputBuffer.c_str(), outputBufferSize);
 
-=======
-		
+*/		
 		outputBuffer.emptyBuffer();
 		errorBuffer.emptyBuffer();
 				
@@ -358,19 +354,14 @@ void Machine::run() {
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(outputText.c_str(), outputTextSize);
 		
->>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 		memset (header ,0 , 100);
 		string errorText = errorBuffer.getErrorBuffer();
 		long errorTextSize = errorText.size();
 		strcpy(header , to_string(errorTextSize).c_str());
 		tcpClientSocket->writeToSocket(header, 100);
-<<<<<<< HEAD
-		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);
-
-=======
+//		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);
 		tcpClientSocket->writeToSocket(errorText.c_str(), errorTextSize);
 		
->>>>>>> 7acafc1d907b99689c3dcb2f2e394ea3c3928ee7
 		tcpClientSocket->shutDown();
 }
 
