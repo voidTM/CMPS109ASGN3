@@ -60,6 +60,7 @@ void ServerMachine::executeInstructions(int startInstIdx /* = 0 */)
 // run the MIS server
 void ServerMachine::run() {
 	    int read;
+	    bool reading = false;
 
 		//cout << "connection established"<<endl;
 		char header[100];
@@ -115,19 +116,20 @@ void ServerMachine::run() {
 */		
 		outputBuffer.emptyBuffer();
 		errorBuffer.emptyBuffer();
-				
+			
+
 		runProgram(); 
 		
 		memset (header ,0 , 100);
 		string outputText = outputBuffer.getOutputBuffer();
-		long outputTextSize = outputText.size(); 
+		long outputTextSize = outputText.size() + 1; 
 		strcpy(header , to_string(outputTextSize).c_str());
 		tcpClientSocket->writeToSocket(header, 100);
 		tcpClientSocket->writeToSocket(outputText.c_str(), outputTextSize);
 		
 		memset (header ,0 , 100);
 		string errorText = errorBuffer.getErrorBuffer();
-		long errorTextSize = errorText.size();
+		long errorTextSize = errorText.size() + 1;
 		strcpy(header , to_string(errorTextSize).c_str());
 		tcpClientSocket->writeToSocket(header, 100);
 //		tcpClientSocket->writeToSocket(errorBuffer.c_str(), errorBufferSize);

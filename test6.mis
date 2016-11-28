@@ -13,6 +13,7 @@ ASSIGN $sleep2,2
 ASSIGN $sleep3,1
 THREAD_BEGIN
 LABEL LOOP1
+
 OUT "Thread 1: ",$mystring,$counter1," !!\n"
 SUB $counter1,$counter1,1
 SLEEP $sleep1

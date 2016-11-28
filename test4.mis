@@ -3,9 +3,10 @@ VAR $myfloat,REAL,12.14
 VAR $mychar,CHAR,'c'
 VAR $mystr,STRING,100, "Hello world MIS!!!"
 ASSIGN $myfloat, 20.3
+
 ASSIGN $myint, 10
 OUT $myfloat, $myint, $mychar
 LABEL LOOP
-OUT	$mystr,$myint,"	!!\n"
+OUT	$mystr,$myint
 SUB	$myint,$myint,1
 JMPNZ	LOOP, $myint

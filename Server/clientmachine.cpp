@@ -20,18 +20,29 @@ void ClientMachine::readFile(){
 		string command;
 		lineNumber = 1;
 		instNumber = 0;
-		while(getline(file,line))
+		while(getline(file,line) && !file.eof())
 		{
+			//printf("")
         	//printf("%s \n", line.c_str());
          	inputBuffer += line + "\n";
 		}
 		file.close();
+	}
+	else{
+		parseError = true;
+		reportError("Can't find file\n");
+		return;
+		//exit(1);
 	}
 
 }
 
 bool ClientMachine::checkError(){
 	readFile();
+	if(parseError == true){
+		//printf("File not found \n");
+		return parseError;
+	}
 	parseFile();
 	return parseError;
 }

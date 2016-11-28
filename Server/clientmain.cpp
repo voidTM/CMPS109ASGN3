@@ -43,10 +43,6 @@ int main(int argc, char** argv){
 	ClientMachine parser(filename);
 	errors = parser.checkError();
  
-	/*ErrorChecker parser(filename);
-	parser.parseFile();
-	errors = parser.getErrorStatus();*/
-
 	// if there is no error send data over.
 	if(!errors)	{
 		TCPSocket socket = TCPSocket(serverAddr, port);
@@ -69,7 +65,7 @@ int main(int argc, char** argv){
 			//printf("File Content: \n %s", scriptBuffer.c_str());
 			filesize = scriptBuffer.size();
 			string header = to_string(filesize);
-			printf( "file size %d \n", filesize);
+			//printf( "file size %d \n", filesize);
 			//cout << header << endl;
 			// Send header data
 			socket.writeToSocket(header.c_str(),100);
@@ -88,7 +84,7 @@ int main(int argc, char** argv){
 		memset(readBuffer, 0 , 1024);
 
 		//Reading data
-		printf("out file size %d\n", filesize);
+		//printf("out file size %d\n", filesize);
 		while(filesize > 0){
 			// read until theoritical end of file
 			filesize -= socket.readFromSocket(writeBuffer, filesize);
@@ -101,7 +97,7 @@ int main(int argc, char** argv){
 		filesize = atoi(headerBuffer);
 		memset(readBuffer, 0 , 1024);
 		//Reading data
-		printf("error file size %d\n", filesize);
+		//printf("error file size %d\n", filesize);
 		while(filesize > 0){
 			// read until theoritical end of file
 			filesize -= socket.readFromSocket(writeBuffer, 1024);

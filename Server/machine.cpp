@@ -67,18 +67,23 @@ string Machine::ReplaceAll(std::string str, const std::string& from, const std::
 
 // Continuosly parse an mis file
 void Machine::parseFile(){
+    istringstream f(inputBuffer.c_str());
 	int lineNumber;
 	int instNumber;
 	parseError = false;
-    istringstream f(inputBuffer.c_str());
 	string line;
 	string command;
 	lineNumber = 1;
 	instNumber = 0;
 	int threadBeginInstNum = -1;
-	while(getline(f,line))
+	while(f)
 	{
-        	//printf("%s \n", line);
+			getline(f,line);
+			if(line.empty()){
+				lineNumber++;
+				continue;
+			}
+        	//printf("%s \n", line.c_str());
 			line = ReplaceAll(line, "\\n", "\n");
 			line = ReplaceAll(line, "\\t", "\t");
 			line = ReplaceAll(line, "\\r", "\r");
@@ -208,7 +213,7 @@ vector<char*> Machine::parseLine (stringstream &line) {
 
    // tokens are created using . as the delimiter
    while(getline(line, token, ',')){
-   	  printf("token: %d \n", token.size());
+   	  //printf("token: %d \n", token.size());
    	  if (token == " " || token == "\t" || token == "\n")
    	  	continue;
       trimWhitespace(token);

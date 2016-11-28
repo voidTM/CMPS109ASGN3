@@ -59,10 +59,10 @@ int Out::execute(){
 
 	for(string arg : args){
 		Identifier * ident = (*identifiers)[arg];
-		out += ident->getStrValue() + "   ";
+		out += ident->getStrValue();
 	}
 
-	out += "\n";
+	//out += "\n";
 	machine->reportOutput(out);
 	return -1;
 	
