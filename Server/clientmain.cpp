@@ -105,9 +105,9 @@ int main(int argc, char** argv){
 			cerr << writeBuffer;
 		}
 
-		
+       	socket.shutDown();		
 	}
-
+	
 	cout.rdbuf(coutbuf); //reset to standard output again
     cerr.rdbuf(cerrbuf);
 

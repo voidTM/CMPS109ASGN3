@@ -1,12 +1,14 @@
 #include "identifier.h"
 
-//Identifier::Identifier(Machine * machine) : machine(machine) {}
+Identifier::Identifier() {
+    pthread_mutex_init(&lock, NULL);
+}
 
-Identifier::Identifier() {}
+Identifier::~Identifier() {
+    pthread_mutex_destroy(&lock);
+}
 
 void Identifier::reportError(string errMsg , int lineNumber /* = -1 */) {
 	error = true;
-	//localerrors += errMsg;
-    //ErrorBuffer::reportError(errMsg, lineNumber);
 }
 
