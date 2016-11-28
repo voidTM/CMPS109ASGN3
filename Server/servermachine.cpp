@@ -116,7 +116,7 @@ void ServerMachine::run() {
 		outputBuffer.emptyBuffer();
 		errorBuffer.emptyBuffer();
 				
-		runProgram();
+		runProgram(); 
 		
 		memset (header ,0 , 100);
 		string outputText = outputBuffer.getOutputBuffer();
@@ -135,6 +135,7 @@ void ServerMachine::run() {
 		
 		tcpClientSocket->shutDown();
 }
+
 
 // the thread main body function
 void * ServerMachine::threadMainBody (void * arg) {

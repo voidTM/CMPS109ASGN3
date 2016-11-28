@@ -62,7 +62,7 @@ int Out::execute(){
 		out += ident->getStrValue() + "   ";
 	}
 
-	//out += "\n";
+	out += "\n";
 	machine->reportOutput(out);
 	return -1;
 	

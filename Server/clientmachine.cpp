@@ -22,7 +22,7 @@ void ClientMachine::readFile(){
 		instNumber = 0;
 		while(getline(file,line))
 		{
-         	//cout << line << endl;
+        	//printf("%s \n", line.c_str());
          	inputBuffer += line + "\n";
 		}
 		file.close();
@@ -35,6 +35,12 @@ bool ClientMachine::checkError(){
 	parseFile();
 	return parseError;
 }
+
+string ClientMachine::getOutputMsg(){ return outputBuffer.getOutputBuffer(); }
+
+string ClientMachine::getErrorMsg(){ return errorBuffer.getErrorBuffer(); }
+
+
 
 void ClientMachine::executeInstructions(int startInstIdx){}
 

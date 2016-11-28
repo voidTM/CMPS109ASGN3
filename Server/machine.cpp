@@ -81,7 +81,7 @@ void Machine::parseFile(){
 	int threadBeginInstNum = -1;
 	while(getline(f,line))
 	{
-        	//cout << line << endl;
+        	//printf("%s \n", line);
 			line = ReplaceAll(line, "\\n", "\n");
 			line = ReplaceAll(line, "\\t", "\t");
 			line = ReplaceAll(line, "\\r", "\r");
@@ -89,6 +89,8 @@ void Machine::parseFile(){
          	iss >> command;
 
          	// check to see if it is a variable, label, or instruction
+         	if(!command.compare(""))
+         		continue;
    			if(!command.compare("LABEL")){
 				vector <char*> arguments = parseLine(iss);
    				labels[arguments[0]] = instNumber;
@@ -209,6 +211,9 @@ vector<char*> Machine::parseLine (stringstream &line) {
 
    // tokens are created using . as the delimiter
    while(getline(line, token, ',')){
+   	  printf("token: %d \n", token.size());
+   	  if (token == " " || token == "\t" || token == "\n")
+   	  	continue;
       trimWhitespace(token);
       //cout << "Token: " << token << endl;
       cstr = strdup(token.c_str()); // convert to c-string
