@@ -149,7 +149,7 @@ void TCPSocket::shutDownWrite ( ) // Shutdown the write channel of the socket
 }
 void TCPSocket::shutDown ( ) // Shutdown socket read and write channels
 {
-        shutDownRead ();
+    shutDownRead ();
 	shutDownWrite();
 }
 
