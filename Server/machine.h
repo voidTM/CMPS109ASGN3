@@ -48,9 +48,6 @@ protected:
 	// remains false if there is no error
 	bool parseError;
 
-	// parses line for every token/argument
-	vector<char*> parseLine (stringstream &line);
-	void trimWhitespace(string& str); // trims whitespace
 
 	// Parses one line for an given variable
 	void parseVar(stringstream &line, int lineNumber);
@@ -81,6 +78,10 @@ public:
 	// Continuously parse an mis file
 	//virtual void parseFile() = 0;
 	void parseFile();
+	void trimWhitespace(string& str); // trims whitespace
+
+	// parses line for every token/argument
+	vector<char*> parseLine (stringstream &line);
 
 	// set parseError member variable
 	void setParseError(bool val);

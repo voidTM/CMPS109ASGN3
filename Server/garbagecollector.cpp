@@ -3,7 +3,7 @@
 GarbageCollector::GarbageCollector(){
 }
 
-void GarbageCollector::addConnection(Machine* machine){
+void GarbageCollector::addConnection(ServerMachine* machine){
   objects.push_back(machine);
 }
 

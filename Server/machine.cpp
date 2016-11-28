@@ -52,10 +52,7 @@ Machine::Machine() {
 }
 
 //destructor
-Machine::~Machine() {
-	if (tcpClientSocket != NULL)
-		delete tcpClientSocket;
-}
+Machine::~Machine() {}
 
 // replaces all occurrences of a string inside of another string
 // Replaces \n \t \r with the appropriate actual escape symbol

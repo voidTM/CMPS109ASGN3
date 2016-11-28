@@ -8,28 +8,36 @@ VALGRIND 	= valgrind --leak-check=full --show-reachable=yes
 
 Makefile 	= Makefile
 DEPFILE		= Makefile.dep
-SOURCE   	= ${MODULES:=.cpp} main.cpp
+CLIENTSRC	= ${MODULES:=.cpp} clientmain.cpp
+SERVERSRC	= ${MODULES:=.cpp} servermain.cpp
 MODULES		= ${INSTMOD} ${TYPEMOD} ${THREAD} ${SOCKET} machine output_buffer error_buffer servermachine clientmachine
 THREAD		= Thread threadmanager
 SOCKET		= TCPServerSocket TCPSocket garbagecollector server
 INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump thread_begin thread_end barrier
 TYPEMOD 	= numeric real character mis_string identifier
-OBJECTS  	= ${SOURCE:.cpp=.o}
 HEADERS  	= ${MODULES:=.h} includes.h common.h
-EXECBIN  	= server_misvm
+CLIENTBIN	= client_misvm
+CLIENTOBJ	= ${CLIENTSRC:.cpp=.o}
+SERVERBIN 	= server_misvm
+SERVEROBJ	= ${SERVERSRC:.cpp=.o}
+EXECBIN  	= ${CLIENTBIN} ${SERVERBIN}
 SRCFILES	= ${SOURCE} ${MKFILE} ${HEADERS}
 SMALLFILES	= ${DEPFILE}
 
-all : ${EXECBIN}
+all : ${CLIENTBIN} ${SERVERBIN}
 
-${EXECBIN} : ${OBJECTS}
-	${GCC} -o${EXECBIN} ${OBJECTS}
+${CLIENTBIN} : ${CLIENTOBJ}
+	${GCC} -o${CLIENTBIN} ${CLIENTOBJ}
+
+${SERVERBIN} : ${SERVEROBJ}
+	${GCC} -o${SERVERBIN} ${SERVEROBJ}
+
 
 %.o : %.cpp
 	${GCC} -c $<
 
 clean :
-	- rm ${OBJECTS}
+	- rm ${SERVEROBJ} ${CLIENTOBJ}
 
 spotless : clean
 	- rm ${EXECBIN}
