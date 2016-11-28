@@ -120,7 +120,7 @@ int Div::execute() {
 	if (denom == 0)
 	{
 		reportError("Division by zero.", lineNumber); //, true);
-		exit(1);
+		return -2;
 	}
 	// else divide result by it
 	else
