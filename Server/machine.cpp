@@ -93,40 +93,7 @@ void Machine::parseFile(){
 			line = ReplaceAll(line, "\\t", "\t");
 			line = ReplaceAll(line, "\\r", "\r");
          	stringstream iss(line);
-        	iss >> command;
-
-        	if(!command.compare("THREAD_BEGIN"))
-        		makeThread(&f, lineNumber);
-
-         	// check to see if it is a variable, label, or instruction
-   			if(!command.compare("LABEL")){
-				vector <char*> arguments = parseLine(iss);
-   				labels[arguments[0]] = instNumber;
-   			} else if(!command.compare("VAR"))
-            	parseVar(iss, lineNumber);
-         	else{
-            	//cout << "Instruction: " << command <<endl;
-            	parseInst(command, iss, lineNumber);
-            	instNumber++; // Ticks for every instruction read
-        	}
-
-			lineNumber++;
-	}
-}
-
-// 
-void Machine::makeThread(istringstream* f, int lineNumber){
-	int instNumber = 0;
-	string line;
-	string command;
-	while(getline(*f,line))
-	{
-        	//cout << line << endl;
-			line = ReplaceAll(line, "\\n", "\n");
-			line = ReplaceAll(line, "\\t", "\t");
-			line = ReplaceAll(line, "\\r", "\r");
-         	stringstream iss(line);
-        	iss >> command;
+         	iss >> command;
 
          	// check to see if it is a variable, label, or instruction
    			if(!command.compare("LABEL")){
@@ -171,6 +138,7 @@ void Machine::makeThread(istringstream* f, int lineNumber){
 }
 
 
+
 // Parses one line for an given instruction
 void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 	try
@@ -184,8 +152,11 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 		// Check to see object was created
 		if(obj != NULL){
 			obj = obj->clone(arguments, lineNumber);
-
+    	  if(obj != NULL)
 			instructions.push_back(obj);
+    	  else
+    	  	reportError("Invalid declaration", lineNumber);
+
 		}
 		else{
 			reportError("No such instruction.", lineNumber);
@@ -220,7 +191,10 @@ void Machine::parseVar(stringstream &line, int lineNumber){
     	  //create clone
     	  obj = obj->clone(arguments);
     	  //store into variable map
-    	  identifiers[varName] = obj;
+    	  if(obj != NULL)
+    	  	identifiers[varName] = obj;
+    	  else
+    	  	reportError("Invalid declaration", lineNumber);
     	  //return obj;
 	   }
 	   else
