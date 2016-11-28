@@ -25,32 +25,36 @@ void Real::setValue(double val){
 	value = val;
 }
 
-void Real::initialize (char* token){
+void Real::initialize (char* token, string& errors){
 	double val;
 	int t;
 	t = sscanf(token, "%lf", &val);
 	if(t == 1)
 		value = val;
-	/*
-	else
-		reportError("Argument is not a valid Real");
+	else{
+		error = true;
+		errors += "Argument is not a valid Real\n";
+	}
 	//else throw error*/
 }
 
-Identifier* Real::clone(vector<char*> argv){
+Identifier* Real::clone(vector<char*> argv, string& errors){
 
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		reportError("Invalid number of arguments to Real");
+		errors += "Invalid number of arguments to Real\n";
+		error = true;
+		//reportError("Invalid number of arguments to Real");
 		return NULL;
 	}
 
 	char* tok = argv[0];
 	Real* realValue = new Real();
-	realValue->initialize(tok);
+	realValue->initialize(tok, errors);
 	if(error)
 		return NULL;
+	
 	return realValue;
 }
 

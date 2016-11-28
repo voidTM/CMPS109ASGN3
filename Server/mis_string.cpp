@@ -26,7 +26,7 @@ String::String(int size){
 }
 //Methods
 
-void String::initialize(char* token){
+void String::initialize(char* token, string& errors){
 	int t;
 	int length;
 	int charVal;
@@ -46,11 +46,13 @@ void String::initialize(char* token){
 
 	if(t == 1)
 		value = strdup(val.c_str());
-	/*else
-		reportError("Argument is not a valid String");*/
+	else{
+		error = true;
+		errors += "Argument is not a valid String\n";
+	}
 }
 
-Identifier* String::clone(vector<char*> argv){
+Identifier* String::clone(vector<char*> argv, string& errors){
 	//char* tokSize;
 	char* tokVal;
 	int tokSize = 256;
@@ -58,7 +60,7 @@ Identifier* String::clone(vector<char*> argv){
 	if (argv.size() > 2){
 		// Throw error due to in proper amount of
 		// values
-		reportError("Invalid number of arguments to String");
+		errors += "Invalid number of arguments to String\n";
 		return NULL;
 	}
 	else if(argv.size() == 2){
@@ -75,7 +77,7 @@ Identifier* String::clone(vector<char*> argv){
 	}
 
 	chr = new String(tokSize);
-	chr->initialize(tokVal);
+	chr->initialize(tokVal, errors);
 	if(error)
 		return NULL;
 	return chr;

@@ -18,7 +18,7 @@ Character::Character(const Character &copy){
 
 //Methods
 
-void Character::initialize(char* token){
+void Character::initialize(char* token, string& errors){
 	int val;
 	int t;
 	// check for single quotes at end of quotation
@@ -31,23 +31,24 @@ void Character::initialize(char* token){
 	//cout << "val = " << val << endl;
 	if(t == 1)
 		value = val;
-	/*else
-		reportError("Argument is not a valid Character");
-	*/
+	else{
+		error = true;
+		errors += "Argument is not a valid Character\n";
+	}
 }
 
-Identifier* Character::clone(vector<char*> argv){
+Identifier* Character::clone(vector<char*> argv, string& errors){
 	if (argv.size() > 1){
 		// Throw error due to in proper amount of
 		// values
-		reportError("Invalid number of arguments to Character");
+		errors += "Invalid number of arguments to Character\n";
 		return NULL;
 	}
 
 	char* tok = argv[0];
 
 	Character* chr = new Character();
-	chr->initialize(tok);
+	chr->initialize(tok, errors);
 	if(error)
 		return NULL;
 

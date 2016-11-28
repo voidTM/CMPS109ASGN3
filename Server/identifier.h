@@ -18,9 +18,9 @@ class Identifier{
 		//Identifier(Machine * machine); //Constructor
 		Identifier(); //Constructor
 
-		virtual void initialize (char* token) = 0;
+		virtual void initialize (char* token, string &errors) = 0;
 
-		virtual Identifier* clone(vector<char*> argv) = 0;
+		virtual Identifier* clone(vector<char*> argv, string& errors) = 0;
 
 		virtual string getType() = 0; //Returns the class type for an object
 

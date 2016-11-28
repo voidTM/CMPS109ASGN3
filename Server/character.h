@@ -19,8 +19,8 @@ class Character: public Identifier{
 		Character(const Character &copy);
 
 		// Method
-		void initialize (char* token);
-		Identifier* clone(vector<char*> argv);
+		void initialize (char* token, string &errors);
+		Identifier* clone(vector<char*> argv, string& errors);
 		void setValue(char val);
 		static string type();
 		string getType();

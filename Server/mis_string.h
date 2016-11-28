@@ -22,8 +22,8 @@ class String: public Identifier{
 		String(const String &copy);
 
 		// Method
-		void initialize (char* token);
-		Identifier* clone(vector<char*> argv);
+		void initialize (char* token, string &errors);
+		Identifier* clone(vector<char*> argv, string& errors);
 
 		char* getValue();		
 		void setValue(char* val);

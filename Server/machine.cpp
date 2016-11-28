@@ -172,7 +172,7 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 void Machine::parseVar(stringstream &line, int lineNumber){
 	try
 	{
-		string token;
+		string token;	string errorMsg;
 		vector<char*> arguments;
 
 		arguments = parseLine(line);
@@ -189,12 +189,12 @@ void Machine::parseVar(stringstream &line, int lineNumber){
    		Identifier* obj = typeSet[varType];
    		if(obj != NULL){
     	  //create clone
-    	  obj = obj->clone(arguments);
+    	  obj = obj->clone(arguments, errorMsg);
     	  //store into variable map
     	  if(obj != NULL)
     	  	identifiers[varName] = obj;
     	  else
-    	  	reportError("Invalid declaration", lineNumber);
+    	  	reportError(errorMsg, lineNumber);
     	  //return obj;
 	   }
 	   else

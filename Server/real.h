@@ -23,8 +23,8 @@ class Real: public Identifier{
 		double getValue();
 		void setValue(double val);
 		
-		void initialize (char* token);
-		Identifier* clone(vector<char*> argv);
+		void initialize (char* token, string &errors);
+		Identifier* clone(vector<char*> argv, string& errors);
 
 		static string type();
 		string getType();
