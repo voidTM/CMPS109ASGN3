@@ -5,6 +5,7 @@
 // Constructors
 String::String(){
 	value = new char[256];
+	error = false;
 	size = 256;
 }
 
@@ -45,8 +46,8 @@ void String::initialize(char* token){
 
 	if(t == 1)
 		value = strdup(val.c_str());
-	else
-		reportError("Argument is not a valid String");
+	/*else
+		reportError("Argument is not a valid String");*/
 }
 
 Identifier* String::clone(vector<char*> argv){
@@ -58,7 +59,7 @@ Identifier* String::clone(vector<char*> argv){
 		// Throw error due to in proper amount of
 		// values
 		reportError("Invalid number of arguments to String");
-		exit(1);
+		return NULL;
 	}
 	else if(argv.size() == 2){
 		// check to see if there are 2 arguments for the 
@@ -75,7 +76,8 @@ Identifier* String::clone(vector<char*> argv){
 
 	chr = new String(tokSize);
 	chr->initialize(tokVal);
-
+	if(error)
+		return NULL;
 	return chr;
 }
 

@@ -6,5 +6,6 @@ ASSIGN $myfloat, 20.3
 OUT $myfloat, $myint, $mychar, "TEST"
 LABEL	LAB1
 SLEEP $myint
+SUB $myint, $myint, 1
 OUT $mystr
-JMPLTE	LAB1, $myint, 20
+JMPNZ	LAB1, $myint

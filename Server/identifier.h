@@ -11,6 +11,7 @@ using namespace std;
 
 class Identifier{
 	protected:
+		bool error;
 		//Machine * machine; // a pointer to the modifier object
 
 	public:

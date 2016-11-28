@@ -10,6 +10,7 @@ Real::Real():Real(0.0){}
 
 Real::Real(double val){
 	value = val;
+	error = false;
 }
 
 Real::Real(const Real &copy){
@@ -30,9 +31,10 @@ void Real::initialize (char* token){
 	t = sscanf(token, "%lf", &val);
 	if(t == 1)
 		value = val;
+	/*
 	else
 		reportError("Argument is not a valid Real");
-	//else throw error
+	//else throw error*/
 }
 
 Identifier* Real::clone(vector<char*> argv){
@@ -41,13 +43,14 @@ Identifier* Real::clone(vector<char*> argv){
 		// Throw error due to in proper amount of
 		// values
 		reportError("Invalid number of arguments to Real");
-		exit(1);
+		return NULL;
 	}
 
 	char* tok = argv[0];
 	Real* realValue = new Real();
 	realValue->initialize(tok);
-
+	if(error)
+		return NULL;
 	return realValue;
 }
 

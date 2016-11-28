@@ -5,6 +5,7 @@
 // Constructors
 Character::Character(){
 	value = ' ';
+	error = false;
 }
 
 Character::Character(char val){
@@ -30,9 +31,9 @@ void Character::initialize(char* token){
 	//cout << "val = " << val << endl;
 	if(t == 1)
 		value = val;
-	else
+	/*else
 		reportError("Argument is not a valid Character");
-
+	*/
 }
 
 Identifier* Character::clone(vector<char*> argv){
@@ -40,13 +41,15 @@ Identifier* Character::clone(vector<char*> argv){
 		// Throw error due to in proper amount of
 		// values
 		reportError("Invalid number of arguments to Character");
-		exit(1);
+		return NULL;
 	}
 
 	char* tok = argv[0];
 
 	Character* chr = new Character();
 	chr->initialize(tok);
+	if(error)
+		return NULL;
 
 	return chr;
 }

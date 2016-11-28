@@ -7,6 +7,7 @@ using namespace std;
 
 Numeric::Numeric(){
 	value = 0;
+	error = false;
 }
 
 Numeric::Numeric(int val){
@@ -23,8 +24,9 @@ void Numeric::initialize(char* token){
 	t = sscanf(token, "%d", &val);
 	if(t == 1)
 		value = val;
+	/*
 	else
-		reportError("Argument is not a valid String");
+		reportError("Argument is not a valid String");*/
 	// else throw error
 }
 
@@ -33,13 +35,15 @@ Identifier* Numeric::clone(vector<char*> argv){
 		// report error due to in proper amount of 
 		// values
 		reportError("Invalid argument to Numeric");
-		exit(1);
+		return NULL;
 	}
 
 	char* tok = argv[0];
 	//cout << tok << endl;
 	Numeric* number = new Numeric();
 	number->initialize(tok);
+	if(error)
+		return NULL;
 
 	return number;
 }
