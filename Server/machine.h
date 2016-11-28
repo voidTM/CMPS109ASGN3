@@ -22,7 +22,7 @@ class Instruction;
 
 class Machine : public Thread {
 
-private:
+protected:
 	vector<Instruction*> instructions; // a list of all the existing instructions
 	map<string,Identifier*> identifiers; // a map of all the existing identifiers (a.k.a variables)
 	map<string,Identifier*> typeSet; // a map of identifiers' prototypes that are used for cloning
@@ -57,7 +57,7 @@ private:
 	// Parses one line for an given instruction
 	void parseInst(string command, stringstream &argv, int lineNumber);
 
-	void makeThread(istringstream* f, int lineNumber);
+	//void makeThread(istringstream* f, int lineNumber);
 
     // parse and run a program file
     void runProgram();

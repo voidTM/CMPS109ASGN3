@@ -172,7 +172,8 @@ void Machine::parseInst(string command, stringstream &argv, int lineNumber){
 void Machine::parseVar(stringstream &line, int lineNumber){
 	try
 	{
-		string token;	string errorMsg;
+		string token;	
+		string errorMsg = "";
 		vector<char*> arguments;
 
 		arguments = parseLine(line);
