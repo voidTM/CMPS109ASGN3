@@ -1,1 +1,8 @@
-20.300000   100       Hello world MIS!!!   [ü
+VAR $myint,NUMERIC,100
+VAR $myfloat,REAL,12.14
+VAR $mychar,CHAR,'c'
+VAR $mystr,STRING,100, "Hello world MIS!!!"
+ASSIGN $myfloat, 20.3
+OUT $myfloat, $myint, $mychar
+OUT $mystr
+SLEEP 2

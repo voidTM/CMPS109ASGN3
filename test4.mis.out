@@ -1,7 +1,11 @@
-20.300000   3       
-Hello world MIS!!!   3   	!!
-   
-Hello world MIS!!!   2   	!!
-   
-Hello world MIS!!!   1   	!!
-   
+VAR $myint,NUMERIC,100
+VAR $myfloat,REAL,12.14
+VAR $mychar,CHAR,'c'
+VAR $mystr,STRING,100, "Hello world MIS!!!"
+ASSIGN $myfloat, 20.3
+ASSIGN $myint, 3
+OUT $myfloat, $myint, $mychar
+LABEL LOOP
+OUT	$mystr,$myint,"	!!\n"
+SUB	$myint,$myint,1
+JMPNZ	LOOP, $myint
