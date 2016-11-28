@@ -1,0 +1,8 @@
+Forked Threads and will sleep on Barrier
+Thread 1: Hello world MIS:10 !!
+Thread 1 locked $mystring
+Thread 2: Hello world MIS:20 !!
+Thread 1 unlocked $mystring
+Thread 2 locked $mystring
+Thread 2 unlocked $mystring
+Out of Barrier and exiting program
