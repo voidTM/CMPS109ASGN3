@@ -108,11 +108,12 @@ int main(int argc, char** argv){
 			//errfileBuffer.append(writeBuffer);
 			cerr << writeBuffer;
 		}
+		
+		socket.shutDown();
+		
 	}else{
 		err << parser.getErrorMsg() << endl;
 		out << parser.getOutputMsg() << endl;
-
-       	socket.shutDown();		
 	}
 	
 	cout.rdbuf(coutbuf); //reset to standard output again
