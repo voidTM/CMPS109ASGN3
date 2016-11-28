@@ -2,6 +2,7 @@
 #define SERVER
 
 #include "machine.h"
+#include "servermachine.h"
 #include "garbagecollector.h"
 #include "TCPSocket.h"
 #include "TCPServerSocket.h"

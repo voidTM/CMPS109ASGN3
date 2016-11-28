@@ -18,18 +18,10 @@
 #include "barrier.h"
 
 // constructor
-Machine::Machine() {}
-
-// constructor
-Machine::Machine(TCPSocket * tcpClientSocket, int readBufferSize, int writeBufferSize) : Thread() {
-
-    this->tcpClientSocket = tcpClientSocket;
-    this->readBufferSize = readBufferSize;
-    this->writeBufferSize = writeBufferSize;
+Machine::Machine() {
 
 	parseError = false;
 
-	// Create a new object for each subclass of the identifier hierarchy and put them in the map. They will be used for cloning.
 	typeSet["NUMERIC"] = new Numeric();
 	typeSet["REAL"] = new Real();
 	typeSet["CHAR"] = new Character();
@@ -56,6 +48,7 @@ Machine::Machine(TCPSocket * tcpClientSocket, int readBufferSize, int writeBuffe
     instSet["THREAD_BEGIN"] = new ThreadBegin(this);
     instSet["THREAD_END"] = new ThreadEnd(this);
     instSet["BARRIER"] = new Barrier(this);
+
 }
 
 //destructor
@@ -232,6 +225,7 @@ void Machine::trimWhitespace(string& str){
 }
 
 // parses and runs a program file
+/*
 void Machine::runProgram() {
 	// parse the entire program file
 	parseFile();
@@ -241,18 +235,15 @@ void Machine::runProgram() {
 	
 	// execute the instructions one by one
 	executeInstructions();
-} 
+} */
+
 
 // execute the instructions one by one
-void Machine::executeInstructions(int startInstIdx /* = 0 */)
-{
+//void Machine::executeInstructions(int startInstIdx /* = 0 */)
+/*{
 	// try to execute the program instruction by instruction
 	int retval;
 	int currentInstIdx = startInstIdx;
-	/*if (startInstIdx == NULL) 
-	    currentInstIdx = 0;
-	else
-	    currentInstIdx = (long)startInstIdx;*/
 	int endInstIdx = instructions.size();
 	
 	try
@@ -276,7 +267,7 @@ void Machine::executeInstructions(int startInstIdx /* = 0 */)
 		int lineNumber = instructions[currentInstIdx]->getLineNumber();
 		reportError("An error was generated while executing the line. Execution of the program terminated." , lineNumber);
 	}
-}
+}*/
 
 // add the error message to the error buffer
 void Machine::reportError(string errMsg , int lineNumber /*= -1*/) { 
@@ -310,7 +301,7 @@ map<string, int>* Machine::getLabels(){
 }
 
 // run the MIS server
-void Machine::run() {
+/*void Machine::run() {
 	    int read;
 
 		//cout << "connection established"<<endl;
@@ -348,23 +339,6 @@ void Machine::run() {
 			cout << "Error while reading data from client " << tcpClientSocket->getRemoteAddress() << ". Connection terminated." << endl;
 			return;
 		}
-/*
-		OutputBuffer::emptyBuffer();
-		ErrorBuffer::emptyBuffer();
-
-		cout << OutputBuffer::getOutputBuffer()<< endl;
-
-		runProgram();
-
-		//char header[100];
-		memset (header ,0 , 100);
-		string outputBuffer = OutputBuffer::getOutputBuffer();
-		long outputBufferSize = outputBuffer.size();
-		strcpy(header , to_string(outputBufferSize).c_str());
-		tcpClientSocket->writeToSocket(header, 100);
-		tcpClientSocket->writeToSocket(outputBuffer.c_str(), outputBufferSize);
-
-*/		
 		outputBuffer.emptyBuffer();
 		errorBuffer.emptyBuffer();
 				
@@ -386,13 +360,13 @@ void Machine::run() {
 		tcpClientSocket->writeToSocket(errorText.c_str(), errorTextSize);
 		
 		tcpClientSocket->shutDown();
-}
-
+}*/
+/*
 // the thread main body function
 void * Machine::threadMainBody (void * arg) {
 	run();
 	return NULL;
-}
+}*/
 
 vector<pthread_t*> * Machine::getRunningThreads() {
     return & runningThreads;

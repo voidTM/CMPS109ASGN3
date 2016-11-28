@@ -14,13 +14,12 @@
 #include "TCPServerSocket.h"
 #include "output_buffer.h"
 #include "error_buffer.h"
-#include "Thread.h"
  
 using namespace std;
 
 class Instruction;
 
-class Machine : public Thread {
+class Machine {
 
 protected:
 	vector<Instruction*> instructions; // a list of all the existing instructions
@@ -34,22 +33,24 @@ protected:
     int readBufferSize;
     int writeBufferSize;
 	
+
 	// client socket timeout
-	int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
+	//int ClientTimeoutSec = 10, ClientTimeoutMilli = 0;
 
 	string inputBuffer=""; // server input buffer
 	
 	OutputBuffer outputBuffer; // output returned to the client
 	ErrorBuffer errorBuffer; // errors returned to the client 
 	
-	TCPSocket * tcpClientSocket; // TCP Socket for communication with client
+	//TCPSocket * tcpClientSocket; // TCP Socket for communication with client
 
 	// becomes true if error happens during parsing or executing
 	// remains false if there is no error
 	bool parseError;
 
-	// Continuously parse an mis file
-	void parseFile();
+	// parses line for every token/argument
+	vector<char*> parseLine (stringstream &line);
+	void trimWhitespace(string& str); // trims whitespace
 
 	// Parses one line for an given variable
 	void parseVar(stringstream &line, int lineNumber);
@@ -60,40 +61,39 @@ protected:
 	//void makeThread(istringstream* f, int lineNumber);
 
     // parse and run a program file
-    void runProgram();
+    //void runProgram();
 
 	string ReplaceAll(string str, const string& from, const string& to); // replaces all occurrences of a string inside of another string
   
 public:
 	// constructor
 	Machine();
-	Machine(TCPSocket * tcpClientSocket, int readBufferSize = 10*1024*1024, int writeBufferSize = 10*1024*1024);
+	//Machine(TCPSocket * tcpClientSocket, int readBufferSize = 10*1024*1024, int writeBufferSize = 10*1024*1024);
 
 	// run the MIS server
-	void run();
+	//void run();
 
 	// add the error message to the error buffer
 	void reportError(string errMsg , int lineNumber = -1);
 	
 	// add the output text to the output buffer
 	void reportOutput(string out);
+	// Continuously parse an mis file
+	//virtual void parseFile() = 0;
+	void parseFile();
 
 	// set parseError member variable
 	void setParseError(bool val);
 	
 	// execute the instructions one by one
-	void executeInstructions(int startInstIdx = 0);
+	virtual void executeInstructions(int startInstIdx = 0) = 0;
 
 	map<string,Identifier*> * getidentifiers(); // get a pointer to the map of existing identifiers
 	map<string,Identifier*> * getTypes(); // get a pointer to the map of identifiers' prototypes (typeSet)
 	map<string, int> *  getLabels(); // get a pointer to the map of existing labels
 	vector<pthread_t*> * getRunningThreads(); // get a pointer to the vector of the currently running threads
 
-	// parses line for every token/argument
-	vector<char*> parseLine (stringstream &line);
-	void trimWhitespace(string& str); // trims whitespace
-
-	void * threadMainBody (void * arg); // Main thread body that runs the MIS machine
+	//void * threadMainBody (void * arg); // Main thread body that runs the MIS machine
 
     // destructor
 	virtual ~Machine();

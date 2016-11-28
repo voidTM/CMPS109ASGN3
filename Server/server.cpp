@@ -23,7 +23,8 @@ void Server::run() {
 			continue;
 
 		garbageCollector.cleanup(); // Invoke the garbage collector cleaner in case of expired connections
-		Machine * m = new Machine (tcpClientSocket); // Instantiate a new Connection object and pass the returned TCP socket to it
+		//Machine * m = new Machine (tcpClientSocket); // Instantiate a new Connection object and pass the returned TCP socket to it
+		ServerMachine * m = new ServerMachine(tcpClientSocket);
 		m->start(); // Start the connection thread to communicate with the client
 		garbageCollector.addConnection(m);
     }
