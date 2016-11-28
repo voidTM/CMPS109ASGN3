@@ -22,7 +22,7 @@ void ClientMachine::readFile(){
 		instNumber = 0;
 		while(getline(file,line))
 		{
-         	cout << line << endl;
+         	//cout << line << endl;
          	inputBuffer += line + "\n";
 		}
 		file.close();

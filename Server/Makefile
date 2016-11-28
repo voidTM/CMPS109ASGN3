@@ -11,7 +11,7 @@ DEPFILE		= Makefile.dep
 CLIENTSRC	= ${MODULES:=.cpp} clientmain.cpp
 SERVERSRC	= ${MODULES:=.cpp} servermain.cpp
 MODULES		= ${INSTMOD} ${TYPEMOD} ${THREAD} ${SOCKET} machine output_buffer error_buffer servermachine clientmachine
-THREAD		= Thread threadmanager
+THREAD		= Thread 
 SOCKET		= TCPServerSocket TCPSocket garbagecollector server
 INSTMOD		= add instruction sub mul div set_str_char get_str_char assign out sleep jump condjump compjump thread_begin thread_end barrier
 TYPEMOD 	= numeric real character mis_string identifier
