@@ -16,6 +16,8 @@
 #include "thread_begin.h"
 #include "thread_end.h"
 #include "barrier.h"
+#include "lock.h"
+#include "unlock.h"
 
 // constructor
 Machine::Machine() {
@@ -48,7 +50,8 @@ Machine::Machine() {
     instSet["THREAD_BEGIN"] = new ThreadBegin(this);
     instSet["THREAD_END"] = new ThreadEnd(this);
     instSet["BARRIER"] = new Barrier(this);
-
+    instSet["LOCK"] = new Lock(this);
+    instSet["UNLOCK"] = new Unlock(this);
 }
 
 //destructor

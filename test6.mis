@@ -19,7 +19,7 @@ SUB $counter1,$counter1,1
 SLEEP $sleep1
 JMPNZ LOOP1,$counter1
 THREAD_END
-THREAD_BEGIN 
+THREAD_BEGIN
 LABEL LOOP2 
 OUT "Thread 2: ",$mystring,$counter2," !!\n"
 SUB $counter2,$counter2,1
