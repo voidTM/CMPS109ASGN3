@@ -1,5 +1,5 @@
 #include "error_buffer.h"
-string thread_local ErrorBuffer::errorBuffer = "";
+//string thread_local ErrorBuffer::errorBuffer = "";
 
 ErrorBuffer::ErrorBuffer() {
     errorBuffer = "";

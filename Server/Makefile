@@ -26,6 +26,10 @@ SMALLFILES	= ${DEPFILE}
 
 all : ${CLIENTBIN} ${SERVERBIN}
 
+client : ${CLIENTBIN}
+
+server : ${SERVERBIN}
+
 ${CLIENTBIN} : ${CLIENTOBJ}
 	${GCC} -o${CLIENTBIN} ${CLIENTOBJ}
 

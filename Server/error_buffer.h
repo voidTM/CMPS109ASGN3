@@ -9,13 +9,13 @@ using namespace std;
 
 class ErrorBuffer {
 private:
-    static thread_local string errorBuffer;
+    string errorBuffer;
     mutex cerr_mutex;
     
 public:
     ErrorBuffer();
     
-    static void reportError(string errorMsg, int lineNumber = -1);
+    void reportError(string errorMsg, int lineNumber = -1);
 
     string getErrorBuffer();
     

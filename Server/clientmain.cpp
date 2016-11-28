@@ -85,7 +85,10 @@ int main(int argc, char** argv){
 		socket.readFromSocket(headerBuffer, 100);
 		//do something with header
 		filesize = atoi(headerBuffer);
+		memset(readBuffer, 0 , 1024);
+
 		//Reading data
+		printf("out file size %d\n", filesize);
 		while(filesize > 0){
 			// read until theoritical end of file
 			filesize -= socket.readFromSocket(writeBuffer, filesize);
@@ -96,16 +99,19 @@ int main(int argc, char** argv){
 		socket.readFromSocket(headerBuffer, 100);
 		//do something with header
 		filesize = atoi(headerBuffer);
+		memset(readBuffer, 0 , 1024);
 		//Reading data
-		//printf("error file size %d\n", filesize);
+		printf("error file size %d\n", filesize);
 		while(filesize > 0){
 			// read until theoritical end of file
 			filesize -= socket.readFromSocket(writeBuffer, 1024);
 			//errfileBuffer.append(writeBuffer);
 			cerr << writeBuffer;
 		}
+	}else{
+		err << parser.getErrorMsg() << endl;
+		out << parser.getOutputMsg() << endl;
 
-		
 	}
 
 	cout.rdbuf(coutbuf); //reset to standard output again

@@ -32,7 +32,7 @@ void Numeric::initialize(char* token, string& errors){
 }
 
 Identifier* Numeric::clone(vector<char*> argv, string& errors){
-	if (argv.size() > 1){
+	if (argv.size() != 1){
 		// report error due to in proper amount of 
 		// values
 		errors += "Invalid argument to Numeric\n";

@@ -16,6 +16,8 @@ class ClientMachine : public Machine{
 		void readFile();
 		bool getErrorStatus();
 		bool checkError();
+		string getErrorMsg();
+		string getOutputMsg();
 		void executeInstructions(int startInstIdx = 0);
 		virtual ~ClientMachine();
 };
